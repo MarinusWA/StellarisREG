@@ -1,0 +1,28 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<form id="main" method="post">
+    <div class="row">
+        <div class="col">
+            @for (int i = 0; i < Model.Origins.Count(); i++)
+            {
+                <input type="hidden" asp-for="Origins[i].Name" />
+                <input type="checkbox" class="preselect" asp-for="Origins[i].IsSelected" />
+                <label asp-for="Origins[i].IsSelected" style="@(Model.Origins[i].IsProhibited ? "color:red" : "")"> @Model.Origins[i].Name</label>
+                <br />
+            }
+        </div>
+        <div class="col">
+            @for (int i = 0; i < Model.Ethics.Count(); i++)
+            {
+                <input type="hidden" asp-for="Ethics[i].Name" />
+                <input type="checkbox" class="preselect" asp-for="Ethics[i].IsSelected" />
+                <label asp-for="Ethics[i].IsSelected" style="@(Model.Ethics[i].IsProhibited ? "color:red" : "")"> @Model.Ethics[i].Name</label>
+                <br />
+            }
+        </div>
+    </div>
+</form>

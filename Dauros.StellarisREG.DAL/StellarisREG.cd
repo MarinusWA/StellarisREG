@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Dauros.StellarisREG.DAL.Origin">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgABAAAAAAAAAAAAAQAAAAAAAAEAQAAAAACAAA=</HashCode>
+      <FileName>Origin.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Dauros.StellarisREG.DAL.Authority">
+    <Position X="3.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Authority.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Dauros.StellarisREG.DAL.Ethic">
+    <Position X="6" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAIAAAABQAAAAAAAAEAQAAAAACAAA=</HashCode>
+      <FileName>Ethic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dauros.StellarisREG.DAL.Civic">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Civic.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Dauros.StellarisREG.DAL.SelectState">
+    <Position X="0.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAhAAAAAAAAAAAAAAAAAABBAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>SelectState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dauros.StellarisREG.DAL.RequirementRule">
+    <Position X="6" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>RequirementRule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Dauros.StellarisREG.DAL.IEmpireProperty">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAQAAAAAAAAEAQAAAAACAAA=</HashCode>
+      <FileName>IEmpireProperty.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="8.77" />
+</ClassDiagram>
