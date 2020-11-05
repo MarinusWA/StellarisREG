@@ -9,6 +9,7 @@ namespace Dauros.StellarisREG.DAL
 {
     public class SelectState
     {
+        public HashSet<String> SelectedDLC { get; set; } = new HashSet<string>();
         public HashSet<String> EthicNames { get; set; } = new HashSet<String>();
         public IReadOnlyCollection<Ethic> Ethics => EthicNames.Select(en => Ethic.Collection[en]).ToHashSet();
         public String? OriginName { get; set; }
@@ -17,6 +18,8 @@ namespace Dauros.StellarisREG.DAL
         public Authority? Authority => AuthorityName != null ? Authority.Collection[AuthorityName] : null;
         public HashSet<String> CivicNames { get; set; } = new HashSet<String>();
         public IReadOnlyCollection<Civic> Civics => CivicNames.Select(en => Civic.Collection[en]).ToHashSet();
+        public HashSet<String> TraitNames { get; set; } = new HashSet<String>();
+        public IReadOnlyCollection<Trait> Traits => TraitNames.Select(tn => Trait.Collection[tn]).ToHashSet();
         /// <summary>
         /// Contains all EmpireProperties that are set on this SelectState
         /// </summary>
@@ -33,6 +36,18 @@ namespace Dauros.StellarisREG.DAL
             }
         }
 
+        public HashSet<EmpireProperty> AllowedEmpireProperties
+        {
+            get
+            {
+                return AllEmpireProperties
+                    .Where(kvp =>
+                    !kvp.Value.Prohibits.Any(e => SelectedDLC.Contains(e))
+                    && (!kvp.Value.DLC.Any() || kvp.Value.DLC.All(d=>SelectedDLC.Contains(d))) 
+                ).Select(kvp => kvp.Value).ToHashSet();
+            }
+        }
+
         public static Dictionary<String, EmpireProperty> AllEmpireProperties
         {
             get
@@ -42,7 +57,41 @@ namespace Dauros.StellarisREG.DAL
                 result = result.Union(Civic.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
                 result = result.Union(Origin.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
                 result = result.Union(Authority.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
+                result = result.Union(Trait.Collection.ToDictionary(kvp=>kvp.Key, kvp=> kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
                 return result;
+            }
+        }
+
+        public SelectState() { }
+
+        public SelectState(HashSet<EmpireProperty> eps)
+        {
+
+            foreach (var ep in eps)
+            {
+                switch (ep.Type)
+                {
+                    case EmpirePropertyType.Origin:
+                        this.OriginName = ep.Name;
+                        break;
+                    case EmpirePropertyType.Ethic:
+                        this.EthicNames.Add(ep.Name);
+                        break;
+                    case EmpirePropertyType.Authority:
+                        this.AuthorityName = ep.Name;
+                        break;
+                    case EmpirePropertyType.Civic:
+                        this.CivicNames.Add(ep.Name);
+                        break;
+                    case EmpirePropertyType.Trait:
+                        break;
+                    case EmpirePropertyType.Habitat:
+                        break;
+                    case EmpirePropertyType.SpeciesArchetype:
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
@@ -50,136 +99,72 @@ namespace Dauros.StellarisREG.DAL
         {
             var prohibited = new AndSet();
 
-            var allSelectedPropertiesShadowStates = new HashSet<HashSet<AndSet>>();
-            foreach (var ep in EmpireProperties)
+            foreach (var ep in AllowedEmpireProperties)
             {
-                if (ep.Requires.Any())
+                //Don't check properties that are already selected
+                if (EmpireProperties.Contains(ep)) continue;
+
+                SelectState newState = new SelectState(this.EmpireProperties);
+                //Create a selectstate with the new addition
+
+                switch (ep.Type)
                 {
-                    var temp = new HashSet<OrSet>();
-                    var singlePropertyShadowStates = RecurseRequirement(temp.Union(ep.Requires).ToHashSet());
-                    allSelectedPropertiesShadowStates.Add(singlePropertyShadowStates);
-                }
-            }
-
-            var merged = MergeRequirementSets(allSelectedPropertiesShadowStates);
-
-            //Strip invalid states
-            var validShadowStates = merged.Where(ss => ValidateSelection(ss));
-
-            foreach (var kvp in AllEmpireProperties)
-            {
-                var ep = kvp.Value;
-                var additionShadowStates = new HashSet<AndSet>();
-                if (kvp.Value.Requires.Any())
-                {
-                    var temp = new HashSet<OrSet>();
-                    additionShadowStates = RecurseRequirement(temp.Union(ep.Requires).ToHashSet());
-                }
-
-                var foundValidMergedState = false;
-
-                foreach (var vss in validShadowStates)
-                {
-                    //Don't check properties that are already part of the shadowstate
-                    if (vss.Contains(kvp.Key)) continue;
-                    var isValidAdditionShadowState = false;
-                    foreach (var addSS in additionShadowStates)
-                    {
-                        addSS.UnionWith(vss);
-                        isValidAdditionShadowState = ValidateSelection(addSS);
-                        if (isValidAdditionShadowState)
-                        {
-                            foundValidMergedState = true;
-                            break;
-                        }
-                    }
-                    
-                    if (isValidAdditionShadowState)
-                    {
-                        foundValidMergedState = true;
+                    case EmpirePropertyType.Origin:
+                        newState.OriginName = ep.Name;
                         break;
-                    }
+                    case EmpirePropertyType.Ethic:
+                        newState.EthicNames.Add(ep.Name);
+                        break;
+                    case EmpirePropertyType.Authority:
+                        newState.AuthorityName = ep.Name;
+                        break;
+                    case EmpirePropertyType.Civic:
+                        newState.CivicNames.Add(ep.Name);
+                        break;
+                    case EmpirePropertyType.Trait:
+                        break;
+                    case EmpirePropertyType.Habitat:
+                        break;
+                    case EmpirePropertyType.SpeciesArchetype:
+                        break;
+                    default:
+                        break;
                 }
-
-                if (!foundValidMergedState) prohibited.Add(kvp.Key);
+                if (!newState.ValidateState())
+                {
+                    prohibited.Add(ep.Name);
+                }
             }
-
-
             return prohibited;
         }
 
-        #region OLD
-
-
-        public HashSet<String> GetProhibitedOld()
-        {
-            var prohibitions = new HashSet<String>();
-            var directProhibitions = new HashSet<String>();
-            var selectedPropsWithProhibitions = EmpireProperties.Where(ep => ep.Prohibits != null)?.SelectMany(ep => ep.Prohibits);
-            if (selectedPropsWithProhibitions != null)
-                directProhibitions.UnionWith(selectedPropsWithProhibitions);
-
-
-            var shadows = GetValidShadowStates();
-            var propCount = new Dictionary<String, int>();
-            //Only get prohibited from EmpireProperties that appear in all sets.
-            foreach (var shadow in shadows)
-            {
-                foreach (var epn in shadow)
-                {
-                    var subPs = AllEmpireProperties[epn].Prohibits;
-                    if (subPs != null)
-                    {
-                        foreach (var subP in subPs)
-                        {
-                            if (propCount.ContainsKey(subP))
-                                propCount[subP]++;
-                            else
-                                propCount.Add(subP, 1);
-                        }
-                    }
-                }
-            }
-
-            foreach (var kvp in propCount)
-            {
-                if (kvp.Value == shadows.Count())
-                    directProhibitions.Add(kvp.Key);
-            }
-
-            prohibitions.UnionWith(directProhibitions);
-
-            //All properties that require one of the directly prohibited properties are also prohibited
-            foreach (var ep in AllEmpireProperties.Values)
-            {
-                if (!ep.Requires.Any()) continue;
-
-                var shadowSet = RecurseRequirement(ep.Requires);
-                var pSetCount = 0;
-                foreach (var reqProp in shadowSet)
-                {
-                    if (reqProp.Except(directProhibitions).Count() < reqProp.Count())
-                        pSetCount++;
-                }
-
-                if (pSetCount == shadowSet.Count())
-                    prohibitions.Add(ep.Name);
-            }
-
-            return prohibitions;
-        }
 
         public static Boolean ValidateSelection(HashSet<String> selectedEmpirePropertyNames)
         {
             var selectedEmpireProperties = selectedEmpirePropertyNames.Select(n => AllEmpireProperties[n]);
+
             //If a selectionset contains a selection that is prohibited by that same selectionset, it is invalid.
             var valid = !selectedEmpireProperties.Where(e => e.Prohibits != null).Any(e => e.Prohibits.Any(pe => selectedEmpirePropertyNames.Contains(pe)));
+            if (!valid) return valid;
+
+            //two authorities is not allowed
+            valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.Authority) <= 1;
+            if (!valid) return valid;
+
+            //two orgins is not allowed
+            valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.Origin) <= 1;
+            if (!valid) return valid;
+
+            //more than three civics is not allowed
+            valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.Civic) <= 2;
             if (!valid) return valid;
 
             //Check if Ethic cost is valid
             var selectedEthics = selectedEmpireProperties.Where(ep => ep.Type == EmpirePropertyType.Ethic).Select(ep => (ep as Ethic)!);
             valid = selectedEthics.Sum(e => e.Cost) <= 3;
             if (!valid) return valid;
+
+            
 
             return valid;
         }
@@ -212,7 +197,7 @@ namespace Dauros.StellarisREG.DAL
                 allPropertySelectedSets.Add(validSets);
             }
 
-            var combinedSelectSets = MergeRequirementSets(allPropertySelectedSets);
+            var combinedSelectSets = MergeRequirementSetsWithState(allPropertySelectedSets);
             var combinedValidSets = new HashSet<AndSet>();
             foreach (var combiSet in combinedSelectSets)
             {
@@ -223,40 +208,38 @@ namespace Dauros.StellarisREG.DAL
             return combinedValidSets;
         }
 
-        public HashSet<HashSet<OrSet>> GetRequirements(AndSet selectedEmpireProperties)
-        {
-            var result = new HashSet<HashSet<OrSet>>();
-            var eps = selectedEmpireProperties.Select(p => AllEmpireProperties[p]);
-            foreach (var ep in eps.Where(e => e.Requires.Any()))
-            {
-                result.Add(ep.Requires);
-            }
-            return result;
-        }
-
-        public HashSet<AndSet> MergeRequirementSets(HashSet<HashSet<AndSet>> remaining)
+        public HashSet<AndSet> MergeRequirementSetsWithState(HashSet<HashSet<AndSet>> remainingRequirements)
         {
             var result = new HashSet<AndSet>();
-            var first = remaining.First();
-            foreach (var ep in first)
+            if (remainingRequirements.Any())
             {
-                var newRemaining = remaining.Where(r => r != first).ToHashSet();
-                if (newRemaining.Count > 0)
+                var first = remainingRequirements.First();
+                foreach (var ep in first)
                 {
-                    var subSets = MergeRequirementSets(newRemaining);
-                    foreach (var sub in subSets)
+                    var newRemaining = remainingRequirements.Where(r => r != first).ToHashSet();
+                    if (newRemaining.Count > 0)
                     {
-                        sub.UnionWith(ep);
+                        var subSets = MergeRequirementSetsWithState(newRemaining);
+                        foreach (var sub in subSets)
+                        {
+                            sub.UnionWith(ep);
+                        }
+                        result.UnionWith(subSets);
                     }
-                    result.UnionWith(subSets);
+                    else
+                    {
+                        var newSet = new AndSet();
+                        newSet.UnionWith(EmpireProperties.Select(ep => ep.Name));
+                        newSet.UnionWith(ep);
+                        result.Add(newSet);
+                    }
                 }
-                else
-                {
-                    var newSet = new AndSet();
-                    newSet.UnionWith(EmpireProperties.Select(ep => ep.Name));
-                    newSet.UnionWith(ep);
-                    result.Add(newSet);
-                }
+            }
+            else
+            {
+                var newSet = new AndSet();
+                newSet.UnionWith(EmpireProperties.Select(ep => ep.Name));
+                result.Add(newSet);
             }
             return result;
         }
@@ -298,6 +281,5 @@ namespace Dauros.StellarisREG.DAL
             return result;
         }
 
-        #endregion
     }
 }

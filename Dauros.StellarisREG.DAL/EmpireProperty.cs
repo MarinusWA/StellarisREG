@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Dauros.StellarisREG.DAL
@@ -9,15 +10,15 @@ namespace Dauros.StellarisREG.DAL
         public EmpirePropertyType Type { get; }
         public String Name { get; set; }
         public HashSet<OrSet> Requires { get; set; } = new HashSet<OrSet>();
-        public AndSet? Prohibits { get; set; }
-        public String? DLC { get; }
+        public AndSet Prohibits { get; set; } = new AndSet();
+        public HashSet<String> DLC { get; } = new HashSet<string>();
         public int ID => Name.GetHashCode();
 
-        public EmpireProperty(String name, EmpirePropertyType type, String? dlc = null)
+        public EmpireProperty(String name, EmpirePropertyType type, params String[] dlc)
         {
             Name = name;
             Type = type;
-            DLC = dlc;
+            DLC = dlc.ToHashSet();
         }
     }
 }

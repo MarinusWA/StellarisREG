@@ -46,9 +46,10 @@ namespace Dauros.StellarisREG.Web.Pages
 
 
             var state = new SelectState();
-            //state.OriginName = EPN.O_Mechanist;
-            state.CivicNames.Add(EPN.C_ImperialCult);
-            state.CivicNames.Add(EPN.C_AgrarianIdyll);
+            state.SelectedDLC.UnionWith(new String[] { EPN.D_Utopia, EPN.D_AncientRelics, EPN.D_Apocalypse,EPN.D_Federations,EPN.D_Megacorp,EPN.D_SyntheticDawn });
+            //state.CivicNames.Add(EPN.C_ImperialCult);
+            //state.CivicNames.Add(EPN.C_AgrarianIdyll);
+            state.CivicNames.Add(EPN.C_FanaticPurifiers);
 
 
             var test = state.GetProhibited();

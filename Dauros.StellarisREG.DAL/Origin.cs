@@ -112,6 +112,12 @@ namespace Dauros.StellarisREG.DAL
                 {
                     Prohibits = new AndSet(){ EPN.Gestalt, EPN.C_AgrarianIdyll }
                 }
+            },{
+                EPN.O_Necrophage,
+                new Origin(EPN.O_Necrophage, EPN.D_Necroids)
+                {
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.Xenophile,EPN.XenophileF,EPN.EgalitarianF,EPN.C_CorporateDeathCult,EPN.C_DeathCult }
+                }
             }
 
         };
@@ -119,6 +125,6 @@ namespace Dauros.StellarisREG.DAL
 
         #endregion
 
-        public Origin(String name, String? dlc = null) : base(name, EmpirePropertyType.Origin, dlc) { }
+        public Origin(String name, params String[] dlc) : base(name, EmpirePropertyType.Origin, dlc) { }
     }
 }

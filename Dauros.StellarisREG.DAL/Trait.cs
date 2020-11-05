@@ -19,9 +19,16 @@ namespace Dauros.StellarisREG.DAL
                 { 
                     Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_MachineIntelligence } }
                 }
+            },
+            {
+                EPN.T_Necrophage,
+                new Trait(EPN.T_Necrophage, EPN.D_Necroids)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_MachineIntelligence } }
+                }
             }
         };
 
-        public Trait(String name, String? dlc = null) : base(name, EmpirePropertyType.Trait, dlc) { }
+        public Trait(String name, params String[] dlc) : base(name, EmpirePropertyType.Trait, dlc) { }
     }
 }

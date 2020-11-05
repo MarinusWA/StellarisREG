@@ -69,6 +69,6 @@ namespace Dauros.StellarisREG.DAL
             }
         };
 
-        public Authority(String name, String? dlc = null) : base(name, EmpirePropertyType.Authority, dlc) { }
+        public Authority(String name, params String[] dlc) : base(name, EmpirePropertyType.Authority, dlc) { }
     }
 }

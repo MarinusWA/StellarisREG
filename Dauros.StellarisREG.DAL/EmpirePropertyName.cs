@@ -6,7 +6,6 @@ namespace Dauros.StellarisREG.DAL
 {
     public static class EPN
     {
-
         #region Traits
 
         #region Initial
@@ -50,11 +49,9 @@ namespace Dauros.StellarisREG.DAL
         public static String T_Decadent => "Decadent";
         #endregion
 
-
-
-
         public static String T_Lithoid => "Lithoid";
         public static String T_MachineUnit => "MachineUnit";
+        public static String T_Necrophage => "Necroid";
         #endregion
 
         #region DLC
@@ -65,6 +62,7 @@ namespace Dauros.StellarisREG.DAL
         public static String D_Federations => "Federations";
         public static String D_Apocalypse => "Apocalypse";
         public static String D_AncientRelics => "Ancient Relics";
+        public static String D_Necroids => "Necroids";
         #endregion
 
         #region Ethics
@@ -123,7 +121,9 @@ namespace Dauros.StellarisREG.DAL
         public static String C_MerchantGuilds => "Merchant Guilds";
         public static String C_SharedBurdens => "Shared Burdens";
         public static String C_DiplomaticCorps => "Diplomatic Corps";
-
+        public static String C_Memorialists =>"Memorialists";
+        public static String C_ReanimatedArmies => "Reanimated Armies";
+        public static String C_DeathCult => "Death Cult";
         #endregion
 
         #region Hive Mind
@@ -138,10 +138,12 @@ namespace Dauros.StellarisREG.DAL
         public static String C_Empath=> "Empath";
         public static String C_DevouringSwarm => "Devouring Swarm";
         public static String C_Terravore=> "Terravore";
+        public static String C_MemorialistHM => "Memorialist HM";
+
         #endregion
 
         #region Machine Intelligence
-        public static String C_MachineBuilder => "Machine Builder";
+        public static String C_Constructobot => "Constructobot";
         public static String C_DelegatedFunctions => "Delegated Functions";
         public static String C_FactoryOverclocking => "Factory Overclocking";
         public static String C_Introspective => "Introspective";
@@ -156,7 +158,25 @@ namespace Dauros.StellarisREG.DAL
         public static String C_DeterminedExterminator => "Determined Exterminator";
         public static String C_DrivenAssimilator => "Driven Assimilator";
         public static String C_RogueServitor => "Rogue Servitor";
+        public static String C_MemorialistMI => "Memorialist MI";
 
+        #endregion
+
+        #region Corporate
+        public static String C_BrandLoyalty => "Brand Loyalty";
+        public static String C_CriminalHeritage => "Criminal Heritage";
+        public static String C_Franchising => "Franchising";
+        public static String C_FreeTraders => "Free Traders";
+        public static String C_MediaConglomerate => "Media Conglomerate";
+        public static String C_PrivateProspectors => "Private Prospectors";
+        public static String C_RuthlessCompetition => "Ruthless Competition";
+        public static String C_TradingPosts => "Trading Posts";
+        public static String C_GospelMasses => "Gospel of the Masses";
+        public static String C_IndenturedAssets => "Indentured Assets";
+        public static String C_NavalContractors => "Naval Contractors";
+        public static String C_PrivateMilitaryCompanies => "Private Military Companies";
+        public static String C_PublicRelationsSpecialists => "Public Relations Specialists";
+        public static String C_CorporateDeathCult => "Corporate Death Cult";
         #endregion
         #endregion
 
@@ -191,6 +211,7 @@ namespace Dauros.StellarisREG.DAL
         public static String O_Scion => "Scion";
         public static String O_ShatteredRing => "Shattered Ring";
         public static String O_VoidDwellers => "Void Dwellers";
+        public static String O_Necrophage => "Necrophage";
         #endregion
     }
 }

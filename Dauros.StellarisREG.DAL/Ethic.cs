@@ -8,7 +8,7 @@ namespace Dauros.StellarisREG.DAL
     {
         #region Singletons
 
-        public static Dictionary<String, Ethic> Collection { get; } = new Dictionary<string, Ethic>()
+        public static Dictionary<String, Ethic> Collection => new Dictionary<string, Ethic>()
         {
             {
                 EPN.Authoritarian,
@@ -144,7 +144,7 @@ namespace Dauros.StellarisREG.DAL
 
         public int Cost { get; set; }
 
-        public Ethic(String name, String? dlc = null) : base(name, EmpirePropertyType.Ethic, dlc) { }
+        public Ethic(String name, params String[] dlc) : base(name, EmpirePropertyType.Ethic, dlc) { }
     }
 
     

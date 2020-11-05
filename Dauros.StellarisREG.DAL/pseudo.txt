@@ -1,17 +1,15 @@
 ﻿Ascetic, Hivemind, Gestalt
 
-GetProhibited
-	//Directly Prohibited by Selection
-	Indirectly Prohibited by Selection Requirements
-		GetShadowStates
-		I, A, S		M,MF,E,EF,G
-		I, AF, S	M,MF,E,EF,G
-		I, A, AS	M,MF,E,EF,G
-		I, AF, AS	
-		Test Shadowstates
-		Remove invalid ones
-		Get Directly Prohibited from all shadowstates
-		EPs that appear for every set are prohibited
+
+GetDisabledProps var currentState;
+foreach(allprops)
+	var shadowstate
+	if (origin or authority) replace prop
+	else add prop
+	var valid = validate newstate
+	if not valid, disable prop
+
+
 		
 		
 		
