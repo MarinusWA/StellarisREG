@@ -48,17 +48,22 @@ namespace Dauros.StellarisREG.DAL
             }
         }
 
+        private static Dictionary<String, EmpireProperty> _allEmpireProperties = null!;
         public static Dictionary<String, EmpireProperty> AllEmpireProperties
         {
             get
             {
-                var result = new Dictionary<String, EmpireProperty>();
-                result = result.Union(Ethic.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
-                result = result.Union(Civic.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
-                result = result.Union(Origin.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
-                result = result.Union(Authority.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
-                result = result.Union(Trait.Collection.ToDictionary(kvp=>kvp.Key, kvp=> kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
-                return result;
+                if (_allEmpireProperties == null)
+                {
+                    var result = new Dictionary<String, EmpireProperty>();
+                    result = result.Union(Ethic.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
+                    result = result.Union(Civic.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
+                    result = result.Union(Origin.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
+                    result = result.Union(Authority.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
+                    result = result.Union(Trait.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
+                    _allEmpireProperties = result;
+                }
+                return _allEmpireProperties;
             }
         }
 
@@ -206,6 +211,11 @@ namespace Dauros.StellarisREG.DAL
             }
 
             return combinedValidSets;
+        }
+
+        public static EmpirePropertyType GetEmpirePropertyType(String epString)
+        {
+            return AllEmpireProperties[epString].Type;
         }
 
         public HashSet<AndSet> MergeRequirementSetsWithState(HashSet<HashSet<AndSet>> remainingRequirements)

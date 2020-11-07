@@ -1,0 +1,75 @@
+﻿@model Dauros.StellarisREG.Web.ViewComponents.SelectStateModel
+<div class="row w-100">
+    <div class="col">
+        <div class="row">
+            <div class="col" id="ps_origins">
+                <h4>Origins</h4>
+                <ul>
+                    @foreach (var origin in Model.ValidOrigins)
+                    {
+                        var id = String.Format("vorigin{0}", Model.ValidOrigins.IndexOf(origin));
+                        <li>
+                            @Html.RadioButton("vorigin", origin, true, new { id = id })&nbsp;@Html.Label(id, origin)
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" id="ps_ethics">
+                <h4>Ethics</h4>
+                <ul>
+                    @foreach (var ethic in Model.SelectedEthics)
+                    {
+                        <li>
+                            @Html.CheckBox(ethic, true)&nbsp;@Html.Label(ethic, ethic, new { @class = "ps_selected" })
+                        </li>
+                    }
+                    @foreach (var ethic in Model.ValidEthics)
+                    {
+                        <li>
+                            @Html.CheckBox(ethic, false)&nbsp;@Html.Label(ethic, ethic)
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" id="ps_auth">
+                <h4>Authority</h4>
+                <ul>
+                    @foreach (var authority in Model.ValidAuthorities)
+                    {
+                        var id = String.Format("vauthority{0}", Model.ValidOrigins.IndexOf(authority));
+                        <li>
+                            @Html.RadioButton("vauthority", authority, true, new { id = id })&nbsp;@Html.Label(id, authority)
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="row">
+            <div class="col" id="ps_civics">
+                <h4>Civics</h4>
+                <ul>
+                    @foreach (var civic in Model.SelectedCivics)
+                    {
+                        var id = String.Format("scivic{0}", Model.SelectedEthics.IndexOf(civic));
+                        <li>
+                            @Html.CheckBox(civic, true)&nbsp;@Html.Label(civic, civic, new { @class = "ps_selected" })
+                        </li>
+                    }
+                    @foreach (var civic in Model.ValidEthics)
+                    {
+                        var id = String.Format("vcivic{0}", Model.ValidEthics.IndexOf(civic));
+                        <li>
+                            @Html.CheckBox(civic, false)&nbsp;@Html.Label(civic, civic)
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

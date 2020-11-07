@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Dauros.StellarisREG.DAL;
 using System.Security.Policy;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Dauros.StellarisREG.Web.Pages
 {
@@ -15,15 +16,8 @@ namespace Dauros.StellarisREG.Web.Pages
     {
         private readonly ILogger<IndexModel> _logger;
 
-        [BindProperty]
-        public List<EmpirePropertyModel> Ethics { get; set; } = new List<EmpirePropertyModel>();
-        [BindProperty]
-        public List<EmpirePropertyModel> Origins { get; set; } = new List<EmpirePropertyModel>();
-        [BindProperty]
-        public List<EmpirePropertyModel> Civics { get; set; } = new List<EmpirePropertyModel>();
-        [BindProperty]
-        public List<EmpirePropertyModel> Authorities { get; set; } = new List<EmpirePropertyModel>();
-
+        public MultiSelectList DLC { get; set; }
+        public List<SelectListItem> SelectedDLC { get; set; } = new List<SelectListItem>();
 
         public IndexModel(ILogger<IndexModel> logger)
         {
@@ -32,54 +26,36 @@ namespace Dauros.StellarisREG.Web.Pages
 
         public async Task OnGetAsync()
         {
-            if (!Ethics.Any())
+            var dlcStrings = new String[] { EPN.D_AncientRelics, EPN.D_Apocalypse, EPN.D_Federations, EPN.D_Lithoids, EPN.D_Megacorp, EPN.D_Necroids, EPN.D_SyntheticDawn, EPN.D_Utopia };
+            if (DLC == null)
             {
-                var allEthics = Ethic.Collection;
-                Ethics = allEthics.Select(e => new EmpirePropertyModel() { Name = e.Key }).ToList();
+                var items = new HashSet<SelectListItem>();
+                foreach (var dlc in dlcStrings)
+                {
+                    var item = new SelectListItem
+                    {
+                        Value = dlc,
+                        Text = dlc
+                    };
+                    items.Add(item);
+                }
+                DLC = new MultiSelectList(items.OrderBy(i => i.Text), "Value", "Text");
             }
+        }
 
-            if (!Origins.Any())
+        public async Task<IActionResult> OnPostPreSelectAsync([FromBody]HashSet<String> selectedDLC, HashSet<String> selectedEthics,
+            String selectedAuthority, HashSet<String> selectedCivics, String prohibitedPick)
+        {
+            var i = prohibitedPick;
+            return ViewComponent("PreSelect", new
             {
-                var allOrigin = Origin.Collection;
-                Origins = allOrigin.Select(e => new EmpirePropertyModel() { Name = e.Key }).ToList();
-            }
-
-
-            var state = new SelectState();
-            state.SelectedDLC.UnionWith(new String[] { EPN.D_Utopia, EPN.D_AncientRelics, EPN.D_Apocalypse,EPN.D_Federations,EPN.D_Megacorp,EPN.D_SyntheticDawn });
-            //state.CivicNames.Add(EPN.C_ImperialCult);
-            //state.CivicNames.Add(EPN.C_AgrarianIdyll);
-            state.CivicNames.Add(EPN.C_FanaticPurifiers);
-
-
-            var test = state.GetProhibited();
-
-        }
-
-        public async Task<JsonResult> OnGetPreSelectAsync()
-        {
-            return new JsonResult(null);
-        }
-
-        private void RenderPage(SelectState state)
-        {
-
-        }
-
-        public async Task<IActionResult> OnPostAsync()
-        {
-            var state = new SelectState();
-            state.EthicNames = Ethics.Where(e=>e.IsSelected).Select(e => e.Name).ToHashSet();
-            state.CivicNames = Civics.Where(e => e.IsSelected).Select(e => e.Name).ToHashSet();
-            state.OriginName = Origins.First(o => o.IsSelected).Name;
-            state.AuthorityName = Authorities.First(o => o.IsSelected).Name;
-
-            
-
-            //Prohibit
-
-
-            return Page();
+                selectedDLC = selectedDLC,
+                selectedOrigin = "",
+                selectedEthics = selectedEthics,
+                selectedAuthority = selectedAuthority,
+                selectedCivics = selectedCivics,
+                pick = prohibitedPick ?? String.Empty
+            });
         }
     }
 
@@ -88,5 +64,11 @@ namespace Dauros.StellarisREG.Web.Pages
         public Boolean IsSelected { get; set; }
         public String Name { get; set; }
         public Boolean IsProhibited { get; set; }
+    }
+
+    public class DLCModel
+    {
+        public Boolean IsSelected { get; set; }
+        public String Name { get; set; }
     }
 }
