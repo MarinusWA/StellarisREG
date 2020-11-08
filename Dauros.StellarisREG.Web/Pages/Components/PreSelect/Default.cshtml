@@ -2,14 +2,23 @@
 <div class="row w-100">
     <div class="col">
         <div class="row">
-            <div class="col" id="ps_origins">
+            <div class="col" id="ps_origin">
                 <h4>Origins</h4>
                 <ul>
                     @foreach (var origin in Model.ValidOrigins)
                     {
+
                         var id = String.Format("vorigin{0}", Model.ValidOrigins.IndexOf(origin));
                         <li>
-                            @Html.RadioButton("vorigin", origin, true, new { id = id })&nbsp;@Html.Label(id, origin)
+                            @Html.RadioButton("origin", origin, false, new { id = id })&nbsp;@Html.Label(id, origin)
+                        </li>
+                    }
+                    @foreach (var origin in Model.ProhibitedOrigins)
+                    {
+
+                        var id = String.Format("porigin{0}", Model.ProhibitedOrigins.IndexOf(origin));
+                        <li>
+                            @Html.RadioButton("origin", origin, false, new { id = id })&nbsp;@Html.Label(id, origin, new { @class = "ps_prohibited" })
                         </li>
                     }
                 </ul>
@@ -31,6 +40,12 @@
                             @Html.CheckBox(ethic, false)&nbsp;@Html.Label(ethic, ethic)
                         </li>
                     }
+                    @foreach (var ethic in Model.ProhibitedEthics)
+                    {
+                        <li>
+                            @Html.CheckBox(ethic, false)&nbsp;@Html.Label(ethic, ethic, new { @class = "ps_prohibited" })
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
@@ -38,12 +53,35 @@
             <div class="col" id="ps_auth">
                 <h4>Authority</h4>
                 <ul>
-                    @foreach (var authority in Model.ValidAuthorities)
+
+                    @if (!String.IsNullOrWhiteSpace(Model.SelectedAuthority))
                     {
-                        var id = String.Format("vauthority{0}", Model.ValidOrigins.IndexOf(authority));
+                        var id = String.Format("vauthority0");
                         <li>
-                            @Html.RadioButton("vauthority", authority, true, new { id = id })&nbsp;@Html.Label(id, authority)
+                            @Html.RadioButton("vauthority", Model.SelectedAuthority, true, new { id = id })&nbsp;@Html.Label(id, Model.SelectedAuthority, new { @class = "ps_selected" })
                         </li>
+                    }
+                    @foreach (var auth in Model.ValidAuthorities)
+                    {
+                        var id = String.Format("vauthority{0}", Model.ValidAuthorities.IndexOf(auth));
+
+
+                        <li>
+                            @Html.RadioButton("vauthority", auth, false, new { id = id })&nbsp;@Html.Label(id, auth)
+                        </li>
+
+                    }
+                    @foreach (var auth in Model.ProhibitedAuthorities)
+                    {
+                        var id = String.Format("pauthority{0}", Model.ProhibitedAuthorities.IndexOf(auth));
+                        <li>
+                            @Html.RadioButton("pauthority", auth, false, new { id = id })&nbsp;@Html.Label(id, auth, new { @class = "ps_prohibited" })
+                        </li>
+
+                    }
+                    @if (!String.IsNullOrWhiteSpace(Model.SelectedAuthority))
+                    {
+                        <li><a id="authds">Deselect authority</a></li>
                     }
                 </ul>
             </div>
@@ -56,16 +94,23 @@
                 <ul>
                     @foreach (var civic in Model.SelectedCivics)
                     {
-                        var id = String.Format("scivic{0}", Model.SelectedEthics.IndexOf(civic));
+                        var id = String.Format("scivic{0}", Model.SelectedCivics.IndexOf(civic));
                         <li>
                             @Html.CheckBox(civic, true)&nbsp;@Html.Label(civic, civic, new { @class = "ps_selected" })
                         </li>
                     }
-                    @foreach (var civic in Model.ValidEthics)
+                    @foreach (var civic in Model.ValidCivics)
                     {
-                        var id = String.Format("vcivic{0}", Model.ValidEthics.IndexOf(civic));
+                        var id = String.Format("vcivic{0}", Model.ValidCivics.IndexOf(civic));
                         <li>
                             @Html.CheckBox(civic, false)&nbsp;@Html.Label(civic, civic)
+                        </li>
+                    }
+                    @foreach (var civic in Model.ProhibitedCivics)
+                    {
+                        var id = String.Format("pcivic{0}", Model.ProhibitedCivics.IndexOf(civic));
+                        <li>
+                            @Html.CheckBox(civic, false)&nbsp;@Html.Label(civic, civic, new { @class = "ps_prohibited" })
                         </li>
                     }
                 </ul>

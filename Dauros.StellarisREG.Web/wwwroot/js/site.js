@@ -14,8 +14,56 @@ $(document).ready(function () {
         refreshPreSelect($(this).val());
     });
 
+    hookPreSelectEvents();
+
 });
 
+function hookPreSelectEvents() {
+    
+    //Hook refresh on ethic or civic pick
+    $('#preselect :checkbox').change(function () {
+        var label = $(this).parent().children("label");
+        if (label.hasClass("ps_prohibited")) {
+            console.log("prohibited refresh");
+            refreshPreSelect(label.text());
+        }
+        else {
+            console.log("blank refresh");
+            refreshPreSelect("");
+        }
+    });
+
+    //Hook Deselect authority function
+    $('#authds').click(function () {
+        $('input[id^=auth]').each(function () {
+            $(this).prop('checked', false);
+        });
+        refreshPreSelect();
+    });
+    //Hook refresh on authority pick
+    $("#ps_auth :radio").change(function () {
+        var label = $(this).parent().children("label");
+
+        if (label.hasClass("ps_prohibited")) {
+            refreshPreSelect(label.text());
+        }
+        else {
+            refreshPreSelect("");
+        }
+    });
+
+    //Hook refresh on origin pick
+    $("#ps_origin :radio").change(function () {
+        var label = $(this).parent().children("label");
+
+        if (label.hasClass("ps_prohibited")) {
+            refreshPreSelect(label.text());
+        }
+        else {
+            refreshPreSelect("");
+        }
+    });
+}
 //
 function scanPreselect() {
     //Get DLC
@@ -26,39 +74,43 @@ function scanPreselect() {
     });
     //Get Ethics
     var checkedEthics = [];
-    $('#ps_ethic input:checkbox').each(function (idx, cb) {
+    $('#ps_ethics :checkbox').each(function (idx, cb) {
         //console.log(cb.name + ": " + cb.checked);
         if (cb.checked) checkedEthics.push(cb.name);
     });
     //Get Authority
-    var checkedAuthority = $("#ps_auth input[name='auth']:checked").val();
+    var checkedAuthority = $("#ps_auth :radio:checked").val();
+    var checkedOrigin = $("#ps_origin :radio:checked").val();
 
     //Get Civics
     var checkedCivics = [];
-    $('#ps_civic input:checkbox').each(function (idx, cb) {
+    $('#ps_civics :checkbox').each(function (idx, cb) {
         //console.log(cb.name + ": " + cb.checked);
         if (cb.checked) checkedCivics.push(cb.name);
     });
 
-    console.log(checkedDLC);
+    
 
     var psdata = {
         selectedDLC: checkedDLC,
         selectedEthics: checkedEthics,
         selectedAuthority: checkedAuthority,
+        selectedOrigin: checkedOrigin,
         selectedCivics: checkedCivics
     };
+    
     return psdata;
 }
 
 function generateEmpireList(amount) {
     var psdata = scanPreselect();
     psdata["amount"] = amount;
-
+    
     $.ajax({
         type: 'POST',
         url: '/Home/EmpireList',
         data: psdata,
+        contentType: "application/json; charset=utf-8",
         success: function (result) {
             renderEmpireList(result);
         },
@@ -74,8 +126,10 @@ function renderEmpireList(htmldata) {
 
 function refreshPreSelect(ppick) {
     //$('#ps_dlc input:checkbox').prop("disabled", true);
+    
     var psdata = scanPreselect();
     psdata["prohibitedPick"] = ppick;
+    console.log(psdata);
 
     $.ajax({
         type: 'POST',

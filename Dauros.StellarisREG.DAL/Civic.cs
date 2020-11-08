@@ -445,7 +445,7 @@ namespace Dauros.StellarisREG.DAL
             },
             {
                 EPN.C_Empath,
-                new Civic(EPN.C_Empath, EPN.D_Federations)
+                new Civic(EPN.C_Empath, EPN.D_Federations, EPN.D_Utopia)
                 {
                     Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind } },
                     Prohibits = new AndSet(){ EPN.C_DevouringSwarm, EPN.C_Terravore }
@@ -585,7 +585,7 @@ namespace Dauros.StellarisREG.DAL
             },
             {
                 EPN.C_MemorialistMI,
-                new Civic(EPN.C_MemorialistMI, EPN.D_SyntheticDawn)
+                new Civic(EPN.C_MemorialistMI, EPN.D_SyntheticDawn,EPN.D_Necroids)
                 {
                     Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_MachineIntelligence } },
                     Prohibits = new AndSet(){ EPN.C_DeterminedExterminator,EPN.C_DrivenAssimilator }

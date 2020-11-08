@@ -35,7 +35,8 @@ namespace Dauros.StellarisREG.Web.Pages
                     var item = new SelectListItem
                     {
                         Value = dlc,
-                        Text = dlc
+                        Text = dlc,
+                        Selected = true
                     };
                     items.Add(item);
                 }
@@ -43,14 +44,14 @@ namespace Dauros.StellarisREG.Web.Pages
             }
         }
 
-        public async Task<IActionResult> OnPostPreSelectAsync([FromBody]HashSet<String> selectedDLC, HashSet<String> selectedEthics,
-            String selectedAuthority, HashSet<String> selectedCivics, String prohibitedPick)
+        public async Task<IActionResult> OnPostPreSelectAsync(HashSet<String> selectedDLC, HashSet<String> selectedEthics,
+            String selectedAuthority, String selectedOrigin, HashSet<String> selectedCivics, String prohibitedPick)
         {
             var i = prohibitedPick;
             return ViewComponent("PreSelect", new
             {
                 selectedDLC = selectedDLC,
-                selectedOrigin = "",
+                selectedOrigin = selectedOrigin,
                 selectedEthics = selectedEthics,
                 selectedAuthority = selectedAuthority,
                 selectedCivics = selectedCivics,

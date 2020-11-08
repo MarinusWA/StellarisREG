@@ -12,6 +12,19 @@ a {
   color: #0366d6;
 }
 
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.ps_prohibited {
+    color: red;
+}
+
+.ps_selected {
+    color: blue;
+}
+
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
