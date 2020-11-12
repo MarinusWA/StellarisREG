@@ -20,5 +20,19 @@ namespace Dauros.StellarisREG.DAL
             Type = type;
             DLC = dlc.ToHashSet();
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is EmpireProperty)
+            {
+                return (obj as EmpireProperty)!.ID == this.ID;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return ID;
+        }
     }
 }

@@ -1,0 +1,91 @@
+﻿@model List<Dauros.StellarisREG.Web.ViewComponents.EmpireDataModel>
+<div class="col-sm-12">
+    @{
+        var i = 0;
+    }
+    @foreach (var empire in Model)
+    {
+        i++;
+        <hr />
+        <strong>@i.</strong>
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-5">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <strong>Origin:</strong>
+                        @if (Model.All(e => e.Origin == empire.Origin))
+                        {<span class="ps_selected">@empire.Origin</span> }
+                    else
+                    {<span>@empire.Origin</span>}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <strong>Ethics:</strong>
+                        <ul>
+                            @foreach (var ethic in empire.Ethics)
+                            {
+                                if (Model.All(e => e.Ethics.Contains(ethic)))
+                                {
+                                    <li class="ps_selected">@ethic</li>
+                                }
+                                else
+                                {
+                                    <li> @ethic </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <strong>Authority:</strong>
+                        @if (Model.All(e => e.Authority == empire.Authority))
+                        {<span class="ps_selected">@empire.Authority</span> }
+                    else
+                    {<span>@empire.Authority</span>}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <strong>Civics:</strong>
+                        <ul>
+                            @foreach (var civic in empire.Civics)
+                            {
+                                if (Model.All(e => e.Civics.Contains(civic)))
+                                {
+                                    <li class="ps_selected">@civic</li>
+                                }
+                                else
+                                {
+                                    <li> @civic </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <strong>Traits:</strong>
+                        <ul>
+                            @foreach (var trait in empire.Traits)
+                            {
+                                <li>@trait</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <strong>Habitat:</strong>
+                        @empire.Habitat
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+    }
+</div>

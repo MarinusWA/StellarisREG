@@ -16,8 +16,7 @@ namespace Dauros.StellarisREG.Web.Pages
     {
         private readonly ILogger<IndexModel> _logger;
 
-        public MultiSelectList DLC { get; set; }
-        public List<SelectListItem> SelectedDLC { get; set; } = new List<SelectListItem>();
+        public List<String> DLC { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger)
         {
@@ -26,28 +25,12 @@ namespace Dauros.StellarisREG.Web.Pages
 
         public async Task OnGetAsync()
         {
-            var dlcStrings = new String[] { EPN.D_AncientRelics, EPN.D_Apocalypse, EPN.D_Federations, EPN.D_Lithoids, EPN.D_Megacorp, EPN.D_Necroids, EPN.D_SyntheticDawn, EPN.D_Utopia };
-            if (DLC == null)
-            {
-                var items = new HashSet<SelectListItem>();
-                foreach (var dlc in dlcStrings)
-                {
-                    var item = new SelectListItem
-                    {
-                        Value = dlc,
-                        Text = dlc,
-                        Selected = true
-                    };
-                    items.Add(item);
-                }
-                DLC = new MultiSelectList(items.OrderBy(i => i.Text), "Value", "Text");
-            }
+            DLC = SelectState.AllDLC.ToList();
         }
 
         public async Task<IActionResult> OnPostPreSelectAsync(HashSet<String> selectedDLC, HashSet<String> selectedEthics,
             String selectedAuthority, String selectedOrigin, HashSet<String> selectedCivics, String prohibitedPick)
         {
-            var i = prohibitedPick;
             return ViewComponent("PreSelect", new
             {
                 selectedDLC = selectedDLC,
@@ -56,6 +39,20 @@ namespace Dauros.StellarisREG.Web.Pages
                 selectedAuthority = selectedAuthority,
                 selectedCivics = selectedCivics,
                 pick = prohibitedPick ?? String.Empty
+            });
+        }
+
+        public async Task<IActionResult> OnPostEmpireListAsync(HashSet<String> selectedDLC, HashSet<String> selectedEthics,
+            String selectedAuthority, String selectedOrigin, HashSet<String> selectedCivics)
+        {
+            var i = selectedCivics;
+            return ViewComponent("EmpireList", new
+            {
+                selectedDLC = selectedDLC,
+                selectedOrigin = selectedOrigin,
+                selectedEthics = selectedEthics,
+                selectedAuthority = selectedAuthority,
+                selectedCivics = selectedCivics
             });
         }
     }

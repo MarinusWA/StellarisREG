@@ -463,7 +463,7 @@ namespace Dauros.StellarisREG.DAL
                 EPN.C_Terravore,
                 new Civic(EPN.C_Terravore, EPN.D_Lithoids,EPN.D_Utopia)
                 {
-                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind, EPN.T_Lithoid } }
+                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind}, new OrSet() { EPN.T_Lithoid } }
                 }
             },
             {

@@ -20,6 +20,8 @@ namespace Dauros.StellarisREG.DAL
         public IReadOnlyCollection<Civic> Civics => CivicNames.Select(en => Civic.Collection[en]).ToHashSet();
         public HashSet<String> TraitNames { get; set; } = new HashSet<String>();
         public IReadOnlyCollection<Trait> Traits => TraitNames.Select(tn => Trait.Collection[tn]).ToHashSet();
+
+        public static HashSet<String> AllDLC => new HashSet<string>() { EPN.D_AncientRelics, EPN.D_Apocalypse, EPN.D_Federations, EPN.D_Lithoids, EPN.D_Megacorp, EPN.D_Necroids, EPN.D_SyntheticDawn, EPN.D_Utopia };
         /// <summary>
         /// Contains all EmpireProperties that are set on this SelectState
         /// </summary>
@@ -35,8 +37,10 @@ namespace Dauros.StellarisREG.DAL
                 return result;
             }
         }
-
-        public HashSet<EmpireProperty> AllowedEmpireProperties
+        /// <summary>
+        /// All properties allowed by DLC
+        /// </summary>
+        public HashSet<EmpireProperty> AllowedByDLCEmpireProperties
         {
             get
             {
@@ -71,40 +75,44 @@ namespace Dauros.StellarisREG.DAL
 
         public SelectState(HashSet<EmpireProperty> eps)
         {
-
             foreach (var ep in eps)
             {
-                switch (ep.Type)
-                {
-                    case EmpirePropertyType.Origin:
-                        this.OriginName = ep.Name;
-                        break;
-                    case EmpirePropertyType.Ethic:
-                        this.EthicNames.Add(ep.Name);
-                        break;
-                    case EmpirePropertyType.Authority:
-                        this.AuthorityName = ep.Name;
-                        break;
-                    case EmpirePropertyType.Civic:
-                        this.CivicNames.Add(ep.Name);
-                        break;
-                    case EmpirePropertyType.Trait:
-                        break;
-                    case EmpirePropertyType.Habitat:
-                        break;
-                    case EmpirePropertyType.SpeciesArchetype:
-                        break;
-                    default:
-                        break;
-                }
+                AddEmpireProperty(ep);
             }
+        }
+
+        protected HashSet<String> GetValidProperties()
+        {
+            var prohibited = this.GetProhibited();
+            var allowed = this.AllowedByDLCEmpireProperties.Except(EmpireProperties).Select(ep => ep.Name);
+            return allowed.Except(prohibited).ToHashSet();
+        }
+
+        public HashSet<String> GetValidEthics()
+        {
+            return GetValidProperties().Where(ep => SelectState.GetEmpirePropertyType(ep) == EmpirePropertyType.Ethic).ToHashSet();
+        }
+
+        public HashSet<String> GetValidOrigins()
+        {
+            return GetValidProperties().Where(ep => SelectState.GetEmpirePropertyType(ep) == EmpirePropertyType.Origin).ToHashSet();
+        }
+
+        public HashSet<String> GetValidAuthorities()
+        {
+            return GetValidProperties().Where(ep => SelectState.GetEmpirePropertyType(ep) == EmpirePropertyType.Authority).ToHashSet();
+        }
+
+        public HashSet<String> GetValidCivics()
+        {
+            return GetValidProperties().Where(ep => SelectState.GetEmpirePropertyType(ep) == EmpirePropertyType.Civic).ToHashSet();
         }
 
         public AndSet GetProhibited()
         {
             var prohibited = new AndSet();
 
-            foreach (var ep in AllowedEmpireProperties)
+            foreach (var ep in AllowedByDLCEmpireProperties)
             {
                 //Don't check properties that are already selected
                 if (EmpireProperties.Contains(ep)) continue;
@@ -112,29 +120,8 @@ namespace Dauros.StellarisREG.DAL
                 SelectState newState = new SelectState(this.EmpireProperties);
                 //Create a selectstate with the new addition
 
-                switch (ep.Type)
-                {
-                    case EmpirePropertyType.Origin:
-                        newState.OriginName = ep.Name;
-                        break;
-                    case EmpirePropertyType.Ethic:
-                        newState.EthicNames.Add(ep.Name);
-                        break;
-                    case EmpirePropertyType.Authority:
-                        newState.AuthorityName = ep.Name;
-                        break;
-                    case EmpirePropertyType.Civic:
-                        newState.CivicNames.Add(ep.Name);
-                        break;
-                    case EmpirePropertyType.Trait:
-                        break;
-                    case EmpirePropertyType.Habitat:
-                        break;
-                    case EmpirePropertyType.SpeciesArchetype:
-                        break;
-                    default:
-                        break;
-                }
+                newState.AddEmpireProperty(ep);
+                
                 if (!newState.ValidateState())
                 {
                     prohibited.Add(ep.Name);
@@ -143,6 +130,37 @@ namespace Dauros.StellarisREG.DAL
             return prohibited;
         }
 
+        public void AddEmpireProperty(string empireProperty)
+        {
+            AddEmpireProperty(AllEmpireProperties[empireProperty]);
+        }
+
+        public void AddEmpireProperty(EmpireProperty ep)
+        {
+            switch (ep.Type)
+            {
+                case EmpirePropertyType.Origin:
+                    this.OriginName = ep.Name;
+                    break;
+                case EmpirePropertyType.Ethic:
+                    this.EthicNames.Add(ep.Name);
+                    break;
+                case EmpirePropertyType.Authority:
+                    this.AuthorityName = ep.Name;
+                    break;
+                case EmpirePropertyType.Civic:
+                    this.CivicNames.Add(ep.Name);
+                    break;
+                case EmpirePropertyType.Trait:
+                    break;
+                case EmpirePropertyType.Habitat:
+                    break;
+                case EmpirePropertyType.SpeciesArchetype:
+                    break;
+                default:
+                    break;
+            }
+        }
 
         public static Boolean ValidateSelection(HashSet<String> selectedEmpirePropertyNames)
         {

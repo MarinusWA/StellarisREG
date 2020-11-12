@@ -7,30 +7,48 @@ $(document).ready(function () {
 
     $('#dlcselect').multiselect({
         buttonWidth: '100%',
-        nonSelectedText: 'Choose your DLC here.'
+        nonSelectedText: 'No DLC selected.',
+        allSelectedText: 'All DLC selected.',
+
     });
 
     $('#ps_dlc :checkbox').change(function () {
         refreshPreSelect($(this).val());
     });
 
+    $("#generate").click(function () {
+        var jq_ps = $("#preselect");
+        if (jq_ps.is(":visible")) {
+            jq_ps.hide(400);
+        }
+        else {
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $("#empirelist").offset().top
+            }, 400);
+        }
+        generateEmpireList();
+        
+    });
+
+    $("#showselect").click(function () {
+        $("#preselect").show(400);
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $("#preselect").offset().top
+        }, 400);
+    });
+
     hookPreSelectEvents();
 
 });
+
+
 
 function hookPreSelectEvents() {
     
     //Hook refresh on ethic or civic pick
     $('#preselect :checkbox').change(function () {
         var label = $(this).parent().children("label");
-        if (label.hasClass("ps_prohibited")) {
-            console.log("prohibited refresh");
-            refreshPreSelect(label.text());
-        }
-        else {
-            console.log("blank refresh");
-            refreshPreSelect("");
-        }
+        refreshPreSelect(label.text());
     });
 
     //Hook Deselect authority function
@@ -43,25 +61,14 @@ function hookPreSelectEvents() {
     //Hook refresh on authority pick
     $("#ps_auth :radio").change(function () {
         var label = $(this).parent().children("label");
-
-        if (label.hasClass("ps_prohibited")) {
-            refreshPreSelect(label.text());
-        }
-        else {
-            refreshPreSelect("");
-        }
+        refreshPreSelect(label.text());
+        
     });
 
     //Hook refresh on origin pick
     $("#ps_origin :radio").change(function () {
         var label = $(this).parent().children("label");
-
-        if (label.hasClass("ps_prohibited")) {
-            refreshPreSelect(label.text());
-        }
-        else {
-            refreshPreSelect("");
-        }
+        refreshPreSelect(label.text());
     });
 }
 //
@@ -104,13 +111,11 @@ function scanPreselect() {
 
 function generateEmpireList(amount) {
     var psdata = scanPreselect();
-    psdata["amount"] = amount;
-    
+    console.log(psdata);
     $.ajax({
         type: 'POST',
-        url: '/Home/EmpireList',
+        url: '/Index?handler=EmpireList',
         data: psdata,
-        contentType: "application/json; charset=utf-8",
         success: function (result) {
             renderEmpireList(result);
         },
@@ -125,11 +130,9 @@ function renderEmpireList(htmldata) {
 }
 
 function refreshPreSelect(ppick) {
-    //$('#ps_dlc input:checkbox').prop("disabled", true);
-    
     var psdata = scanPreselect();
     psdata["prohibitedPick"] = ppick;
-    console.log(psdata);
+    
 
     $.ajax({
         type: 'POST',
@@ -147,7 +150,4 @@ function refreshPreSelect(ppick) {
 
 function renderPreSelect(htmldata) {
     $('#preselect').html(htmldata);
-    $('#ps_dlc input:checkbox').each(function () {
-        $(this).prop("disabled", false);
-    });
 }
