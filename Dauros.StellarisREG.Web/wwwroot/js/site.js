@@ -65,6 +65,12 @@ function hookPreSelectEvents() {
         
     });
 
+    //Hook refresh on archetype pick
+    $("#ps_archetype :radio").change(function () {
+        var label = $(this).parent().children("label");
+        refreshPreSelect(label.text());
+    });
+
     //Hook refresh on origin pick
     $("#ps_origin :radio").change(function () {
         var label = $(this).parent().children("label");
@@ -88,6 +94,7 @@ function scanPreselect() {
     //Get Authority
     var checkedAuthority = $("#ps_auth :radio:checked").val();
     var checkedOrigin = $("#ps_origin :radio:checked").val();
+    var checkedArchetype = $("#ps_archetype :radio:checked").val();
 
     //Get Civics
     var checkedCivics = [];
@@ -96,12 +103,11 @@ function scanPreselect() {
         if (cb.checked) checkedCivics.push(cb.name);
     });
 
-    
-
     var psdata = {
         selectedDLC: checkedDLC,
         selectedEthics: checkedEthics,
         selectedAuthority: checkedAuthority,
+        selectedArchetype: checkedArchetype,
         selectedOrigin: checkedOrigin,
         selectedCivics: checkedCivics
     };
@@ -111,7 +117,7 @@ function scanPreselect() {
 
 function generateEmpireList(amount) {
     var psdata = scanPreselect();
-    console.log(psdata);
+    //console.log(psdata);
     $.ajax({
         type: 'POST',
         url: '/Index?handler=EmpireList',
@@ -132,7 +138,7 @@ function renderEmpireList(htmldata) {
 function refreshPreSelect(ppick) {
     var psdata = scanPreselect();
     psdata["prohibitedPick"] = ppick;
-    
+    console.log(psdata);
 
     $.ajax({
         type: 'POST',

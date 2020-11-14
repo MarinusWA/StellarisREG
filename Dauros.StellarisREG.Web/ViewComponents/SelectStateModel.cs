@@ -31,5 +31,13 @@ namespace Dauros.StellarisREG.Web.ViewComponents
         public List<String> ValidCivics { get; set; } = new List<string>();
         public List<String> ProhibitedCivics { get; set; } = new List<string>();
         #endregion
+
+        #region Archetype
+        public String? SelectedArchetype { get; set; }
+        public List<String> ValidArchetypes { get; set; } = new List<string>();
+        public List<String> ProhibitedArchetypes { get; set; } = new List<string>();
+        #endregion
+
+
     }
 }

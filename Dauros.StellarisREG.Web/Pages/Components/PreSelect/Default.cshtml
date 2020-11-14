@@ -2,123 +2,152 @@
 <div class="row w-100">
     <div class="col-sm">
         <div class="row">
-            <div class="col" id="ps_origin">
-                <h5>Origins</h5>
+            <div class="col" id="ps_archetype">
+                <h5>Species Archetype</h5>
                 <ul>
-                    @if (!String.IsNullOrWhiteSpace(Model.SelectedOrigin))
+                    @if (!String.IsNullOrWhiteSpace(Model.SelectedArchetype))
                     {
-                        var id = String.Format("sorigin0");
+                        var id = String.Format("sat0");
                         <li>
-                            @Html.RadioButton("origin", Model.SelectedOrigin, true, new { id = id })&nbsp;@Html.Label(id, Model.SelectedOrigin, new { @class = "ps_selected" })
+                            @Html.RadioButton("at", Model.SelectedArchetype, true, new { id = id })&nbsp;@Html.Label(id, Model.SelectedArchetype, new { @class = "ps_selected" })
                         </li>
                     }
-                    @foreach (var origin in Model.ValidOrigins.OrderBy(o=>o))
+                    @foreach (var archetype in Model.ValidArchetypes.OrderBy(o => o))
                     {
 
-                        var id = String.Format("vorigin{0}", Model.ValidOrigins.IndexOf(origin));
+                        var id = String.Format("vat{0}", Model.ValidArchetypes.IndexOf(archetype));
                         <li>
-                            @Html.RadioButton("origin", origin, false, new { id = id })&nbsp;@Html.Label(id, origin)
+                            @Html.RadioButton("at", archetype, false, new { id = id })&nbsp;@Html.Label(id, archetype)
                         </li>
                     }
-                    @foreach (var origin in Model.ProhibitedOrigins.OrderBy(o => o))
+                    @foreach (var archetype in Model.ProhibitedArchetypes.OrderBy(o => o))
                     {
-
-                        var id = String.Format("porigin{0}", Model.ProhibitedOrigins.IndexOf(origin));
+                        var id = String.Format("pat{0}", Model.ProhibitedArchetypes.IndexOf(archetype));
                         <li>
-                            @Html.RadioButton("origin", origin, false, new { id = id })&nbsp;@Html.Label(id, origin, new { @class = "ps_prohibited" })
+                            @Html.RadioButton("at", archetype, false, new { id = id })&nbsp;@Html.Label(id, archetype, new { @class = "ps_prohibited" })
                         </li>
                     }
                 </ul>
             </div>
         </div>
-        <div class="row">
-            <div class="col" id="ps_ethics">
-                <h5>Ethics</h5>
-                <ul>
-                    @foreach (var ethic in Model.SelectedEthics.OrderBy(e=>e))
-                    {
-                        <li>
-                            @Html.CheckBox(ethic, true)&nbsp;@Html.Label(ethic, ethic, new { @class = "ps_selected" })
-                        </li>
-                    }
-                    @foreach (var ethic in Model.ValidEthics.OrderBy(e=>e))
-                    {
-                        <li>
-                            @Html.CheckBox(ethic, false)&nbsp;@Html.Label(ethic, ethic)
-                        </li>
-                    }
-                    @foreach (var ethic in Model.ProhibitedEthics.OrderBy(e=>e))
-                    {
-                        <li>
-                            @Html.CheckBox(ethic, false)&nbsp;@Html.Label(ethic, ethic, new { @class = "ps_prohibited" })
-                        </li>
-                    }
-                </ul>
+                <div class="row">
+                    <div class="col" id="ps_origin">
+                        <h5>Origins</h5>
+                        <ul>
+                            @if (!String.IsNullOrWhiteSpace(Model.SelectedOrigin))
+                            {
+                                var id = String.Format("sorigin0");
+                                <li>
+                                    @Html.RadioButton("origin", Model.SelectedOrigin, true, new { id = id })&nbsp;@Html.Label(id, Model.SelectedOrigin, new { @class = "ps_selected" })
+                                </li>
+                            }
+                            @foreach (var origin in Model.ValidOrigins.OrderBy(o => o))
+                            {
+
+                                var id = String.Format("vorigin{0}", Model.ValidOrigins.IndexOf(origin));
+                                <li>
+                                    @Html.RadioButton("origin", origin, false, new { id = id })&nbsp;@Html.Label(id, origin)
+                                </li>
+                            }
+                            @foreach (var origin in Model.ProhibitedOrigins.OrderBy(o => o))
+                            {
+
+                                var id = String.Format("porigin{0}", Model.ProhibitedOrigins.IndexOf(origin));
+                                <li>
+                                    @Html.RadioButton("origin", origin, false, new { id = id })&nbsp;@Html.Label(id, origin, new { @class = "ps_prohibited" })
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" id="ps_ethics">
+                        <h5>Ethics</h5>
+                        <ul>
+                            @foreach (var ethic in Model.SelectedEthics.OrderBy(e => e))
+                            {
+                                <li>
+                                    @Html.CheckBox(ethic, true)&nbsp;@Html.Label(ethic, ethic, new { @class = "ps_selected" })
+                                </li>
+                            }
+                            @foreach (var ethic in Model.ValidEthics.OrderBy(e => e))
+                            {
+                                <li>
+                                    @Html.CheckBox(ethic, false)&nbsp;@Html.Label(ethic, ethic)
+                                </li>
+                            }
+                            @foreach (var ethic in Model.ProhibitedEthics.OrderBy(e => e))
+                            {
+                                <li>
+                                    @Html.CheckBox(ethic, false)&nbsp;@Html.Label(ethic, ethic, new { @class = "ps_prohibited" })
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" id="ps_auth">
+                        <h5>Authority</h5>
+                        <ul>
+
+                            @if (!String.IsNullOrWhiteSpace(Model.SelectedAuthority))
+                            {
+                                var id = String.Format("vauthority0");
+                                <li>
+                                    @Html.RadioButton("authority", Model.SelectedAuthority, true, new { id = id })&nbsp;@Html.Label(id, Model.SelectedAuthority, new { @class = "ps_selected" })
+                                </li>
+                            }
+                            @foreach (var auth in Model.ValidAuthorities.OrderBy(a => a))
+                            {
+                                var id = String.Format("vauthority{0}", Model.ValidAuthorities.IndexOf(auth));
+
+
+                                <li>
+                                    @Html.RadioButton("authority", auth, false, new { id = id })&nbsp;@Html.Label(id, auth)
+                                </li>
+
+                            }
+                            @foreach (var auth in Model.ProhibitedAuthorities.OrderBy(a => a))
+                            {
+                                var id = String.Format("pauthority{0}", Model.ProhibitedAuthorities.IndexOf(auth));
+                                <li>
+                                    @Html.RadioButton("authority", auth, false, new { id = id })&nbsp;@Html.Label(id, auth, new { @class = "ps_prohibited" })
+                                </li>
+
+                            }
+                            @if (!String.IsNullOrWhiteSpace(Model.SelectedAuthority))
+                            {
+                                <li><a id="authds">Deselect authority</a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="row">
+                    <div class="col" id="ps_civics">
+                        <h5>Civics</h5>
+                        <ul>
+                            @foreach (var civic in Model.SelectedCivics.OrderBy(c => c))
+                            {
+                                <li>
+                                    @Html.CheckBox(civic, true)&nbsp;@Html.Label(civic, civic, new { @class = "ps_selected" })
+                                </li>
+                            }
+                            @foreach (var civic in Model.ValidCivics.OrderBy(c => c))
+                            {
+                                <li>
+                                    @Html.CheckBox(civic, false)&#160;@Html.Label(civic, civic)
+                                </li>
+                            }
+                            @foreach (var civic in Model.ProhibitedCivics.OrderBy(c => c))
+                            {
+                                <li>
+                                    @Html.CheckBox(civic, false)&nbsp;@Html.Label(civic, civic, new { @class = "ps_prohibited" })
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col" id="ps_auth">
-                <h5>Authority</h5>
-                <ul>
-
-                    @if (!String.IsNullOrWhiteSpace(Model.SelectedAuthority))
-                    {
-                        var id = String.Format("vauthority0");
-                        <li>
-                            @Html.RadioButton("authority", Model.SelectedAuthority, true, new { id = id })&nbsp;@Html.Label(id, Model.SelectedAuthority, new { @class = "ps_selected" })
-                        </li>
-                    }
-                    @foreach (var auth in Model.ValidAuthorities.OrderBy(a=>a))
-                    {
-                        var id = String.Format("vauthority{0}", Model.ValidAuthorities.IndexOf(auth));
-
-
-                        <li>
-                            @Html.RadioButton("authority", auth, false, new { id = id })&nbsp;@Html.Label(id, auth)
-                        </li>
-
-                    }
-                    @foreach (var auth in Model.ProhibitedAuthorities.OrderBy(a => a))
-                    {
-                        var id = String.Format("pauthority{0}", Model.ProhibitedAuthorities.IndexOf(auth));
-                        <li>
-                            @Html.RadioButton("authority", auth, false, new { id = id })&nbsp;@Html.Label(id, auth, new { @class = "ps_prohibited" })
-                        </li>
-
-                    }
-                    @if (!String.IsNullOrWhiteSpace(Model.SelectedAuthority))
-                    {
-                        <li><a id="authds">Deselect authority</a></li>
-                    }
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm">
-        <div class="row">
-            <div class="col" id="ps_civics">
-                <h5>Civics</h5>
-                <ul>
-                    @foreach (var civic in Model.SelectedCivics.OrderBy(c => c))
-                    {
-                        <li>
-                            @Html.CheckBox(civic, true)&nbsp;@Html.Label(civic, civic, new { @class = "ps_selected" })
-                        </li>
-                    }
-                    @foreach (var civic in Model.ValidCivics.OrderBy(c => c))
-                    {
-                        <li>
-                            @Html.CheckBox(civic, false)&#160;@Html.Label(civic, civic)
-                        </li>
-                    }
-                    @foreach (var civic in Model.ProhibitedCivics.OrderBy(c => c))
-                    {
-                        <li>
-                            @Html.CheckBox(civic, false)&nbsp;@Html.Label(civic, civic, new { @class = "ps_prohibited" })
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>

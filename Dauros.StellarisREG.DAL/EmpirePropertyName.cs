@@ -49,9 +49,44 @@ namespace Dauros.StellarisREG.DAL
         public static String T_Decadent => "Decadent";
         #endregion
 
+        #region Lithoid
+        public static String T_GaseousByproducts => "Gaseous Byproducts"; 
+        public static String T_ScintillatingSkin => "Scintillating Skin";
+        public static String T_VolatileExcretions => "Volatile Excretions";
+        #endregion
+
         public static String T_Lithoid => "Lithoid";
         public static String T_MachineUnit => "MachineUnit";
         public static String T_Necrophage => "Necroid";
+
+        #region Machine Traits
+
+        public static String T_DomesticProtocols => "Domestic Protocols";
+        public static String T_DoubleJointed => "Double Jointed";
+        public static String T_Bulky => "Bulky";
+        public static String T_Durable => "Durable";
+        public static String T_HighMaintenance => "High Maintenance";
+        public static String T_EfficientProcessors => "Efficient Processors";
+        public static String T_EmotionEmulators => "Emotion Emulators";
+        public static String T_Uncanny => "Uncanny";
+        public static String T_EnhancedMemory => "Enhanced Memory";
+        public static String T_Harvesters => "Harvesters";
+        public static String T_LearningAlgorithms => "Learning Algorithms";
+        public static String T_RepurposedHardware => "Repurposed Hardware";
+        public static String T_LogicEngines => "Logic Engines";
+        public static String T_LoyaltyCircuits => "Loyalty Circuits";
+        public static String T_MassProduced => "Mass-Produced";
+        public static String T_CustomMade => "Custom-Made";
+        public static String T_PowerDrills => "Power Drills";
+        public static String T_PropagandaMachines => "Propaganda Machines";
+        public static String T_Recycled => "Recycled";
+        public static String T_Luxurious => "Luxurious";
+        public static String T_StreamlinedProtocols => "Streamlined Protocols";
+        public static String T_HighBandwidth => "High Bandwidth";
+        public static String T_Superconductive => "Superconductive";
+
+        #endregion
+
         #endregion
 
         #region DLC
@@ -212,6 +247,32 @@ namespace Dauros.StellarisREG.DAL
         public static String O_ShatteredRing => "Shattered Ring";
         public static String O_VoidDwellers => "Void Dwellers";
         public static String O_Necrophage => "Necrophage";
+        #endregion
+
+
+        #region Archetypes
+        public static String AT_Biological => "Biological";
+        public static String AT_Machine => "Machine ";
+        public static String AT_Lithoid => "Lithoid ";
+        #endregion
+
+        #region PlanetTypes
+        public static String PT_Arid => "Arid";
+        public static String PT_Desert => "Desert";
+        public static String PT_Savanna => "Savanna";
+        public static String PT_Alpine => "Alpine";
+        public static String PT_Artic => "Artic";
+        public static String PT_Tundra => "Tundra";
+        public static String PT_Continental => "Continental";
+        public static String PT_Ocean => "Ocean";
+        public static String PT_Tropical => "Tropical";
+        public static String PT_Gaia => "Gaia";
+        public static String PT_Tomb => "Tomb";
+        public static String PT_Relic => "Relic";
+        public static String PT_RingWorld => "Ring Segment";
+        public static String PT_Machine => "Machine World";
+
+
         #endregion
     }
 }

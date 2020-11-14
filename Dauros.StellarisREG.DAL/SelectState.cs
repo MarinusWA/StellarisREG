@@ -20,6 +20,8 @@ namespace Dauros.StellarisREG.DAL
         public IReadOnlyCollection<Civic> Civics => CivicNames.Select(en => Civic.Collection[en]).ToHashSet();
         public HashSet<String> TraitNames { get; set; } = new HashSet<String>();
         public IReadOnlyCollection<Trait> Traits => TraitNames.Select(tn => Trait.Collection[tn]).ToHashSet();
+        public String? ArchetypeName { get; set; }
+        public SpeciesArchetype? Archetype => ArchetypeName != null ? SpeciesArchetype.Collection[ArchetypeName] : null;
 
         public static HashSet<String> AllDLC => new HashSet<string>() { EPN.D_AncientRelics, EPN.D_Apocalypse, EPN.D_Federations, EPN.D_Lithoids, EPN.D_Megacorp, EPN.D_Necroids, EPN.D_SyntheticDawn, EPN.D_Utopia };
         /// <summary>
@@ -34,6 +36,8 @@ namespace Dauros.StellarisREG.DAL
                 if (Origin != null) result.Add(Origin);
                 if (Authority != null) result.Add(Authority);
                 result.UnionWith(Civics);
+                result.UnionWith(Traits);
+                if (Archetype != null) result.Add(Archetype);
                 return result;
             }
         }
@@ -65,6 +69,7 @@ namespace Dauros.StellarisREG.DAL
                     result = result.Union(Origin.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
                     result = result.Union(Authority.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
                     result = result.Union(Trait.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
+                    result = result.Union(SpeciesArchetype.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
                     _allEmpireProperties = result;
                 }
                 return _allEmpireProperties;
@@ -88,6 +93,11 @@ namespace Dauros.StellarisREG.DAL
             return allowed.Except(prohibited).ToHashSet();
         }
 
+        public HashSet<String> GetValidTraits()
+        {
+            return GetValidProperties().Where(ep => SelectState.GetEmpirePropertyType(ep) == EmpirePropertyType.Trait).ToHashSet();
+        }
+
         public HashSet<String> GetValidEthics()
         {
             return GetValidProperties().Where(ep => SelectState.GetEmpirePropertyType(ep) == EmpirePropertyType.Ethic).ToHashSet();
@@ -106,6 +116,11 @@ namespace Dauros.StellarisREG.DAL
         public HashSet<String> GetValidCivics()
         {
             return GetValidProperties().Where(ep => SelectState.GetEmpirePropertyType(ep) == EmpirePropertyType.Civic).ToHashSet();
+        }
+
+        public HashSet<String> GetValidArchetypes()
+        {
+            return GetValidProperties().Where(ep => SelectState.GetEmpirePropertyType(ep) == EmpirePropertyType.SpeciesArchetype).ToHashSet();
         }
 
         public AndSet GetProhibited()
@@ -152,10 +167,12 @@ namespace Dauros.StellarisREG.DAL
                     this.CivicNames.Add(ep.Name);
                     break;
                 case EmpirePropertyType.Trait:
+                    this.TraitNames.Add(ep.Name);
                     break;
                 case EmpirePropertyType.Habitat:
                     break;
                 case EmpirePropertyType.SpeciesArchetype:
+                    this.ArchetypeName = ep.Name;
                     break;
                 default:
                     break;
@@ -178,6 +195,10 @@ namespace Dauros.StellarisREG.DAL
             valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.Origin) <= 1;
             if (!valid) return valid;
 
+            //two archetypes is not allowed
+            valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.SpeciesArchetype) <= 1;
+            if (!valid) return valid;
+
             //more than three civics is not allowed
             valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.Civic) <= 2;
             if (!valid) return valid;
@@ -187,7 +208,26 @@ namespace Dauros.StellarisREG.DAL
             valid = selectedEthics.Sum(e => e.Cost) <= 3;
             if (!valid) return valid;
 
-            
+            var basepoints = 2;
+            var selectedTraits = selectedEmpireProperties.Where(ep => ep.Type == EmpirePropertyType.Trait).Select(ep => (ep as Trait)!);
+            if (selectedTraits.Count() == 4)
+            {
+                //Disallow traits with cost >= 2
+                valid = selectedTraits.Sum(t => t.Cost) - basepoints <= 2;
+            }
+            else if (selectedTraits.Count() == 5)
+            {
+                valid = selectedTraits.Sum(t => t.Cost) - basepoints <= 0;
+            }
+            if (!valid) return valid;
+
+
+
+
+
+            //Trait count may not exceed 5
+            valid = selectedTraits.Count() <= 5;
+            if (!valid) return valid;
 
             return valid;
         }

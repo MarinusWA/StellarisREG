@@ -12,13 +12,17 @@ namespace Dauros.StellarisREG.Web.ViewComponents
     public class PreSelect : ViewComponent
     {
         public async Task<IViewComponentResult> InvokeAsync(HashSet<String> selectedDLC, string? selectedOrigin, HashSet<String> selectedEthics,
-            String? selectedAuthority, HashSet<String> selectedCivics, string pick = "")
+            String? selectedAuthority, String? selectedArchetype, HashSet<String> selectedCivics, string pick = "")
         {
             var ss = new SelectState();
             ss.CivicNames = selectedCivics ?? new HashSet<string>();
             ss.EthicNames = selectedEthics ?? new HashSet<string>();
             ss.AuthorityName = selectedAuthority;
             ss.OriginName = selectedOrigin;
+            ss.ArchetypeName = selectedArchetype;
+
+
+            
             
             //If state is invalid, create a state with just the pick selected
             //If the pick is not an empireproperty assume its a dlc string and return an empty selectstate
@@ -41,21 +45,19 @@ namespace Dauros.StellarisREG.Web.ViewComponents
             ssm.SelectedCivics = ss.CivicNames.ToList();
             ssm.SelectedEthics = ss.EthicNames.ToList();
             ssm.SelectedOrigin = ss.OriginName;
+            ssm.SelectedArchetype = ss.ArchetypeName;
 
             ssm.ProhibitedAuthorities = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Authority).ToList();
             ssm.ProhibitedCivics = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Civic).ToList();
             ssm.ProhibitedEthics = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Ethic).ToList();
             ssm.ProhibitedOrigins = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Origin).ToList();
+            ssm.ProhibitedArchetypes = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.SpeciesArchetype).ToList();
 
-            var allAllowedAuthorities = ss.AllowedByDLCEmpireProperties.Where(ep=>ep.Type == EmpirePropertyType.Authority).Select(ep => ep.Name);
-            var allAllowedCivics = ss.AllowedByDLCEmpireProperties.Where(ep => ep.Type == EmpirePropertyType.Civic).Select(ep => ep.Name);
-            var allAllowedEthics = ss.AllowedByDLCEmpireProperties.Where(ep => ep.Type == EmpirePropertyType.Ethic).Select(ep => ep.Name);
-            var allAllowedOrigins = ss.AllowedByDLCEmpireProperties.Where(ep => ep.Type == EmpirePropertyType.Origin).Select(ep => ep.Name);
-
-            ssm.ValidAuthorities = allAllowedAuthorities.Except(ssm.ProhibitedAuthorities).Except(new String[] { ssm.SelectedAuthority }).ToList();
-            ssm.ValidCivics = allAllowedCivics.Except(ssm.ProhibitedCivics).Except(ssm.SelectedCivics).ToList();
-            ssm.ValidEthics = allAllowedEthics.Except(ssm.ProhibitedEthics).Except(ssm.SelectedEthics).ToList();
-            ssm.ValidOrigins = allAllowedOrigins.Except(ssm.ProhibitedOrigins).Except(new String[] { ssm.SelectedOrigin }).ToList();
+            ssm.ValidAuthorities = ss.GetValidAuthorities().ToList();
+            ssm.ValidCivics = ss.GetValidCivics().ToList();
+            ssm.ValidEthics = ss.GetValidEthics().ToList();
+            ssm.ValidOrigins = ss.GetValidOrigins().ToList();
+            ssm.ValidArchetypes = ss.GetValidArchetypes().ToList();
 
             return View(ssm);
         }
