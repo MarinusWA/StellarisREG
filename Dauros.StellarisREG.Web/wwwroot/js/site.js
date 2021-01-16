@@ -117,6 +117,7 @@ function scanPreselect() {
 
 function generateEmpireList(amount) {
     var psdata = scanPreselect();
+    $('#empirelist').fadeOut(1000);
     //console.log(psdata);
     $.ajax({
         type: 'POST',
@@ -133,6 +134,7 @@ function generateEmpireList(amount) {
 
 function renderEmpireList(htmldata) {
     $('#empirelist').html(htmldata);
+    $('#empirelist').fadeIn(200);
 }
 
 function refreshPreSelect(ppick) {
