@@ -17,7 +17,8 @@ namespace Dauros.StellarisREG.DAL
             {
                 EPN.AT_Machine,
                 new SpeciesArchetype(EPN.AT_Machine, EPN.D_SyntheticDawn){
-                    Prohibits = new AndSet(){EPN.T_Lithoid }
+                    Prohibits = new AndSet(){EPN.T_Lithoid },
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_MachineIntelligence } }
                 }
             },
             {

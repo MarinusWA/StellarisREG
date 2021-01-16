@@ -55,7 +55,8 @@ namespace Dauros.StellarisREG.DAL
                     Prohibits = new AndSet(){ EPN.Egalitarian,EPN.EgalitarianF, EPN.Authoritarian,EPN.AuthoritarianF,
                         EPN.Materialist,EPN.MaterialistF, EPN.Spiritualist, EPN.SpiritualistF,
                         EPN.Xenophile, EPN.XenophileF, EPN.Xenophobe,EPN.XenophobeF,
-                        EPN.Militarist, EPN.MaterialistF, EPN.Pacifist, EPN.PacifistF
+                        EPN.Militarist, EPN.MaterialistF, EPN.Pacifist, EPN.PacifistF,
+                        EPN.AT_Biological
                     },
                     Requires = new HashSet<OrSet>(){ new OrSet() { EPN.Gestalt } }
                 }

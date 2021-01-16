@@ -208,7 +208,8 @@ namespace Dauros.StellarisREG.DAL
             valid = selectedEthics.Sum(e => e.Cost) <= 3;
             if (!valid) return valid;
 
-            var basepoints = 2;
+            //Machine empires only get one basepoint
+            var basepoints = selectedEmpirePropertyNames.Contains(EPN.A_MachineIntelligence) ? 1 : 2;
             var selectedTraits = selectedEmpireProperties.Where(ep => ep.Type == EmpirePropertyType.Trait).Select(ep => (ep as Trait)!);
             if (selectedTraits.Count() == 4)
             {
@@ -220,10 +221,6 @@ namespace Dauros.StellarisREG.DAL
                 valid = selectedTraits.Sum(t => t.Cost) - basepoints <= 0;
             }
             if (!valid) return valid;
-
-
-
-
 
             //Trait count may not exceed 5
             valid = selectedTraits.Count() <= 5;

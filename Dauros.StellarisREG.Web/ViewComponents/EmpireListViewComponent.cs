@@ -78,11 +78,16 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 
         private void SetRandomArchetype(SelectState ss)
         {
+            var dist = new HashSet<String>() {EPN.AT_Lithoid,EPN.AT_Machine };
+            for (int i = 0; i < 6; i++) dist.Add(EPN.AT_Biological);
+
             if (ss.ArchetypeName == null)
             {
+                var valid = ss.GetValidArchetypes().ToArray();
+                dist.RemoveWhere(d => !valid.Contains(d));
+                valid = dist.ToArray();
                 var r = new Random();
-                var set = new String[] { EPN.AT_Biological, EPN.AT_Biological, EPN.AT_Biological, EPN.AT_Biological, EPN.AT_Lithoid, EPN.AT_Machine };
-                ss.ArchetypeName = set[r.Next(set.Count())];
+                ss.ArchetypeName = valid[r.Next(valid.Count())];
             }
         }
 
