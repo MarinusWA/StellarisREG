@@ -209,7 +209,7 @@ namespace Dauros.StellarisREG.DAL
             if (!valid) return valid;
 
             //Machine empires only get one basepoint
-            var basepoints = selectedEmpirePropertyNames.Contains(EPN.A_MachineIntelligence) ? 1 : 2;
+            var basepoints = selectedEmpirePropertyNames.Contains(EPN.A_MachineIntelligence) || selectedEmpirePropertyNames.Contains(EPN.AT_Machine) ? 1 : 2;
             var selectedTraits = selectedEmpireProperties.Where(ep => ep.Type == EmpirePropertyType.Trait).Select(ep => (ep as Trait)!);
             if (selectedTraits.Count() == 4)
             {
