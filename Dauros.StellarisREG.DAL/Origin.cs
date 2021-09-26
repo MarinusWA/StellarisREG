@@ -23,12 +23,6 @@ namespace Dauros.StellarisREG.DAL
                     Prohibits = new AndSet(){ EPN.Gestalt }
                 }
             },{
-                EPN.O_CalamitousBirth,
-                new Origin(EPN.O_CalamitousBirth, EPN.D_Lithoids)
-                {
-                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.T_Lithoid }}
-                }
-            },{
                 EPN.O_Mechanist,
                 new Origin(EPN.O_Mechanist, EPN.D_Utopia)
                 {
@@ -56,6 +50,12 @@ namespace Dauros.StellarisREG.DAL
                     Prohibits = new AndSet(){ EPN.C_RogueServitor }
                 }
             },{
+                EPN.O_CloneArmy,
+                new Origin(EPN.O_CloneArmy, EPN.D_Humanoids)
+                {
+                    Prohibits = new AndSet(){ EPN.Gestalt }
+                }
+            },{
                 EPN.O_LifeSeeded,
                 new Origin(EPN.O_LifeSeeded, EPN.D_Apocalypse)
                 {
@@ -72,6 +72,12 @@ namespace Dauros.StellarisREG.DAL
                 new Origin(EPN.O_Remnants, EPN.D_AncientRelics)
                 {
                     Prohibits = new AndSet(){ EPN.C_AgrarianIdyll }
+                }
+            },{
+                EPN.O_CalamitousBirth,
+                new Origin(EPN.O_CalamitousBirth, EPN.D_Lithoids)
+                {
+                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.T_Lithoid }}
                 }
             },{
                 EPN.O_CommonGround,

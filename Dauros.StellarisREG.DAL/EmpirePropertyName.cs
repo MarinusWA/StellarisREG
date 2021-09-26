@@ -48,7 +48,11 @@ namespace Dauros.StellarisREG.DAL
         public static String T_Quarrelsome => "Quarrelsome";
         public static String T_Decadent => "Decadent";
         #endregion
-
+        #region PlantoidFungoid
+        public static String T_Phototrophic => "Phototrophic";
+        public static String T_Radiotrophic => "Radiotrophic";
+        public static String T_Budding => "Budding";
+        #endregion
         #region Lithoid
         public static String T_GaseousByproducts => "Gaseous Byproducts"; 
         public static String T_ScintillatingSkin => "Scintillating Skin";
@@ -250,12 +254,13 @@ namespace Dauros.StellarisREG.DAL
         public static String O_GalacticDoorstep => "Galactic Doorstep";
         public static String O_ProsperousUnification => "Prosperous Unification";
         public static String O_SyncreticEvolution => "Syncretic Evolution";
-        public static String O_CalamitousBirth => "Calamitous Birth";
         public static String O_TreeofLife => "Tree of Life";
         public static String O_ResourceConsolidation => "Resource Consolidation";
+        public static String O_CloneArmy => "Clone Army";
         public static String O_LifeSeeded => "Life-Seeded";
         public static String O_PostApocalyptic => "Post-Apocalyptic";
         public static String O_Remnants => "Remnants";
+        public static String O_CalamitousBirth => "Calamitous Birth";
         public static String O_CommonGround => "Common Ground";
         public static String O_Hegemon => "Hegemon";
         public static String O_Doomsday => "Doomsday";
