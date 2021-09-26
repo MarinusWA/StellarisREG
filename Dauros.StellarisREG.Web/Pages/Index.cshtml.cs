@@ -25,12 +25,6 @@ namespace Dauros.StellarisREG.Web.Pages
 
         public async Task OnGetAsync()
         {
-
-
-
-
-
-
             DLC = SelectState.AllDLC.ToList();
         }
 
