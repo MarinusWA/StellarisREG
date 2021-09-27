@@ -284,7 +284,7 @@ namespace Dauros.StellarisREG.DAL
             {
                 EPN.T_Phototrophic,
                 new Trait(EPN.T_Phototrophic, EPN.D_Plantoids){
-                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Lithoid } },
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Biological } },
                     Prohibits = new AndSet(){EPN.T_Radiotrophic },
                     Cost=1
                 }
@@ -292,7 +292,7 @@ namespace Dauros.StellarisREG.DAL
             {
                 EPN.T_Radiotrophic,
                 new Trait(EPN.T_Radiotrophic, EPN.D_Plantoids){
-                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Lithoid } },
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Biological } },
                     Prohibits = new AndSet(){EPN.T_Phototrophic },
                     Cost=2
                 }
@@ -300,7 +300,7 @@ namespace Dauros.StellarisREG.DAL
             {
                 EPN.T_Budding,
                 new Trait(EPN.T_Radiotrophic, EPN.D_Plantoids){
-                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Lithoid } },
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Biological } },
                     Prohibits = new AndSet(){EPN.T_SlowBreeders,EPN.T_RapidBreeders,EPN.O_CloneArmy,EPN.O_Necrophage },
                     Cost=2
                 }

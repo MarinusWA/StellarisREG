@@ -168,7 +168,7 @@ namespace Dauros.StellarisREG.DAL
         public static String C_SharedBurdens => "Shared Burdens";
         public static String C_DiplomaticCorps => "Diplomatic Corps";
         public static String C_Memorialists =>"Memorialists";
-        public static String C_Reanimators => "Reanimated Armies";
+        public static String C_Reanimators => "Reanimators";
         public static String C_DeathCult => "Death Cult";
         #endregion
 
