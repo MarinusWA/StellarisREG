@@ -176,7 +176,7 @@ namespace Dauros.StellarisREG.DAL
                 //this should be Plantoid & Fungoid only
                 new Civic(EPN.C_DeathCult, EPN.D_Plantoids)
                 {
-                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate, EPN.O_ShatteredRing, EPN.O_VoidDwellers,EPN.O_LifeSeeded }
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate, EPN.O_ShatteredRing, EPN.O_VoidDwellers,EPN.O_LifeSeeded, EPN.AT_Lithoid }
                 }
             },
             {
@@ -485,7 +485,7 @@ namespace Dauros.StellarisREG.DAL
                 new Civic(EPN.C_IdyllicBloomHM, EPN.D_Utopia)
                 {
                     Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind } },
-                    Prohibits = new AndSet(){ EPN.O_ShatteredRing,EPN.O_LifeSeeded }
+                    Prohibits = new AndSet(){ EPN.O_ShatteredRing,EPN.O_LifeSeeded, EPN.AT_Lithoid }
                 }
             },
             {
