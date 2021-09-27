@@ -102,9 +102,9 @@ namespace Dauros.StellarisREG.DAL
         public static String D_Apocalypse => "Apocalypse";
         public static String D_AncientRelics => "Ancient Relics";
         public static String D_Necroids => "Necroids";
-        public static string D_Plantoids => "Plantoids";
-        public static string D_Humanoids => "Humanoids";
-        public static string D_Nemesis => "Nemesis";
+        public static String D_Plantoids => "Plantoids";
+        public static String D_Humanoids => "Humanoids";
+        public static String D_Nemesis => "Nemesis"; 
         #endregion
 
         #region Ethics
@@ -174,11 +174,11 @@ namespace Dauros.StellarisREG.DAL
 
         #region Hive Mind
         public static String C_Ascetic => "Ascetic";
-        public static String C_CatalyticProcessingHM => "Catalytic Processing";
+        public static String C_CatalyticProcessingHM => "Catalytic Processing HM";
         public static String C_DevouringSwarm => "Devouring Swarm";
         public static String C_DividedAttention => "Divided Attention";
         public static String C_Empath => "Empath";
-        public static String C_IdyllicBloomHM => "Idyllic Bloom";
+        public static String C_IdyllicBloomHM => "Idyllic Bloom HM";
         public static String C_MemorialistHM => "Memorialist HM";
         public static String C_NaturalNeuralNetwork=> "Natural Neural Network";
         public static String C_OneMind => "One Mind";
@@ -192,7 +192,7 @@ namespace Dauros.StellarisREG.DAL
         #endregion
 
         #region Machine Intelligence
-        public static String C_CatalyticProcessingMI => "Catalytic Processing";
+        public static String C_CatalyticProcessingMI => "Catalytic Processing MI";
         public static String C_Constructobot => "Constructobot";
         public static String C_DelegatedFunctions => "Delegated Functions";
         public static String C_DeterminedExterminator => "Determined Exterminator";
@@ -214,7 +214,7 @@ namespace Dauros.StellarisREG.DAL
 
         #region Corporate
         public static String C_BrandLoyalty => "Brand Loyalty";
-        public static String C_CorporateCatalyticProcessing => "Catalytic Processing";
+        public static String C_CorporateCatalyticProcessing => "Corporate Catalytic Processing";
         public static String C_CorporateDeathCult => "Corporate Death Cult";
         public static String C_CorporateHedonism => "Corporate Hedonism";
         public static String C_CriminalHeritage => "Criminal Heritage";
