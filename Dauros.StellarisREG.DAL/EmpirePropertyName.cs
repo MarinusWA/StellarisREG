@@ -102,9 +102,9 @@ namespace Dauros.StellarisREG.DAL
         public static String D_Apocalypse => "Apocalypse";
         public static String D_AncientRelics => "Ancient Relics";
         public static String D_Necroids => "Necroids";
-        public static string D_Plantoids => "Plantoids";
-        public static string D_Humanoids => "Humanoids";
-        public static string D_Nemesis => "Nemesis";
+        public static String D_Plantoids => "Plantoids";
+        public static String D_Humanoids => "Humanoids";
+        public static String D_Nemesis => "Nemesis"; 
         #endregion
 
         #region Ethics
