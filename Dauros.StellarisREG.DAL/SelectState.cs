@@ -23,7 +23,7 @@ namespace Dauros.StellarisREG.DAL
         public String? ArchetypeName { get; set; }
         public SpeciesArchetype? Archetype => ArchetypeName != null ? SpeciesArchetype.Collection[ArchetypeName] : null;
 
-        public static HashSet<String> AllDLC => new HashSet<string>() { EPN.D_AncientRelics, EPN.D_Apocalypse, EPN.D_Federations, EPN.D_Lithoids, EPN.D_Megacorp, EPN.D_Necroids, EPN.D_SyntheticDawn, EPN.D_Utopia };
+        public static HashSet<String> AllDLC => new HashSet<string>() { EPN.D_AncientRelics, EPN.D_Apocalypse, EPN.D_Federations, EPN.D_Lithoids, EPN.D_Megacorp, EPN.D_Necroids, EPN.D_SyntheticDawn, EPN.D_Utopia, EPN.D_Humanoids, EPN.D_Plantoids,EPN.D_Nemesis };
         /// <summary>
         /// Contains all EmpireProperties that are set on this SelectState
         /// </summary>
