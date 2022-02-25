@@ -125,6 +125,20 @@ namespace Dauros.StellarisREG.DAL
                     Prohibits = new AndSet(){ EPN.Gestalt, EPN.Xenophile,EPN.XenophileF,EPN.EgalitarianF,EPN.C_CorporateDeathCult,EPN.C_DeathCult }
                 }
             }
+            ,{
+                EPN.O_HereBeDragons,
+                new Origin(EPN.O_HereBeDragons, EPN.D_Aquatics)
+                {
+                    Prohibits = new AndSet(){ EPN.C_DeterminedExterminator, EPN.C_DevouringSwarm, EPN.C_FanaticPurifiers }
+                }
+            }
+            ,{
+                EPN.O_OceanParadise,
+                new Origin(EPN.O_OceanParadise, EPN.D_Aquatics)
+                {
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence }
+                }
+            }
 
         };
 

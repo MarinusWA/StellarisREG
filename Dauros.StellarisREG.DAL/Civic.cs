@@ -14,7 +14,14 @@ namespace Dauros.StellarisREG.DAL
                 new Civic(EPN.C_AgrarianIdyll)
                 {
                     Requires = new HashSet<OrSet>(){ new OrSet() { EPN.Pacifist, EPN.PacifistF } },
-                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate, EPN.O_PostApocalyptic, EPN.O_ShatteredRing, EPN.O_VoidDwellers, EPN.O_Remnants }
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate, EPN.O_PostApocalyptic, EPN.O_ShatteredRing, EPN.O_VoidDwellers, EPN.O_Remnants, EPN.C_Anglers }
+                }
+            },
+            {
+                EPN.C_Anglers,
+                new Civic(EPN.C_Anglers, EPN.D_Aquatics)
+                {
+                    Prohibits = new AndSet(){ EPN.C_AgrarianIdyll, EPN.O_PostApocalyptic, EPN.O_ShatteredRing, EPN.O_VoidDwellers }
                 }
             },
             {
@@ -270,6 +277,14 @@ namespace Dauros.StellarisREG.DAL
                 }
             },
             {
+                EPN.C_PompousPurists,
+                new Civic(EPN.C_PompousPurists,EPN.D_Humanoids)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.Xenophobe, EPN.XenophobeF } },
+                    Prohibits = new AndSet(){ EPN.C_InwardPerfection, EPN.C_FanaticPurifiers, EPN.O_Scion }
+                }
+            },
+            {
                 EPN.C_Reanimators,
                 new Civic(EPN.C_Reanimators, EPN.D_Necroids)
                 {
@@ -438,6 +453,13 @@ namespace Dauros.StellarisREG.DAL
                     Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_Corporate } }
                 }
             },
+            {
+                EPN.C_CorporateAnglers,
+                new Civic(EPN.C_CorporateAnglers, EPN.D_Aquatics)
+                {
+                    Prohibits = new AndSet(){ EPN.O_PostApocalyptic, EPN.O_ShatteredRing, EPN.O_VoidDwellers }
+                }
+            },
 
             #endregion
             #region HiveMind
@@ -546,6 +568,7 @@ namespace Dauros.StellarisREG.DAL
                 }
             },
             #endregion
+            #region Machine Intelligence
             {
                 EPN.C_CatalyticProcessingMI,
                 new Civic(EPN.C_CatalyticProcessingMI, EPN.D_SyntheticDawn, EPN.D_Plantoids)
@@ -670,6 +693,7 @@ namespace Dauros.StellarisREG.DAL
                     Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_MachineIntelligence } },
                 }
             }
+            #endregion
         };
 
         public Civic(String name, params String[] dlc) : base(name, EmpirePropertyType.Civic, dlc) { }

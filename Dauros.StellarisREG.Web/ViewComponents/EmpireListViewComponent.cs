@@ -36,6 +36,8 @@ namespace Dauros.StellarisREG.Web.ViewComponents
                     ss.TraitNames.Add(EPN.T_MachineUnit);
                 if (selectedOrigin == EPN.O_Necrophage)
                     ss.TraitNames.Add(EPN.T_Necrophage);
+                if (ss.CivicNames.Contains(EPN.C_Anglers) || selectedOrigin == EPN.O_OceanParadise)
+                    ss.TraitNames.Add(EPN.T_Aquatic);
 
                 states.Add(ss);
             }

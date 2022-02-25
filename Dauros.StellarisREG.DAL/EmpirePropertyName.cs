@@ -62,6 +62,7 @@ namespace Dauros.StellarisREG.DAL
         public static String T_Lithoid => "Lithoid";
         public static String T_MachineUnit => "MachineUnit";
         public static String T_Necrophage => "Necroid";
+        public static String T_Aquatic => "Aquatic";
 
         #region Machine Traits
 
@@ -104,7 +105,8 @@ namespace Dauros.StellarisREG.DAL
         public static String D_Necroids => "Necroids";
         public static String D_Plantoids => "Plantoids";
         public static String D_Humanoids => "Humanoids";
-        public static String D_Nemesis => "Nemesis"; 
+        public static String D_Nemesis => "Nemesis";
+        public static String D_Aquatics => "Aquatics";
         #endregion
 
         #region Ethics
@@ -170,6 +172,8 @@ namespace Dauros.StellarisREG.DAL
         public static String C_Memorialists =>"Memorialists";
         public static String C_Reanimators => "Reanimators";
         public static String C_DeathCult => "Death Cult";
+        public static String C_Anglers => "Anglers";
+        public static String C_PompousPurists => "Pompous Purists";
         #endregion
 
         #region Hive Mind
@@ -230,9 +234,9 @@ namespace Dauros.StellarisREG.DAL
         public static String C_PublicRelationsSpecialists => "Public Relations Specialists";
         public static String C_RuthlessCompetition => "Ruthless Competition";
         public static String C_TradingPosts => "Trading Posts";
+        public static String C_CorporateAnglers => "Corporate Anglers";
 
-        
-        
+
         #endregion
         #endregion
 
@@ -269,6 +273,8 @@ namespace Dauros.StellarisREG.DAL
         public static String O_ShatteredRing => "Shattered Ring";
         public static String O_VoidDwellers => "Void Dwellers";
         public static String O_Necrophage => "Necrophage";
+        public static String O_HereBeDragons => "Here Be Dragons";
+        public static String O_OceanParadise => "Ocean Paradise";
         #endregion
 
 

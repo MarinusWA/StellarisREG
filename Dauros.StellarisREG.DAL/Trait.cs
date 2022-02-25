@@ -354,6 +354,12 @@ namespace Dauros.StellarisREG.DAL
                     Cost=0
                 }
             },
+            {
+                EPN.T_Aquatic,
+                new Trait(EPN.T_Aquatic, EPN.D_Aquatics){
+                    Cost=0
+                }
+            },
 
             #region Machine
             {
