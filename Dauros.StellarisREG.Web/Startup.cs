@@ -43,12 +43,7 @@ namespace Dauros.StellarisREG.Web
                 app.UseHsts();
             }
 
-            app.UseSecurityHeaders(config => {
-                config.AddContentSecurityPolicy(build => {
-                    build.AddScriptSrcElem().Self();
-                    build.AddScriptSrcElem().Sources.Add("www.googletagmanager.com");
-                });
-            });
+            app.UseSecurityHeaders();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
