@@ -23,9 +23,17 @@ namespace Dauros.StellarisREG.Web.Pages
             _logger = logger;
         }
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
+#if !DEBUG
+            if (Request.Host.Host == "stellaris.timango.com")
+            {
+                // Perform a 301 redirect
+                return RedirectPermanent("https://stellarisreg.azurewebsites.net");
+            }
+#endif
             DLC = SelectState.AllDLC.ToList();
+            return Page();
         }
 
         public async Task<IActionResult> OnPostPreSelectAsync(HashSet<String> selectedDLC, HashSet<String> selectedEthics,
