@@ -69,7 +69,7 @@ namespace Dauros.StellarisREG.DAL
                 }
             },{
                 EPN.O_Remnants,
-                new Origin(EPN.O_Remnants, EPN.D_AncientRelics)
+                new Origin(EPN.O_Remnants, EPN.D_AncientRelics, EPN.D_Federations)
                 {
                     Prohibits = new AndSet(){ EPN.C_AgrarianIdyll }
                 }
@@ -139,7 +139,93 @@ namespace Dauros.StellarisREG.DAL
                     Prohibits = new AndSet(){ EPN.A_MachineIntelligence }
                 }
             }
-
+            ,{
+                EPN.O_FruitfulPartnership,
+                new Origin(EPN.O_FruitfulPartnership, EPN.D_Plantoids)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Plantoid, EPN.AT_Fungoid } },
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence, EPN.C_DevouringSwarm }
+                }
+            }
+            ,{
+                EPN.O_ImperialFiefdom,
+                new Origin(EPN.O_ImperialFiefdom, EPN.D_Overlord)
+                {
+                    Prohibits = new AndSet(){ EPN.C_DevouringSwarm, EPN.C_FanaticPurifiers, EPN.C_DeterminedExterminator, EPN.C_InwardPerfection, EPN.C_DrivenAssimilator }
+                }
+            }
+            ,{
+                EPN.O_ProgenitorHive,
+                new Origin(EPN.O_ProgenitorHive, EPN.D_Overlord)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() {EPN.A_HiveMind } }
+                }
+            },{
+                EPN.O_SlingshotStars,
+                new Origin(EPN.O_SlingshotStars, EPN.D_Overlord)
+                {
+                    
+                }
+            },{
+                EPN.O_Subterranean,
+                new Origin(EPN.O_Subterranean, EPN.D_Overlord)
+                {
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence }
+                }
+            },{
+                EPN.O_TeachersShroud,
+                new Origin(EPN.O_TeachersShroud, EPN.D_Overlord)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() {EPN.Spiritualist, EPN.SpiritualistF } },
+                    Prohibits = new AndSet(){ EPN.C_FanaticPurifiers }
+                }
+            },{
+                EPN.O_KnightsToxicGod,
+                new Origin(EPN.O_KnightsToxicGod, EPN.D_Toxoids)
+                {
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.C_FanaticPurifiers, EPN.C_OppressiveAutocracy }
+                }
+            },{
+                EPN.O_Overtuned,
+                new Origin(EPN.O_Overtuned, EPN.D_Toxoids)
+                {
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence }
+                }
+            },{
+                EPN.O_BrokenShackles,
+                new Origin(EPN.O_BrokenShackles, EPN.D_FirstContact)
+                {
+                    Prohibits = new AndSet(){ EPN.Authoritarian, EPN.AuthoritarianF, EPN.Xenophobe, EPN.XenophobeF, EPN.Gestalt,
+                    EPN.C_SelectiveKinship, EPN.C_EagerExplorers, EPN.C_SovereignGuardianship }
+                }
+            },{
+                EPN.O_Payback,
+                new Origin(EPN.O_ProgenitorHive, EPN.D_FirstContact)
+                {
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.C_SlaverGuilds, EPN.C_FanaticPurifiers, EPN.C_PompousPurists, EPN.C_EagerExplorers,
+                    EPN.C_OppressiveAutocracy, EPN.C_SovereignGuardianship, EPN.C_IndenturedAssets, EPN.C_PrivatizedExploration, EPN.C_PharmaState, EPN.C_CorporateProtectorate}
+                }
+            },{
+                EPN.O_FearDark,
+                new Origin(EPN.O_FearDark, EPN.D_FirstContact)
+                {
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.C_InwardPerfection, EPN.C_FanaticPurifiers, EPN.C_EagerExplorers, EPN.C_SovereignGuardianship, EPN.C_PrivatizedExploration, EPN.C_CorporateProtectorate }
+                }
+            },
+            {
+                EPN.O_UnderOneRule,
+                new Origin(EPN.O_UnderOneRule, EPN.D_GalParagons)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() {EPN.A_Dictatorial }}
+                }
+            },
+            {
+                EPN.O_Riftworld,
+                new Origin(EPN.O_Riftworld, EPN.D_AstralPlanes)
+                {
+                    
+                }
+            }
         };
 
 

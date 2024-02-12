@@ -32,10 +32,29 @@ namespace Dauros.StellarisREG.Web.ViewComponents
                 //Set auto assigned EmpireProperties
                 if (selectedArchetype == EPN.AT_Lithoid)
                     ss.TraitNames.Add(EPN.T_Lithoid);
-                if (selectedArchetype == EPN.AT_Machine)
+                else if (selectedArchetype == EPN.AT_Machine)
                     ss.TraitNames.Add(EPN.T_MachineUnit);
+
+                if (ss.Authority != null && ss.Authority.Name == EPN.A_HiveMind)
+                    ss.TraitNames.Add(EPN.T_HiveMinded);
+
                 if (selectedOrigin == EPN.O_Necrophage)
                     ss.TraitNames.Add(EPN.T_Necrophage);
+                else if (selectedOrigin == EPN.O_CloneArmy)
+                    ss.TraitNames.Add(EPN.T_CloneSoldier);
+                else if (selectedOrigin == EPN.O_SyncreticEvolution)
+                    ss.TraitNames.Add(EPN.T_Serviles);
+                else if (selectedOrigin == EPN.O_PostApocalyptic)
+                    ss.TraitNames.Add(EPN.T_Survivor);
+                else if (selectedOrigin == EPN.O_VoidDwellers)
+                    ss.TraitNames.Add(EPN.T_VoidDweller);
+                else if (selectedOrigin == EPN.O_Subterranean)
+                    ss.TraitNames.Add(EPN.T_CaveDweller);
+                else if (selectedOrigin == EPN.O_UnderOneRule)
+                    ss.TraitNames.Add(EPN.T_PerfectGenes);
+                
+                if (ss.CivicNames.Contains(EPN.C_Stargazers))
+                    ss.TraitNames.Add(EPN.T_Stargazer);
                 if (ss.CivicNames.Contains(EPN.C_Anglers) || selectedOrigin == EPN.O_OceanParadise)
                     ss.TraitNames.Add(EPN.T_Aquatic);
 

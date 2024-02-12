@@ -47,22 +47,52 @@ namespace Dauros.StellarisREG.DAL
         public static String T_Weak => "Weak";
         public static String T_Quarrelsome => "Quarrelsome";
         public static String T_Decadent => "Decadent";
+
+
+
         #endregion
+
+        #region Origin Traits
+        public static String T_Serviles => "Serviles";
+        public static String T_CloneSoldier => "Clone Soldier";
+        public static String T_Survivor => "Survivor";
+        public static String T_VoidDweller => "Void Dweller";
+        public static String T_CaveDweller => "Cave Dweller";
+        public static String T_PerfectGenes => "Perfected Genes";
+        #endregion
+
+        #region Humanoid
+        public static String T_EIteroparity => "Existential Iteroparity";
+        public static String T_PInfertility => "Psychological Infertility";
+        public static String T_Jinxed => "Jinxed";
+        #endregion
+
+        #region Toxoid
+        public static String T_Incubators => "Incubators";
+        public static String T_Noxious => "Noxious";
+        public static String T_InBreath => "Inorganic Breath";
+        #endregion
+
         #region PlantoidFungoid
         public static String T_Phototrophic => "Phototrophic";
         public static String T_Radiotrophic => "Radiotrophic";
         public static String T_Budding => "Budding";
+        public static String T_InvSpecies => "Invasive Species";
         #endregion
         #region Lithoid
         public static String T_GaseousByproducts => "Gaseous Byproducts"; 
         public static String T_ScintillatingSkin => "Scintillating Skin";
         public static String T_VolatileExcretions => "Volatile Excretions";
+        public static String T_Crystallization => "Crystallization";
+                
         #endregion
 
         public static String T_Lithoid => "Lithoid";
         public static String T_MachineUnit => "MachineUnit";
-        public static String T_Necrophage => "Necroid";
+        public static String T_Necrophage => "Necrophage";
         public static String T_Aquatic => "Aquatic";
+        public static String T_HiveMinded => "Hive-Minded";
+        public static String T_Stargazer => "Stargazer";
 
         #region Machine Traits
 
@@ -107,6 +137,12 @@ namespace Dauros.StellarisREG.DAL
         public static String D_Humanoids => "Humanoids";
         public static String D_Nemesis => "Nemesis";
         public static String D_Aquatics => "Aquatics";
+        public static String D_Overlord => "Overlord";
+        public static String D_FirstContact => "First Contact";
+        public static String D_GalParagons => "Galactic Paragons";
+        public static String D_Toxoids => "Toxoids";
+        public static String D_AstralPlanes => "Astral Planes";
+
         #endregion
 
         #region Ethics
@@ -174,8 +210,24 @@ namespace Dauros.StellarisREG.DAL
         public static String C_DeathCult => "Death Cult";
         public static String C_Anglers => "Anglers";
         public static String C_PompousPurists => "Pompous Purists";
-        #endregion
 
+
+        public static String C_Ascensionists => "Ascensionists";
+        public static String C_SelectiveKinship => "Selective Kinship";
+        public static String C_Scavengers => "Scavengers";
+        public static String C_MutagenicSpas => "Mutagenic Spas";
+        public static String C_RelentlessIndustrialists => "Relentless Industrialists";
+        public static String C_EagerExplorers => "Eager Explorers";
+        public static String C_HeroicPast => "Heroic Past";
+        public static String C_VaultsKnowledge => "Vaults of Knowledge";
+        public static String C_CrusaderSpirit => "Crusader Spirit";
+        public static String C_OppressiveAutocracy => "Oppressive Autocracy";
+        public static String C_DarkConsortium => "Dark Consortium";
+        public static String C_DimensionalWorship => "Dimensional Worship";
+        public static String C_HyperspaceSpeciality => "Hyperspace Speciality";
+        public static String C_SovereignGuardianship => "Sovereign Guardianship";
+
+        #endregion
         #region Hive Mind
         public static String C_Ascetic => "Ascetic";
         public static String C_CatalyticProcessingHM => "Catalytic Processing HM";
@@ -192,6 +244,15 @@ namespace Dauros.StellarisREG.DAL
         public static String C_SubsumedWill => "Subsumed Will";
         public static String C_Terravore=> "Terravore";
 
+        public static String C_OrganicReprocessing => "Organic Reprocessing";
+        public static String C_VoidHive => "VoidHive";
+        public static String C_CordycepticDrones => "Cordyceptic Drones";
+        public static String C_PermutationPools => "Permutation Pools";
+        public static String C_Stargazers => "Stargazers";
+        public static string C_AutonomousDrones => "AutonomousDrones";
+        public static String C_NeuralVaults => "Neural Vaults";
+        public static String C_GuardianCluster => "Guardian Cluster";
+        public static String C_HyperspaceSyncHM => "Hyperspace Synchronicity HM";
 
         #endregion
 
@@ -214,6 +275,15 @@ namespace Dauros.StellarisREG.DAL
         public static String C_Warbots => "Warbots";
         public static String C_ZeroWasteProtocols => "Zero-Waste Protocols";
 
+        public static String C_ElevationalHypotheses => "Elevational Hypotheses";
+        public static String C_OrganicReprocessingMI => "Organic Reprocessing MI";
+        public static String C_HyperLube => "Hyper Lubrication Basin";
+        public static String C_ExplorationProtocols => "Exploration Protocols";
+        public static String C_XPCache => "Experience Cache";
+        public static String C_SovereignCircuits => "Sovereign Circuits";
+        public static String C_GuardianMatrix => "Guardian Matrix";
+        public static String C_HyperspaceSyncMI => "Hyperspace Synchronicity MI";
+
         #endregion
 
         #region Corporate
@@ -235,6 +305,21 @@ namespace Dauros.StellarisREG.DAL
         public static String C_RuthlessCompetition => "Ruthless Competition";
         public static String C_TradingPosts => "Trading Posts";
         public static String C_CorporateAnglers => "Corporate Anglers";
+        
+        public static String C_Gigacorp => "Gigacorp";
+        public static String C_CatalyticRecyclers => "CatalyticRecyclers";
+        public static String C_PermanentEmployment => "Permanent Employment";
+        public static String C_TrawlingOperations => "Trawling Operations";
+        public static String C_RefurbishmentDivision => "Refurbishment Division";
+        public static String C_PrivatizedExploration => "Privatized Exploration";
+        public static String C_PrecisionCogs => "Precision Cogs";
+        public static String C_KnowledgeMentorship => "Knowledge Mentorship";
+        public static String C_LetterMarque => "Letters of Marque";
+        public static String C_PharmaState => "Pharma State";
+        public static String C_CorporateProtectorate => "Corporate Protectorate";
+        public static String C_DimensionalEnterprise => "Dimensional Enterprise";
+        public static String C_HyperspaceTrade => "Hyperspace Trade";
+        public static String C_ShadowCorpation => "Shadow Corporation";
 
 
         #endregion
@@ -275,6 +360,21 @@ namespace Dauros.StellarisREG.DAL
         public static String O_Necrophage => "Necrophage";
         public static String O_HereBeDragons => "Here Be Dragons";
         public static String O_OceanParadise => "Ocean Paradise";
+
+        public static String O_ImperialFiefdom => "Imperial Fiefdom";
+        public static String O_ProgenitorHive => "Progenitor Hive";
+        public static String O_FruitfulPartnership => "Fruitful Partnership";
+        public static String O_SlingshotStars => "Slingshot to the Stars";
+        public static String O_Subterranean => "Subterranean";
+        public static String O_TeachersShroud => "Teachers of the Shroud";
+        public static String O_KnightsToxicGod => "Knights of the Toxic God";
+        public static String O_Overtuned => "Overtuned";
+        public static String O_BrokenShackles => "Broken Shackles";
+        public static String O_Payback => "Payback";
+        public static String O_FearDark => "Fear of the Dark";
+        public static String O_UnderOneRule => "Under One Rule";
+        public static String O_Riftworld => "Riftworld";
+
         #endregion
 
 

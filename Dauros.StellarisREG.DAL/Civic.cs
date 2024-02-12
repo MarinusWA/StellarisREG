@@ -330,6 +330,108 @@ namespace Dauros.StellarisREG.DAL
                     Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate }
                 }
             },
+            {
+                EPN.C_Ascensionists,
+                new Civic(EPN.C_Ascensionists, EPN.D_Utopia, EPN.D_AstralPlanes)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.Spiritualist, EPN.SpiritualistF } },
+                }
+            },
+            {
+                EPN.C_SelectiveKinship,
+                new Civic(EPN.C_SelectiveKinship, EPN.D_Lithoids)
+                {
+                    Prohibits = new AndSet(){ EPN.Xenophile, EPN.XenophileF, EPN.EgalitarianF, EPN.O_BrokenShackles }
+                }
+            },
+            {
+                EPN.C_Scavengers,
+                new Civic(EPN.C_Scavengers,EPN.D_Toxoids)
+                {
+
+                }
+            },
+            {
+                EPN.C_MutagenicSpas,
+                new Civic(EPN.C_MutagenicSpas, EPN.D_Toxoids)
+                {
+                    Prohibits = new AndSet(){ EPN.O_LifeSeeded }
+                }
+            },
+            {
+                EPN.C_RelentlessIndustrialists,
+                new Civic(EPN.C_RelentlessIndustrialists, EPN.D_Toxoids)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.Materialist, EPN.MaterialistF } },
+                    Prohibits = new AndSet(){ EPN.C_AgrarianIdyll, EPN.C_Environmentalist, EPN.C_IdyllicBloom, EPN.C_Memorialists, EPN.O_LifeSeeded }
+                }
+            },
+            {
+                EPN.C_EagerExplorers,
+                new Civic(EPN.C_EagerExplorers, EPN.D_FirstContact)
+                {
+                    Prohibits = new AndSet(){ EPN.C_InwardPerfection, EPN.C_HyperspaceSpeciality, EPN.C_SovereignGuardianship, EPN.O_BrokenShackles, EPN.O_FearDark, EPN.O_Payback }
+                }
+            },
+            {
+                EPN.C_HeroicPast,
+                new Civic(EPN.C_HeroicPast, EPN.D_GalParagons)
+                {
+
+                }
+            },
+            {
+                EPN.C_VaultsKnowledge,
+                new Civic(EPN.C_VaultsKnowledge, EPN.D_GalParagons)
+                {
+
+                }
+            },
+            {
+                EPN.C_CrusaderSpirit,
+                new Civic(EPN.C_CrusaderSpirit, EPN.D_GalParagons)
+                {
+                    //Requires = new HashSet<OrSet>(){ new OrSet() { EPN.Authoritarian, EPN.AuthoritarianF, EPN.Militarist, EPN.MilitaristF, EPN.Spiritualist, EPN.SpiritualistF  } },
+                    //Prohibits = new AndSet(){ EPN.Pacifist, EPN.PacifistF, EPN.C_BeaconofLiberty, EPN.C_FanaticPurifiers }
+                }
+            },
+            {
+                EPN.C_OppressiveAutocracy,
+                new Civic(EPN.C_OppressiveAutocracy, EPN.D_GalParagons)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AuthoritarianF } },
+                    Prohibits = new AndSet(){ EPN.C_AgrarianIdyll, EPN.C_Environmentalist, EPN.C_FreeHaven, EPN.C_WarriorCulture, EPN.C_PleasureSeekers }
+                }
+            },
+            {
+                EPN.C_DarkConsortium,
+                new Civic(EPN.C_DarkConsortium, EPN.D_AstralPlanes)
+                {
+                }
+            },
+            {
+                EPN.C_DimensionalWorship,
+                new Civic(EPN.C_DimensionalWorship, EPN.D_AstralPlanes)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.Spiritualist, EPN.SpiritualistF } },
+                    Prohibits = new AndSet(){ EPN.C_DeathCult }
+                }
+            },
+            {
+                EPN.C_HyperspaceSpeciality,
+                new Civic(EPN.C_HyperspaceSpeciality, EPN.D_AstralPlanes)
+                {
+                    Prohibits = new AndSet(){ EPN.C_EagerExplorers }
+                }
+            },
+            {
+                EPN.C_SovereignGuardianship,
+                new Civic(EPN.C_SovereignGuardianship, EPN.D_AstralPlanes)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.Militarist,EPN.MilitaristF  } },
+                    Prohibits = new AndSet(){ EPN.C_InwardPerfection, EPN.C_FanaticPurifiers, EPN.C_Reanimators, EPN.C_EagerExplorers,EPN.O_BrokenShackles, EPN.O_FearDark, EPN.O_Payback }
+                }
+            },
             #endregion
             #region Corporate
             {
@@ -457,7 +559,106 @@ namespace Dauros.StellarisREG.DAL
                 EPN.C_CorporateAnglers,
                 new Civic(EPN.C_CorporateAnglers, EPN.D_Aquatics)
                 {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_Corporate } },
                     Prohibits = new AndSet(){ EPN.O_PostApocalyptic, EPN.O_ShatteredRing, EPN.O_VoidDwellers }
+                }
+            },
+            {
+                EPN.C_Gigacorp,
+                new Civic(EPN.C_Gigacorp, EPN.D_Utopia, EPN.D_AstralPlanes)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_Corporate }, new OrSet(){ EPN.Spiritualist, EPN.SpiritualistF } }
+                }
+            },{
+                EPN.C_CatalyticRecyclers,
+                new Civic(EPN.C_CatalyticRecyclers, EPN.D_Aquatics)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_Corporate } },
+                    Prohibits = new AndSet(){ EPN.C_CorporateCatalyticProcessing, EPN.O_CalamitousBirth }
+                }
+            },{
+                EPN.C_PermanentEmployment,
+                new Civic(EPN.C_PermanentEmployment, EPN.D_Necroids)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_Corporate } },
+                    Prohibits = new AndSet(){ EPN.Egalitarian, EPN.O_Mechanist, EPN.O_CloneArmy, EPN.O_Necrophage }
+                }
+            },{
+                EPN.C_TrawlingOperations,
+                new Civic(EPN.C_TrawlingOperations, EPN.D_Aquatics)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_Corporate }, new OrSet() { EPN.T_Aquatic } },
+                    Prohibits = new AndSet(){ EPN.C_Anglers, EPN.O_PostApocalyptic, EPN.O_ShatteredRing, EPN.O_VoidDwellers, EPN.O_Subterranean }
+                }
+            },{
+                EPN.C_RefurbishmentDivision,
+                new Civic(EPN.C_RefurbishmentDivision, EPN.D_Toxoids)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_Corporate } },
+                    Prohibits = new AndSet(){ EPN.C_Scavengers }
+                }
+            },{
+                EPN.C_PrivatizedExploration,
+                new Civic(EPN.C_PrivatizedExploration, EPN.D_FirstContact)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_Corporate } },
+                    Prohibits = new AndSet(){ EPN.C_CorporateProtectorate, EPN.C_HyperspaceTrade, EPN.C_HyperspaceSpeciality, EPN.O_BrokenShackles, EPN.O_FearDark, EPN.O_Payback }
+                }
+            },{
+                EPN.C_PrecisionCogs,
+                new Civic(EPN.C_PrecisionCogs, EPN.D_GalParagons)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_Corporate } }
+                }
+            },{
+                EPN.C_KnowledgeMentorship,
+                new Civic(EPN.C_KnowledgeMentorship, EPN.D_GalParagons)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_Corporate } },
+                    Prohibits = new AndSet(){ EPN.C_VaultsKnowledge }
+                }
+            },{
+                EPN.C_LetterMarque,
+                new Civic(EPN.C_LetterMarque, EPN.D_GalParagons)
+                {
+                    //Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_Corporate },new OrSet() { EPN.Authoritarian, EPN.Militarist, EPN.MilitaristF } },
+                    //Prohibits = new AndSet(){ EPN.O_PostApocalyptic, EPN.O_ShatteredRing, EPN.O_VoidDwellers }
+                }
+            },{
+                EPN.C_PharmaState,
+                new Civic(EPN.C_PharmaState, EPN.D_GalParagons)
+                {
+                    //Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_Corporate } },
+                    //Prohibits = new AndSet(){ EPN.O_BrokenShackles, EPN.O_Payback }
+                }
+            },{
+                EPN.C_CorporateProtectorate,
+                new Civic(EPN.C_CorporateProtectorate, EPN.D_AstralPlanes)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_Corporate },new OrSet() { EPN.Militarist, EPN.MilitaristF } },
+                    Prohibits = new AndSet(){ EPN.C_PrivatizedExploration, EPN.C_InwardPerfection, EPN.C_SovereignGuardianship, EPN.C_Reanimators,EPN.C_EagerExplorers,EPN.O_BrokenShackles,EPN.O_FearDark,EPN.O_Payback }
+                }
+            },{
+                EPN.C_DimensionalEnterprise,
+                new Civic(EPN.C_DimensionalEnterprise, EPN.D_AstralPlanes)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_Corporate } ,new OrSet() { EPN.Spiritualist, EPN.SpiritualistF }},
+                    Prohibits = new AndSet(){ EPN.C_CorporateDeathCult, EPN.C_DeathCult, EPN.C_DimensionalWorship }
+                }
+            },{
+                EPN.C_HyperspaceTrade,
+                new Civic(EPN.C_HyperspaceTrade, EPN.D_AstralPlanes)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_Corporate } },
+                    Prohibits = new AndSet(){ EPN.C_PrivatizedExploration, EPN.C_EagerExplorers, EPN.C_HyperspaceSpeciality  }
+                }
+            },
+            {
+                EPN.C_ShadowCorpation,
+                new Civic(EPN.C_ShadowCorpation, EPN.D_AstralPlanes)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_Corporate } },
+                    Prohibits = new AndSet(){ EPN.C_DarkConsortium }
                 }
             },
 
@@ -498,16 +699,24 @@ namespace Dauros.StellarisREG.DAL
                 new Civic(EPN.C_Empath, EPN.D_Federations, EPN.D_Utopia)
                 {
                     Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind } },
-                    Prohibits = new AndSet(){ EPN.C_DevouringSwarm, EPN.C_Terravore }
+                    Prohibits = new AndSet(){ EPN.C_DevouringSwarm, EPN.C_Terravore, EPN.O_Necrophage }
                 }
             },
             {
                 EPN.C_IdyllicBloomHM,
                 //plantoids & fungoids only
-                new Civic(EPN.C_IdyllicBloomHM, EPN.D_Utopia)
+                new Civic(EPN.C_IdyllicBloomHM, EPN.D_Plantoids)
                 {
                     Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind } },
                     Prohibits = new AndSet(){ EPN.O_ShatteredRing,EPN.O_LifeSeeded, EPN.AT_Lithoid }
+                }
+            },
+            {
+                EPN.C_OrganicReprocessing,
+                new Civic(EPN.C_OrganicReprocessing, EPN.D_Plantoids)
+                {
+                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind}, new OrSet() { EPN.T_Lithoid } },
+                    Prohibits = new AndSet(){ EPN.O_CalamitousBirth }
                 }
             },
             {
@@ -561,12 +770,74 @@ namespace Dauros.StellarisREG.DAL
                 }
             },
             {
+                EPN.C_VoidHive,
+                new Civic(EPN.C_VoidHive, EPN.D_Lithoids)
+                {
+                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind}}
+                }
+            },
+            {
                 EPN.C_Terravore,
                 new Civic(EPN.C_Terravore, EPN.D_Lithoids,EPN.D_Utopia)
                 {
-                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind}, new OrSet() { EPN.T_Lithoid } }
+                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind}, new OrSet() { EPN.T_Lithoid } },
+                    Prohibits = new AndSet(){ EPN.C_Empath, EPN.C_MemorialistHM, EPN.C_GuardianCluster }
                 }
             },
+            {
+                EPN.C_CordycepticDrones,
+                new Civic(EPN.C_CordycepticDrones, EPN.D_Necroids)
+                {
+                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind} }
+                }
+            },
+            {
+                EPN.C_PermutationPools,
+                new Civic(EPN.C_PermutationPools, EPN.D_Toxoids)
+                {
+                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind} },
+                    Prohibits = new AndSet(){ EPN.O_LifeSeeded }
+                }
+            },
+            {
+                EPN.C_Stargazers,
+                new Civic(EPN.C_Stargazers, EPN.D_FirstContact)
+                {
+                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind} },
+                    Prohibits = new AndSet(){ EPN.C_HyperspaceSyncHM, EPN.O_BrokenShackles, EPN.O_FearDark, EPN.O_Payback }
+                }
+            },
+            {
+                EPN.C_AutonomousDrones,
+                new Civic(EPN.C_AutonomousDrones, EPN.D_GalParagons)
+                {
+                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind} }
+                }
+            },
+            {
+                EPN.C_NeuralVaults,
+                new Civic(EPN.C_NeuralVaults, EPN.D_GalParagons)
+                {
+                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind} }
+                }
+            },
+            {
+                EPN.C_GuardianCluster,
+                new Civic(EPN.C_GuardianCluster, EPN.D_AstralPlanes)
+                {
+                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind} },
+                    Prohibits = new AndSet(){ EPN.C_DevouringSwarm, EPN.C_Terravore }
+                }
+            },
+            {
+                EPN.C_HyperspaceSyncHM,
+                new Civic(EPN.C_HyperspaceSyncHM, EPN.D_AstralPlanes)
+                {
+                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind} },
+                    Prohibits = new AndSet(){ EPN.C_Stargazers  }
+                }
+            },
+            
             #endregion
             #region Machine Intelligence
             {
@@ -691,6 +962,71 @@ namespace Dauros.StellarisREG.DAL
                 new Civic(EPN.C_ZeroWasteProtocols, EPN.D_SyntheticDawn)
                 {
                     Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_MachineIntelligence } },
+                }
+            },
+            {
+                EPN.C_ElevationalHypotheses,
+                new Civic(EPN.C_ElevationalHypotheses, EPN.D_SyntheticDawn, EPN.D_Utopia, EPN.D_AstralPlanes)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_MachineIntelligence } }
+                }
+            }
+            ,
+            {
+                EPN.C_OrganicReprocessingMI,
+                new Civic(EPN.C_OrganicReprocessingMI,EPN.D_SyntheticDawn, EPN.D_Plantoids)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_MachineIntelligence } },
+                    Prohibits = new AndSet(){ EPN.O_ResourceConsolidation  }
+                }
+            }
+            ,
+            {
+                EPN.C_HyperLube,
+                new Civic(EPN.C_HyperLube,EPN.D_SyntheticDawn, EPN.D_Toxoids)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_MachineIntelligence } }
+                }
+            }
+            ,
+            {
+                EPN.C_ExplorationProtocols,
+                new Civic(EPN.C_ExplorationProtocols,EPN.D_SyntheticDawn, EPN.D_FirstContact)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_MachineIntelligence } },
+                    Prohibits = new AndSet(){ EPN.C_DeterminedExterminator, EPN.C_DrivenAssimilator, EPN.C_HyperspaceSyncMI  }
+                }
+            }
+            ,
+            {
+                EPN.C_XPCache,
+                new Civic(EPN.C_XPCache,EPN.D_SyntheticDawn, EPN.D_GalParagons)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_MachineIntelligence } }
+                }
+            }
+            ,
+            {
+                EPN.C_SovereignCircuits,
+                new Civic(EPN.C_SovereignCircuits, EPN.D_SyntheticDawn, EPN.D_GalParagons)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_MachineIntelligence } }
+                }
+            },
+            {
+                EPN.C_GuardianMatrix,
+                new Civic(EPN.C_GuardianMatrix, EPN.D_SyntheticDawn, EPN.D_AstralPlanes)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_MachineIntelligence } },
+                    Prohibits = new AndSet(){ EPN.C_DeterminedExterminator }
+                }
+            },
+            {
+                EPN.C_HyperspaceSyncMI,
+                new Civic(EPN.C_HyperspaceSyncMI, EPN.D_SyntheticDawn, EPN.D_AstralPlanes)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_MachineIntelligence } },
+                    Prohibits = new AndSet(){ EPN.C_ExplorationProtocols }
                 }
             }
             #endregion

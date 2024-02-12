@@ -25,6 +25,16 @@ namespace Dauros.StellarisREG.DAL
                 EPN.AT_Lithoid,
                 new SpeciesArchetype(EPN.AT_Lithoid, EPN.D_Lithoids){
                 }
+            },
+            {
+                EPN.AT_Plantoid,
+                new SpeciesArchetype(EPN.AT_Plantoid, EPN.D_Plantoids){
+                }
+            },
+            {
+                EPN.AT_Fungoid,
+                new SpeciesArchetype(EPN.AT_Fungoid, EPN.D_Plantoids){
+                }
             }
         };
 

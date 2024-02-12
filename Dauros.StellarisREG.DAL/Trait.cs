@@ -305,6 +305,17 @@ namespace Dauros.StellarisREG.DAL
                     Cost=2
                 }
             },
+            {
+                EPN.T_InvSpecies,
+                new Trait(EPN.T_InvSpecies, EPN.D_Plantoids){
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Biological } },
+                    Prohibits = new AndSet(){EPN.T_Adaptive,EPN.T_ExtremelyAdaptive,EPN.T_Agrarian,EPN.T_Charismatic,EPN.T_Communal,
+                    EPN.T_Conformists,EPN.T_Conservationist,EPN.T_Docile,EPN.T_Enduring,EPN.T_Venerable,EPN.T_Industrious,EPN.T_Ingenious,
+                    EPN.T_Intelligent,EPN.T_NaturalEngineers,EPN.T_NaturalPhysicists,EPN.T_NaturalSociologists,EPN.T_Nomadic,EPN.T_QuickLearners,
+                    EPN.T_RapidBreeders,EPN.T_Resilient,EPN.T_Strong,EPN.T_VeryStrong,EPN.T_Talented,EPN.T_Thrifty,EPN.T_Traditional},
+                    Cost=2
+                }
+            },
             #endregion
             #region Lithoid
             {
@@ -332,6 +343,14 @@ namespace Dauros.StellarisREG.DAL
                 }
             },
             {
+                EPN.T_Crystallization,
+                new Trait(EPN.T_Crystallization, EPN.D_Lithoids){
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Lithoid } },
+                    Prohibits = new AndSet(){EPN.T_SlowBreeders,EPN.T_RapidBreeders,EPN.T_Incubators,EPN.T_CloneSoldier,EPN.T_Necrophage},
+                    Cost=2
+                }
+            },
+            {
                 EPN.T_Lithoid,
                 new Trait(EPN.T_Lithoid, EPN.D_Lithoids){
                     Cost=0,
@@ -339,6 +358,7 @@ namespace Dauros.StellarisREG.DAL
                 }
             },
             #endregion
+            #region Misc
             {
                 EPN.T_MachineUnit,
                 new Trait(EPN.T_MachineUnit, EPN.D_SyntheticDawn)
@@ -351,16 +371,113 @@ namespace Dauros.StellarisREG.DAL
                 EPN.T_Necrophage,
                 new Trait(EPN.T_Necrophage, EPN.D_Necroids){
                     Requires = new HashSet<OrSet>(){ new OrSet() { EPN.O_Necrophage } },
-                    Cost=0
+                    Cost=0,
+                    Prohibits = new AndSet(){ EPN.T_Budding },
                 }
             },
             {
                 EPN.T_Aquatic,
                 new Trait(EPN.T_Aquatic, EPN.D_Aquatics){
-                    Cost=0
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.C_Anglers, EPN.O_OceanParadise } },
+                    Cost=2
                 }
             },
-
+            {
+                EPN.T_Serviles,
+                new Trait(EPN.T_Serviles, EPN.D_Utopia){
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.O_SyncreticEvolution } },
+                    Cost=1,
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence, EPN.T_Intelligent, EPN.T_NaturalEngineers,EPN.T_NaturalPhysicists,EPN.T_NaturalSociologists },
+                }
+            },
+            {
+                EPN.T_CloneSoldier,
+                new Trait(EPN.T_CloneSoldier, EPN.D_Humanoids){
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.O_CloneArmy } },
+                    Cost=0,
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence, EPN.T_RapidBreeders, EPN.T_SlowBreeders, EPN.T_Budding },
+                }
+            },
+            {
+                EPN.T_CaveDweller,
+                new Trait(EPN.T_CaveDweller, EPN.D_Overlord){
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.O_Subterranean } },
+                    Cost=0,
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence, EPN.T_Phototrophic, EPN.T_Aquatic },
+                }
+            },
+            {
+                EPN.T_PerfectGenes,
+                new Trait(EPN.T_PerfectGenes, EPN.D_GalParagons){
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.O_UnderOneRule } },
+                    Cost=0,
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence, EPN.T_Fleeting, EPN.T_Weak },
+                }
+            },
+            #endregion
+            #region Toxoid
+            {
+                EPN.T_Incubators,
+                new Trait(EPN.T_Incubators, EPN.D_Toxoids){
+                    Cost=2,
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence },
+                }
+            },
+            {
+                EPN.T_Noxious,
+                new Trait(EPN.T_Noxious, EPN.D_Toxoids){
+                    Cost=1,
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence },
+                }
+            },
+            {
+                EPN.T_InBreath,
+                new Trait(EPN.T_InBreath, EPN.D_Toxoids){
+                    Cost=3,
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence },
+                }
+            },
+            #endregion
+            #region HiveMind
+            {
+                EPN.T_Stargazer,
+                new Trait(EPN.T_Stargazer, EPN.D_FirstContact){
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.C_Stargazers } },
+                    Cost=2
+                }
+            },
+            {
+                EPN.T_HiveMinded,
+                new Trait(EPN.T_HiveMinded, EPN.D_Utopia){
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_HiveMind } },
+                    Cost=0,
+                    Prohibits = new AndSet(){ EPN.T_Conformists, EPN.T_Thrifty, EPN.T_Decadent, EPN.T_Deviants }
+                }
+            },
+            #endregion
+            #region Humanoid
+            {
+                EPN.T_EIteroparity,
+                new Trait(EPN.T_EIteroparity, EPN.D_Humanoids){
+                    Cost=2,
+                    Prohibits = new AndSet(){ EPN.T_Jinxed,EPN.T_PInfertility, EPN.A_MachineIntelligence }
+                }
+            },
+            {
+                EPN.T_PInfertility,
+                new Trait(EPN.T_PInfertility, EPN.D_Humanoids){
+                    Cost=-2,
+                    Prohibits = new AndSet(){ EPN.T_EIteroparity, EPN.A_MachineIntelligence }
+                }
+            },
+            {
+                EPN.T_Jinxed,
+                new Trait(EPN.T_Jinxed, EPN.D_Humanoids){
+                    Cost=-1,
+                    Prohibits = new AndSet(){ EPN.T_EIteroparity, EPN.A_MachineIntelligence }
+                }
+            },
+            #endregion
             #region Machine
             {
                 EPN.T_DoubleJointed,
@@ -424,13 +541,13 @@ namespace Dauros.StellarisREG.DAL
                     Cost=2
                 }
             },
-            //{
-            //    EPN.T_Harvesters,
-            //    new Trait(EPN.T_Harvesters, EPN.D_SyntheticDawn){
-            //        Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_MachineIntelligence } },
-            //        Cost=2
-            //    }
-            //},
+            {
+                EPN.T_Harvesters,
+                new Trait(EPN.T_Harvesters, EPN.D_SyntheticDawn){
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_MachineIntelligence } },
+                    Cost=2
+                }
+            },
             {
                 EPN.T_LearningAlgorithms,
                 new Trait(EPN.T_LearningAlgorithms, EPN.D_SyntheticDawn){

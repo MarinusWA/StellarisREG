@@ -56,7 +56,7 @@ namespace Dauros.StellarisREG.DAL
                         EPN.Materialist,EPN.MaterialistF, EPN.Spiritualist, EPN.SpiritualistF,
                         EPN.Xenophile, EPN.XenophileF, EPN.Xenophobe,EPN.XenophobeF,
                         EPN.Militarist, EPN.MaterialistF, EPN.Pacifist, EPN.PacifistF,
-                        EPN.AT_Biological
+                        EPN.AT_Biological, EPN.AT_Lithoid, EPN.AT_Fungoid, EPN.AT_Plantoid
                     },
                     Requires = new HashSet<OrSet>(){ new OrSet() { EPN.Gestalt } }
                 }
