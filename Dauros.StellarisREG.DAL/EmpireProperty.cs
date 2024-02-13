@@ -12,13 +12,18 @@ namespace Dauros.StellarisREG.DAL
         public HashSet<OrSet> Requires { get; set; } = new HashSet<OrSet>();
         public AndSet Prohibits { get; set; } = new AndSet();
         public HashSet<String> DLC { get; } = new HashSet<string>();
+        /// <summary>
+        /// When true the EmpireProperty requires any of the DLC instead of all the DLC.
+        /// </summary>
+        public bool DLCIsInclusive = false;
         public int ID => Name.GetHashCode();
 
-        public EmpireProperty(String name, EmpirePropertyType type, params String[] dlc)
+        public EmpireProperty(String name, EmpirePropertyType type, bool inclusiveDLC, params String[] dlc)
         {
             Name = name;
             Type = type;
             DLC = dlc.ToHashSet();
+            DLCIsInclusive = inclusiveDLC;
         }
 
         public override bool Equals(object obj)

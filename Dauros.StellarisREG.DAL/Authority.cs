@@ -56,7 +56,7 @@ namespace Dauros.StellarisREG.DAL
                         EPN.Materialist,EPN.MaterialistF, EPN.Spiritualist, EPN.SpiritualistF,
                         EPN.Xenophile, EPN.XenophileF, EPN.Xenophobe,EPN.XenophobeF,
                         EPN.Militarist, EPN.MaterialistF, EPN.Pacifist, EPN.PacifistF,
-                        EPN.AT_Biological, EPN.AT_Lithoid, EPN.AT_Fungoid, EPN.AT_Plantoid
+                        EPN.AT_Animal, EPN.AT_Lithoid, EPN.AT_Plantoid
                     },
                     Requires = new HashSet<OrSet>(){ new OrSet() { EPN.Gestalt } }
                 }
@@ -70,6 +70,7 @@ namespace Dauros.StellarisREG.DAL
             }
         };
 
-        public Authority(String name, params String[] dlc) : base(name, EmpirePropertyType.Authority, dlc) { }
+        public Authority(String name, bool inclusiveDLC, params String[] dlc) : base(name, EmpirePropertyType.Authority, inclusiveDLC, dlc) { }
+        public Authority(String name, params String[] dlc) : base(name, EmpirePropertyType.Authority, false, dlc) { }
     }
 }

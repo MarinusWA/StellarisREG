@@ -84,10 +84,10 @@ namespace Dauros.StellarisREG.DAL
         public static String T_ScintillatingSkin => "Scintillating Skin";
         public static String T_VolatileExcretions => "Volatile Excretions";
         public static String T_Crystallization => "Crystallization";
-                
+        public static String T_Lithoid => "Lithoid";
         #endregion
 
-        public static String T_Lithoid => "Lithoid";
+
         public static String T_MachineUnit => "MachineUnit";
         public static String T_Necrophage => "Necrophage";
         public static String T_Aquatic => "Aquatic";
@@ -230,21 +230,23 @@ namespace Dauros.StellarisREG.DAL
         #endregion
         #region Hive Mind
         public static String C_Ascetic => "Ascetic";
-        public static String C_CatalyticProcessingHM => "Catalytic Processing HM";
         public static String C_DevouringSwarm => "Devouring Swarm";
         public static String C_DividedAttention => "Divided Attention";
+        public static String C_ElevationalContemplations => "ElevationalContemplations";
+        public static String C_NaturalNeuralNetwork => "Natural Neural Network";
         public static String C_Empath => "Empath";
         public static String C_IdyllicBloomHM => "Idyllic Bloom HM";
         public static String C_MemorialistHM => "Memorialist HM";
-        public static String C_NaturalNeuralNetwork=> "Natural Neural Network";
+        
         public static String C_OneMind => "One Mind";
+        public static String C_OrganicReprocessingHM => "Organic Reprocessing HM";
         public static String C_PooledKnowledge => "Pooled Knowledge";
         public static String C_StrengthofLegions=> "Strength of Legions";
         public static String C_SubspaceEphapse => "Subspace Ephapse";
         public static String C_SubsumedWill => "Subsumed Will";
         public static String C_Terravore=> "Terravore";
-
-        public static String C_OrganicReprocessing => "Organic Reprocessing";
+        
+        
         public static String C_VoidHive => "VoidHive";
         public static String C_CordycepticDrones => "Cordyceptic Drones";
         public static String C_PermutationPools => "Permutation Pools";
@@ -257,11 +259,11 @@ namespace Dauros.StellarisREG.DAL
         #endregion
 
         #region Machine Intelligence
-        public static String C_CatalyticProcessingMI => "Catalytic Processing MI";
         public static String C_Constructobot => "Constructobot";
         public static String C_DelegatedFunctions => "Delegated Functions";
         public static String C_DeterminedExterminator => "Determined Exterminator";
         public static String C_DrivenAssimilator => "Driven Assimilator";
+        public static String C_ElevationalHypotheses => "Elevational Hypotheses";
         public static String C_FactoryOverclocking => "Factory Overclocking";
         public static String C_Introspective => "Introspective";
         public static String C_MaintenanceProtocols => "Maintenance Protocols";
@@ -275,7 +277,7 @@ namespace Dauros.StellarisREG.DAL
         public static String C_Warbots => "Warbots";
         public static String C_ZeroWasteProtocols => "Zero-Waste Protocols";
 
-        public static String C_ElevationalHypotheses => "Elevational Hypotheses";
+        
         public static String C_OrganicReprocessingMI => "Organic Reprocessing MI";
         public static String C_HyperLube => "Hyper Lubrication Basin";
         public static String C_ExplorationProtocols => "Exploration Protocols";
@@ -288,7 +290,6 @@ namespace Dauros.StellarisREG.DAL
 
         #region Corporate
         public static String C_BrandLoyalty => "Brand Loyalty";
-        public static String C_CorporateCatalyticProcessing => "Corporate Catalytic Processing";
         public static String C_CorporateDeathCult => "Corporate Death Cult";
         public static String C_CorporateHedonism => "Corporate Hedonism";
         public static String C_CriminalHeritage => "Criminal Heritage";
@@ -307,7 +308,7 @@ namespace Dauros.StellarisREG.DAL
         public static String C_CorporateAnglers => "Corporate Anglers";
         
         public static String C_Gigacorp => "Gigacorp";
-        public static String C_CatalyticRecyclers => "CatalyticRecyclers";
+        public static String C_CatalyticRecyclers => "Catalytic Recyclers";
         public static String C_PermanentEmployment => "Permanent Employment";
         public static String C_TrawlingOperations => "Trawling Operations";
         public static String C_RefurbishmentDivision => "Refurbishment Division";
@@ -379,11 +380,11 @@ namespace Dauros.StellarisREG.DAL
 
 
         #region Archetypes
-        public static String AT_Biological => "Biological";
+        public static String AT_Animal => "Animal";
         public static String AT_Machine => "Machine ";
         public static String AT_Lithoid => "Lithoid ";
-        public static String AT_Plantoid => "Plantoid";
-        public static String AT_Fungoid => "Fungoid";
+        public static String AT_Plantoid => "Plant/Fungus";
+        
         #endregion
 
         #region PlanetTypes

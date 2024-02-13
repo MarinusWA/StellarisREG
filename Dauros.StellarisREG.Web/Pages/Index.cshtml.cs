@@ -32,7 +32,7 @@ namespace Dauros.StellarisREG.Web.Pages
                 return RedirectPermanent("https://stellarisreg.azurewebsites.net");
             }
 #endif
-            DLC = SelectState.AllDLC.ToList();
+            DLC = SelectState.AllDLC.Order().ToList();
             return Page();
         }
 

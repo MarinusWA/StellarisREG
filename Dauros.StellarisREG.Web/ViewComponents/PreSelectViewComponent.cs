@@ -21,9 +21,6 @@ namespace Dauros.StellarisREG.Web.ViewComponents
             ss.OriginName = selectedOrigin;
             ss.ArchetypeName = selectedArchetype;
 
-
-            
-            
             //If state is invalid, create a state with just the pick selected
             //If the pick is not an empireproperty assume its a dlc string and return an empty selectstate
             if (!ss.ValidateState())

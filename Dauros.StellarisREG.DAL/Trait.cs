@@ -284,7 +284,7 @@ namespace Dauros.StellarisREG.DAL
             {
                 EPN.T_Phototrophic,
                 new Trait(EPN.T_Phototrophic, EPN.D_Plantoids){
-                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Biological } },
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Plantoid } },
                     Prohibits = new AndSet(){EPN.T_Radiotrophic },
                     Cost=1
                 }
@@ -292,15 +292,15 @@ namespace Dauros.StellarisREG.DAL
             {
                 EPN.T_Radiotrophic,
                 new Trait(EPN.T_Radiotrophic, EPN.D_Plantoids){
-                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Biological } },
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Plantoid } },
                     Prohibits = new AndSet(){EPN.T_Phototrophic },
                     Cost=2
                 }
             },
             {
                 EPN.T_Budding,
-                new Trait(EPN.T_Radiotrophic, EPN.D_Plantoids){
-                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Biological } },
+                new Trait(EPN.T_Budding, EPN.D_Plantoids){
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Plantoid } },
                     Prohibits = new AndSet(){EPN.T_SlowBreeders,EPN.T_RapidBreeders,EPN.O_CloneArmy,EPN.O_Necrophage },
                     Cost=2
                 }
@@ -308,7 +308,7 @@ namespace Dauros.StellarisREG.DAL
             {
                 EPN.T_InvSpecies,
                 new Trait(EPN.T_InvSpecies, EPN.D_Plantoids){
-                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Biological } },
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Plantoid } },
                     Prohibits = new AndSet(){EPN.T_Adaptive,EPN.T_ExtremelyAdaptive,EPN.T_Agrarian,EPN.T_Charismatic,EPN.T_Communal,
                     EPN.T_Conformists,EPN.T_Conservationist,EPN.T_Docile,EPN.T_Enduring,EPN.T_Venerable,EPN.T_Industrious,EPN.T_Ingenious,
                     EPN.T_Intelligent,EPN.T_NaturalEngineers,EPN.T_NaturalPhysicists,EPN.T_NaturalSociologists,EPN.T_Nomadic,EPN.T_QuickLearners,
@@ -650,6 +650,7 @@ namespace Dauros.StellarisREG.DAL
             #endregion
         };
 
-        public Trait(String name, params String[] dlc) : base(name, EmpirePropertyType.Trait, dlc) { }
+        public Trait(String name, bool inclusiveDLC, params String[] dlc) : base(name, EmpirePropertyType.Trait, inclusiveDLC, dlc) { }
+        public Trait(String name, params String[] dlc) : base(name, EmpirePropertyType.Trait, false, dlc) { }
     }
 }

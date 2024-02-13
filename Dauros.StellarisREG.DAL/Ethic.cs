@@ -130,9 +130,10 @@ namespace Dauros.StellarisREG.DAL
                     Cost = 2,
                     Prohibits = new AndSet() { EPN.Xenophobe, EPN.XenophobeF, EPN.Xenophile }
                 }
-            },{
+            },
+            {
                 EPN.Gestalt,
-                new Ethic(EPN.Gestalt)
+                new Ethic(EPN.Gestalt, EPN.D_SyntheticDawn, EPN.D_Utopia)
                 {
                     Cost = 3
                 }
@@ -144,7 +145,8 @@ namespace Dauros.StellarisREG.DAL
 
         public int Cost { get; set; }
 
-        public Ethic(String name, params String[] dlc) : base(name, EmpirePropertyType.Ethic, dlc) { }
+        public Ethic(String name, bool inclusiveDLC, params String[] dlc) : base(name, EmpirePropertyType.Ethic, inclusiveDLC, dlc) { }
+        public Ethic(String name, params String[] dlc) : base(name, EmpirePropertyType.Ethic, false, dlc) { }
     }
 
     

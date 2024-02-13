@@ -9,8 +9,8 @@ namespace Dauros.StellarisREG.DAL
         public static Dictionary<String, SpeciesArchetype> Collection => new Dictionary<string, SpeciesArchetype>()
         {
             { 
-                EPN.AT_Biological,
-                new SpeciesArchetype(EPN.AT_Biological){ 
+                EPN.AT_Animal,
+                new SpeciesArchetype(EPN.AT_Animal){ 
                     Prohibits = new AndSet(){EPN.T_Lithoid,EPN.T_MachineUnit }
                 }
             },
@@ -30,14 +30,10 @@ namespace Dauros.StellarisREG.DAL
                 EPN.AT_Plantoid,
                 new SpeciesArchetype(EPN.AT_Plantoid, EPN.D_Plantoids){
                 }
-            },
-            {
-                EPN.AT_Fungoid,
-                new SpeciesArchetype(EPN.AT_Fungoid, EPN.D_Plantoids){
-                }
             }
         };
 
-        public SpeciesArchetype(string name, params String[] dlc) : base(name, EmpirePropertyType.SpeciesArchetype, dlc) { }
+        public SpeciesArchetype(string name, bool inclusiveDLC, params String[] dlc) : base(name, EmpirePropertyType.SpeciesArchetype, inclusiveDLC, dlc) { }
+        public SpeciesArchetype(string name, params String[] dlc) : base(name, EmpirePropertyType.SpeciesArchetype, false, dlc) { }
     }
 }

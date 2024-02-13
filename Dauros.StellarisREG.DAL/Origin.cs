@@ -69,7 +69,7 @@ namespace Dauros.StellarisREG.DAL
                 }
             },{
                 EPN.O_Remnants,
-                new Origin(EPN.O_Remnants, EPN.D_AncientRelics, EPN.D_Federations)
+                new Origin(EPN.O_Remnants, true, EPN.D_AncientRelics, EPN.D_Federations)
                 {
                     Prohibits = new AndSet(){ EPN.C_AgrarianIdyll }
                 }
@@ -143,7 +143,7 @@ namespace Dauros.StellarisREG.DAL
                 EPN.O_FruitfulPartnership,
                 new Origin(EPN.O_FruitfulPartnership, EPN.D_Plantoids)
                 {
-                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Plantoid, EPN.AT_Fungoid } },
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Plantoid} },
                     Prohibits = new AndSet(){ EPN.A_MachineIntelligence, EPN.C_DevouringSwarm }
                 }
             }
@@ -231,6 +231,7 @@ namespace Dauros.StellarisREG.DAL
 
         #endregion
 
-        public Origin(String name, params String[] dlc) : base(name, EmpirePropertyType.Origin, dlc) { }
+        public Origin(String name, bool inclusiveDLC, params String[] dlc) : base(name, EmpirePropertyType.Origin, inclusiveDLC, dlc) { }
+        public Origin(String name, params String[] dlc) : base(name, EmpirePropertyType.Origin, false, dlc) { }
     }
 }

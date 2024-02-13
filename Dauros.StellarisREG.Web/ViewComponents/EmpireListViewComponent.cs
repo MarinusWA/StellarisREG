@@ -88,7 +88,7 @@ namespace Dauros.StellarisREG.Web.ViewComponents
                     Ethics = ss.EthicNames,
                     Traits = ss.TraitNames,
                     PlanetType = GetRandomPlanetType(ss),
-                    Archetype = ss.ArchetypeName ?? EPN.AT_Biological
+                    Archetype = ss.ArchetypeName ?? EPN.AT_Animal
             };
 
                 result.Add(empireData);
@@ -101,7 +101,7 @@ namespace Dauros.StellarisREG.Web.ViewComponents
         {
             var dist = new List<String>() {EPN.AT_Lithoid,EPN.AT_Machine };
             //Make biological pick more likely
-            for (int i = 0; i < 6; i++) dist.Add(EPN.AT_Biological);
+            for (int i = 0; i < 6; i++) dist.Add(EPN.AT_Animal);
 
             if (ss.ArchetypeName == null)
             {

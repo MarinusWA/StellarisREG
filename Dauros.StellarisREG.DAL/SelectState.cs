@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Dauros.StellarisREG.DAL
@@ -23,11 +24,11 @@ namespace Dauros.StellarisREG.DAL
         public String? ArchetypeName { get; set; }
         public SpeciesArchetype? Archetype => ArchetypeName != null ? SpeciesArchetype.Collection[ArchetypeName] : null;
 
-        //public static HashSet<String> AllDLC => new HashSet<string>()
-        //{ EPN.D_AncientRelics, EPN.D_Apocalypse, EPN.D_Federations, EPN.D_Lithoids, EPN.D_Megacorp, EPN.D_Necroids, EPN.D_SyntheticDawn, EPN.D_Utopia, EPN.D_Humanoids, EPN.D_Plantoids,EPN.D_Nemesis, EPN.D_Aquatics,
-        //    EPN.D_Toxoids, EPN.D_AstralPlanes, EPN.D_Overlord, EPN.D_GalParagons };
+        public static HashSet<String> AllDLC => new HashSet<string>()
+        { EPN.D_AncientRelics, EPN.D_Apocalypse, EPN.D_Federations, EPN.D_Lithoids, EPN.D_Megacorp, EPN.D_Necroids, EPN.D_SyntheticDawn, EPN.D_Utopia, EPN.D_Humanoids, EPN.D_Plantoids,EPN.D_Nemesis, EPN.D_Aquatics,
+            EPN.D_Toxoids, EPN.D_AstralPlanes, EPN.D_Overlord, EPN.D_GalParagons };
 
-        public static HashSet<String> AllDLC => new HashSet<string>(){ EPN.D_GalParagons };
+        //public static HashSet<String> AllDLC => new HashSet<string>(){ EPN.D_GalParagons };
         /// <summary>
         /// Contains all EmpireProperties that are set on this SelectState
         /// </summary>
@@ -55,7 +56,7 @@ namespace Dauros.StellarisREG.DAL
                 return AllEmpireProperties
                     .Where(kvp =>
                     !kvp.Value.Prohibits.Any(e => SelectedDLC.Contains(e))
-                    && (!kvp.Value.DLC.Any() || kvp.Value.DLC.All(d=>SelectedDLC.Contains(d))) 
+                    && (!kvp.Value.DLC.Any() || (kvp.Value.DLCIsInclusive && kvp.Value.DLC.Any(d=>SelectedDLC.Contains(d))) || kvp.Value.DLC.All(d=>SelectedDLC.Contains(d))) 
                 ).Select(kvp => kvp.Value).ToHashSet();
             }
         }
