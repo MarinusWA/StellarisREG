@@ -64,6 +64,8 @@ namespace Dauros.StellarisREG.Web.ViewComponents
             foreach (var ss in states)
             {
                 SetRandomArchetype(ss);
+                //Mix up if it starts randomizing with an origin or with civics
+                //this is to prevent civics restricted by origins (and vice versa) from having very low chances of appearing
                 var firstProp = r.Next(2);
                 if (firstProp == 0)
                 {
@@ -101,7 +103,8 @@ namespace Dauros.StellarisREG.Web.ViewComponents
         {
             var dist = new List<String>() {EPN.AT_Lithoid,EPN.AT_Machine };
             //Make biological pick more likely
-            for (int i = 0; i < 6; i++) dist.Add(EPN.AT_Animal);
+            for (int i = 0; i < 4; i++) dist.Add(EPN.AT_Animal);
+            for (int i = 0; i < 2; i++) dist.Add(EPN.AT_Plantoid);
 
             if (ss.ArchetypeName == null)
             {

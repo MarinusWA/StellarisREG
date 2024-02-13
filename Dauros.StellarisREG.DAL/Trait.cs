@@ -437,6 +437,112 @@ namespace Dauros.StellarisREG.DAL
                     Prohibits = new AndSet(){ EPN.A_MachineIntelligence },
                 }
             },
+            #region Overtuned
+            {
+                EPN.T_AugmentedIntelligence,
+                new Trait(EPN.T_AugmentedIntelligence, EPN.D_Toxoids){
+                    Cost=1,
+                    Requires =new HashSet<OrSet>(){ new OrSet() { EPN.O_Overtuned } },
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence },
+                }
+            },
+            {
+                EPN.T_CraftedSmiles,
+                new Trait(EPN.T_CraftedSmiles, EPN.D_Toxoids){
+                    Cost=1,
+                    Requires =new HashSet<OrSet>(){ new OrSet() { EPN.O_Overtuned } },
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence },
+                }
+            },
+            {
+                EPN.T_DedicatedMiner,
+                new Trait(EPN.T_DedicatedMiner, EPN.D_Toxoids){
+                    Cost=1,
+                    Requires =new HashSet<OrSet>(){ new OrSet() { EPN.O_Overtuned } },
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence },
+                }
+            },
+            {
+                EPN.T_ExpressedTradition,
+                new Trait(EPN.T_ExpressedTradition, EPN.D_Toxoids){
+                    Cost=1,
+                    Requires =new HashSet<OrSet>(){ new OrSet() { EPN.O_Overtuned } },
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence },
+                }
+            },
+            {
+                EPN.T_FarmAppendages,
+                new Trait(EPN.T_FarmAppendages, EPN.D_Toxoids){
+                    Cost=1,
+                    Requires =new HashSet<OrSet>(){ new OrSet() { EPN.O_Overtuned } },
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence },
+                }
+            },
+            {
+                EPN.T_GeneMentorship,
+                new Trait(EPN.T_GeneMentorship, EPN.D_Toxoids){
+                    Cost=1,
+                    Requires =new HashSet<OrSet>(){ new OrSet() { EPN.O_Overtuned } },
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence },
+                }
+            },
+            {
+                EPN.T_JuicedPower,
+                new Trait(EPN.T_JuicedPower, EPN.D_Toxoids){
+                    Cost=1,
+                    Requires =new HashSet<OrSet>(){ new OrSet() { EPN.O_Overtuned } },
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence },
+                }
+            },
+            {
+                EPN.T_LowMaintenance,
+                new Trait(EPN.T_LowMaintenance, EPN.D_Toxoids){
+                    Cost=1,
+                    Requires =new HashSet<OrSet>(){ new OrSet() { EPN.O_Overtuned } },
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence },
+                }
+            },
+            {
+                EPN.T_SplicedAdaptability,
+                new Trait(EPN.T_SplicedAdaptability, EPN.D_Toxoids){
+                    Cost=1,
+                    Requires =new HashSet<OrSet>(){ new OrSet() { EPN.O_Overtuned } },
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence },
+                }
+            },
+            {
+                EPN.T_TechnicalTalent,
+                new Trait(EPN.T_TechnicalTalent, EPN.D_Toxoids){
+                    Cost=1,
+                    Requires =new HashSet<OrSet>(){ new OrSet() { EPN.O_Overtuned } },
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence },
+                }
+            },
+            {
+                EPN.T_ElevatedSynapses,
+                new Trait(EPN.T_ElevatedSynapses, EPN.D_Toxoids){
+                    Cost=2,
+                    Requires =new HashSet<OrSet>(){ new OrSet() { EPN.O_Overtuned } },
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence },
+                }
+            },
+            {
+                EPN.T_PrePlannedGrowth,
+                new Trait(EPN.T_PrePlannedGrowth, EPN.D_Toxoids){
+                    Cost=2,
+                    Requires =new HashSet<OrSet>(){ new OrSet() { EPN.O_Overtuned } },
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence },
+                }
+            },
+            {
+                EPN.T_ExcessiveEndurance,
+                new Trait(EPN.T_ExcessiveEndurance, EPN.D_Toxoids){
+                    Cost=2,
+                    Requires =new HashSet<OrSet>(){ new OrSet() { EPN.O_Overtuned } },
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence },
+                }
+            },
+            #endregion
             #endregion
             #region HiveMind
             {

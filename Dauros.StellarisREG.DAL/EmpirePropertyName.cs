@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 
 namespace Dauros.StellarisREG.DAL
@@ -120,6 +121,22 @@ namespace Dauros.StellarisREG.DAL
         public static String T_HighBandwidth => "High Bandwidth";
         public static String T_Superconductive => "Superconductive";
 
+        #endregion
+
+        #region Overtuned
+        public static String T_AugmentedIntelligence => "Augmented Intelligence";
+        public static String T_CraftedSmiles => "Crafted Smiles";
+        public static String T_DedicatedMiner => "Dedicated Miner";
+        public static String T_ExpressedTradition => "Expressed Tradition";
+        public static String T_FarmAppendages => "Farm Appendages";
+        public static String T_GeneMentorship => "Gene Mentorship";
+        public static String T_JuicedPower => "Juiced Power";
+        public static String T_LowMaintenance => "Low Maintenance";
+        public static String T_SplicedAdaptability => "Spliced Adaptability";
+        public static String T_TechnicalTalent => "Technical Talent";
+        public static String T_ElevatedSynapses => "Elevated Synapses";
+        public static String T_PrePlannedGrowth => "Pre-Planned Growth";
+        public static String T_ExcessiveEndurance => "Excessive Endurance";
         #endregion
 
         #endregion
