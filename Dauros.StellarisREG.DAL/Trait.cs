@@ -368,6 +368,14 @@ namespace Dauros.StellarisREG.DAL
                 }
             },
             {
+                EPN.T_VoidDweller,
+                new Trait(EPN.T_VoidDweller, EPN.D_Federations)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.O_VoidDwellers } },
+                    Cost=0
+                }
+            },
+            {
                 EPN.T_MachineUnit,
                 new Trait(EPN.T_MachineUnit, EPN.D_SyntheticDawn)
                 { 
