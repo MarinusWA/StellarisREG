@@ -180,9 +180,9 @@ namespace Dauros.StellarisREG.DAL
             },
             {
                 EPN.C_IdyllicBloom,
-                //this should be Plantoid & Fungoid only
                 new Civic(EPN.C_IdyllicBloom, EPN.D_Plantoids)
                 {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Plantoid } },
                     Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate, EPN.O_ShatteredRing, EPN.O_VoidDwellers,EPN.O_LifeSeeded, EPN.AT_Lithoid }
                 }
             },
