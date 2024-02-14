@@ -360,6 +360,14 @@ namespace Dauros.StellarisREG.DAL
             #endregion
             #region Misc
             {
+                EPN.T_Survivor,
+                new Trait(EPN.T_Survivor, EPN.D_Apocalypse)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.O_PostApocalyptic } },
+                    Cost=0
+                }
+            },
+            {
                 EPN.T_MachineUnit,
                 new Trait(EPN.T_MachineUnit, EPN.D_SyntheticDawn)
                 { 

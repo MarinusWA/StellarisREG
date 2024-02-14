@@ -20,20 +20,20 @@ namespace Dauros.StellarisREG.DAL
                 EPN.O_LostColony,
                 new Origin(EPN.O_LostColony)
                 {
-                    Prohibits = new AndSet(){ EPN.Gestalt }
+                    
                 }
             },{
                 EPN.O_Mechanist,
                 new Origin(EPN.O_Mechanist, EPN.D_Utopia)
                 {
                     Requires = new HashSet<OrSet>(){new OrSet(){ EPN.Materialist, EPN.MaterialistF }},
-                    Prohibits = new AndSet(){ EPN.Gestalt }
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.C_PermanentEmployment }
                 }
             },{
                 EPN.O_SyncreticEvolution,
                 new Origin(EPN.O_SyncreticEvolution, EPN.D_Utopia)
                 {
-                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.C_SharedBurdens, EPN.C_FanaticPurifiers }
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.C_FanaticPurifiers }
                 }
             },{
                 EPN.O_TreeofLife,
@@ -47,25 +47,25 @@ namespace Dauros.StellarisREG.DAL
                 new Origin(EPN.O_ResourceConsolidation, EPN.D_SyntheticDawn)
                 {
                     Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_MachineIntelligence }},
-                    Prohibits = new AndSet(){ EPN.C_RogueServitor }
+                    Prohibits = new AndSet(){ EPN.C_RogueServitor, EPN.C_OrganicReprocessingMI }
                 }
             },{
                 EPN.O_CloneArmy,
                 new Origin(EPN.O_CloneArmy, EPN.D_Humanoids)
                 {
-                    Prohibits = new AndSet(){ EPN.Gestalt }
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.C_PermanentEmployment }
                 }
             },{
                 EPN.O_LifeSeeded,
                 new Origin(EPN.O_LifeSeeded, EPN.D_Apocalypse)
                 {
-                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence }
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence, EPN.C_MutagenicSpas, EPN.C_PermutationPools, EPN.C_RelentlessIndustrialists }
                 }
             },{
                 EPN.O_PostApocalyptic,
                 new Origin(EPN.O_PostApocalyptic, EPN.D_Apocalypse)
                 {
-                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence, EPN.C_AgrarianIdyll }
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence, EPN.C_AgrarianIdyll, EPN.C_Anglers, EPN.C_TrawlingOperations }
                 }
             },{
                 EPN.O_Remnants,
@@ -77,13 +77,14 @@ namespace Dauros.StellarisREG.DAL
                 EPN.O_CalamitousBirth,
                 new Origin(EPN.O_CalamitousBirth, EPN.D_Lithoids)
                 {
-                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.T_Lithoid }}
+                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.T_Lithoid }},
+                    Prohibits = new AndSet(){ EPN.C_CatalyticProcessing, EPN.C_CatalyticRecyclers, EPN.C_OrganicReprocessingHM }
                 }
             },{
                 EPN.O_CommonGround,
                 new Origin(EPN.O_CommonGround, EPN.D_Federations)
                 {
-                    Prohibits = new AndSet(){ EPN.Xenophobe,EPN.XenophobeF,EPN.Gestalt,EPN.C_InwardPerfection,EPN.C_FanaticPurifiers,EPN.C_BarbaricDespoilers }
+                    Prohibits = new AndSet(){ EPN.Xenophobe,EPN.XenophobeF,EPN.Gestalt,EPN.C_InwardPerfection,EPN.C_FanaticPurifiers,EPN.C_BarbaricDespoilers, EPN.C_DevouringSwarm }
                 }
             },{
                 EPN.O_Hegemon,
@@ -110,13 +111,13 @@ namespace Dauros.StellarisREG.DAL
                 EPN.O_ShatteredRing,
                 new Origin(EPN.O_ShatteredRing, EPN.D_Federations)
                 {
-                    Prohibits = new AndSet(){ EPN.C_AgrarianIdyll }
+                    Prohibits = new AndSet(){ EPN.C_AgrarianIdyll, EPN.C_Anglers, EPN.C_TrawlingOperations }
                 }
             },{
                 EPN.O_VoidDwellers,
                 new Origin(EPN.O_VoidDwellers, EPN.D_Federations)
                 {
-                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.C_AgrarianIdyll }
+                    Prohibits = new AndSet(){ EPN.A_MachineIntelligence, EPN.C_AgrarianIdyll, EPN.C_IdyllicBloom, EPN.C_IdyllicBloomHM, EPN.C_Anglers, EPN.C_TrawlingOperations }
                 }
             },{
                 EPN.O_Necrophage,
