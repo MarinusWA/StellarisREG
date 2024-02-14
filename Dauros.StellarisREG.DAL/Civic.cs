@@ -335,6 +335,7 @@ namespace Dauros.StellarisREG.DAL
                 new Civic(EPN.C_Ascensionists, true, EPN.D_Utopia, EPN.D_AstralPlanes)
                 {
                     Requires = new HashSet<OrSet>(){ new OrSet() { EPN.Spiritualist, EPN.SpiritualistF } },
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate }
                 }
             },
             {
