@@ -541,6 +541,14 @@ namespace Dauros.StellarisREG.DAL
                 }
             },
             {
+                EPN.C_WorkerCooperative,
+                new Civic(EPN.C_WorkerCooperative, EPN.D_Megacorp)
+                {
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_Corporate }, new OrSet() { EPN.Egalitarian } },
+                    Prohibits = new AndSet(){ EPN.Xenophobe, EPN.XenophobeF, EPN.C_CorporateHedonism, EPN.C_RuthlessCompetition, EPN.C_CutthroatPolitics, EPN.C_PleasureSeekers, EPN.C_SharedBurdens, EPN.C_PoliceState }
+                }
+            },
+            {
                 EPN.C_TradingPosts,
                 new Civic(EPN.C_TradingPosts, EPN.D_Megacorp)
                 {

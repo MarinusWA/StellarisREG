@@ -323,7 +323,7 @@ namespace Dauros.StellarisREG.DAL
         public static String C_RuthlessCompetition => "Ruthless Competition";
         public static String C_TradingPosts => "Trading Posts";
         public static String C_CorporateAnglers => "Corporate Anglers";
-        
+        public static String C_WorkerCooperative => "Worker Cooperative";
         public static String C_Gigacorp => "Gigacorp";
         public static String C_CatalyticRecyclers => "Catalytic Recyclers";
         public static String C_PermanentEmployment => "Permanent Employment";
