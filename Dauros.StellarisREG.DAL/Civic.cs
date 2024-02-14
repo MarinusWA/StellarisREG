@@ -21,7 +21,7 @@ namespace Dauros.StellarisREG.DAL
                 EPN.C_Anglers,
                 new Civic(EPN.C_Anglers, EPN.D_Aquatics)
                 {
-                    Prohibits = new AndSet(){ EPN.C_AgrarianIdyll, EPN.O_PostApocalyptic, EPN.O_ShatteredRing, EPN.O_VoidDwellers }
+                    Prohibits = new AndSet(){ EPN.C_AgrarianIdyll, EPN.A_Corporate, EPN.O_PostApocalyptic, EPN.O_ShatteredRing, EPN.O_VoidDwellers }
                 }
             },
             {
@@ -281,7 +281,7 @@ namespace Dauros.StellarisREG.DAL
                 new Civic(EPN.C_PompousPurists,EPN.D_Humanoids)
                 {
                     Requires = new HashSet<OrSet>(){ new OrSet() { EPN.Xenophobe, EPN.XenophobeF } },
-                    Prohibits = new AndSet(){ EPN.C_InwardPerfection, EPN.C_FanaticPurifiers, EPN.O_Scion }
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate, EPN.C_InwardPerfection, EPN.C_FanaticPurifiers, EPN.O_Scion }
                 }
             },
             {
@@ -341,21 +341,21 @@ namespace Dauros.StellarisREG.DAL
                 EPN.C_SelectiveKinship,
                 new Civic(EPN.C_SelectiveKinship, EPN.D_Lithoids)
                 {
-                    Prohibits = new AndSet(){ EPN.Xenophile, EPN.XenophileF, EPN.EgalitarianF, EPN.O_BrokenShackles }
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate, EPN.Xenophile, EPN.XenophileF, EPN.EgalitarianF, EPN.O_BrokenShackles }
                 }
             },
             {
                 EPN.C_Scavengers,
                 new Civic(EPN.C_Scavengers,EPN.D_Toxoids)
                 {
-
+                     Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate }
                 }
             },
             {
                 EPN.C_MutagenicSpas,
                 new Civic(EPN.C_MutagenicSpas, EPN.D_Toxoids)
                 {
-                    Prohibits = new AndSet(){ EPN.O_LifeSeeded }
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate, EPN.O_LifeSeeded }
                 }
             },
             {
@@ -363,28 +363,28 @@ namespace Dauros.StellarisREG.DAL
                 new Civic(EPN.C_RelentlessIndustrialists, EPN.D_Toxoids)
                 {
                     Requires = new HashSet<OrSet>(){ new OrSet() { EPN.Materialist, EPN.MaterialistF } },
-                    Prohibits = new AndSet(){ EPN.C_AgrarianIdyll, EPN.C_Environmentalist, EPN.C_IdyllicBloom, EPN.C_Memorialists, EPN.O_LifeSeeded }
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate, EPN.C_AgrarianIdyll, EPN.C_Environmentalist, EPN.C_IdyllicBloom, EPN.C_Memorialists, EPN.O_LifeSeeded }
                 }
             },
             {
                 EPN.C_EagerExplorers,
                 new Civic(EPN.C_EagerExplorers, EPN.D_FirstContact)
                 {
-                    Prohibits = new AndSet(){ EPN.C_InwardPerfection, EPN.C_HyperspaceSpeciality, EPN.C_SovereignGuardianship, EPN.O_BrokenShackles, EPN.O_FearDark, EPN.O_Payback }
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate, EPN.C_InwardPerfection, EPN.C_HyperspaceSpeciality, EPN.C_SovereignGuardianship, EPN.O_BrokenShackles, EPN.O_FearDark, EPN.O_Payback }
                 }
             },
             {
                 EPN.C_HeroicPast,
                 new Civic(EPN.C_HeroicPast, EPN.D_GalParagons)
                 {
-
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate }
                 }
             },
             {
                 EPN.C_VaultsKnowledge,
                 new Civic(EPN.C_VaultsKnowledge, EPN.D_GalParagons)
                 {
-
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate }
                 }
             },
             {
@@ -392,7 +392,7 @@ namespace Dauros.StellarisREG.DAL
                 new Civic(EPN.C_CrusaderSpirit, EPN.D_GalParagons)
                 {
                     Requires = new HashSet<OrSet>(){ new OrSet() { EPN.Authoritarian, EPN.AuthoritarianF, EPN.Militarist, EPN.MilitaristF, EPN.Spiritualist, EPN.SpiritualistF  } },
-                    Prohibits = new AndSet(){ EPN.Pacifist, EPN.PacifistF, EPN.C_BeaconofLiberty, EPN.C_FanaticPurifiers }
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate, EPN.Pacifist, EPN.PacifistF, EPN.C_BeaconofLiberty, EPN.C_FanaticPurifiers }
                 }
             },
             {
@@ -400,13 +400,14 @@ namespace Dauros.StellarisREG.DAL
                 new Civic(EPN.C_OppressiveAutocracy, EPN.D_GalParagons)
                 {
                     Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AuthoritarianF } },
-                    Prohibits = new AndSet(){ EPN.C_AgrarianIdyll, EPN.C_Environmentalist, EPN.C_FreeHaven, EPN.C_WarriorCulture, EPN.C_PleasureSeekers }
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate, EPN.C_AgrarianIdyll, EPN.C_Environmentalist, EPN.C_FreeHaven, EPN.C_WarriorCulture, EPN.C_PleasureSeekers }
                 }
             },
             {
                 EPN.C_DarkConsortium,
                 new Civic(EPN.C_DarkConsortium, EPN.D_AstralPlanes)
                 {
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate }
                 }
             },
             {
@@ -414,14 +415,14 @@ namespace Dauros.StellarisREG.DAL
                 new Civic(EPN.C_DimensionalWorship, EPN.D_AstralPlanes)
                 {
                     Requires = new HashSet<OrSet>(){ new OrSet() { EPN.Spiritualist, EPN.SpiritualistF } },
-                    Prohibits = new AndSet(){ EPN.C_DeathCult }
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate, EPN.C_DeathCult }
                 }
             },
             {
                 EPN.C_HyperspaceSpeciality,
                 new Civic(EPN.C_HyperspaceSpeciality, EPN.D_AstralPlanes)
                 {
-                    Prohibits = new AndSet(){ EPN.C_EagerExplorers }
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate, EPN.C_EagerExplorers }
                 }
             },
             {
@@ -429,7 +430,7 @@ namespace Dauros.StellarisREG.DAL
                 new Civic(EPN.C_SovereignGuardianship, EPN.D_AstralPlanes)
                 {
                     Requires = new HashSet<OrSet>(){ new OrSet() { EPN.Militarist,EPN.MilitaristF  } },
-                    Prohibits = new AndSet(){ EPN.C_InwardPerfection, EPN.C_FanaticPurifiers, EPN.C_Reanimators, EPN.C_EagerExplorers,EPN.O_BrokenShackles, EPN.O_FearDark, EPN.O_Payback }
+                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Corporate, EPN.C_InwardPerfection, EPN.C_FanaticPurifiers, EPN.C_Reanimators, EPN.C_EagerExplorers,EPN.O_BrokenShackles, EPN.O_FearDark, EPN.O_Payback }
                 }
             },
             #endregion
