@@ -200,7 +200,7 @@ namespace Dauros.StellarisREG.DAL
                 }
             },{
                 EPN.O_Payback,
-                new Origin(EPN.O_ProgenitorHive, EPN.D_FirstContact)
+                new Origin(EPN.O_Payback, EPN.D_FirstContact)
                 {
                     Prohibits = new AndSet(){ EPN.Gestalt, EPN.C_SlaverGuilds, EPN.C_FanaticPurifiers, EPN.C_PompousPurists, EPN.C_EagerExplorers,
                     EPN.C_OppressiveAutocracy, EPN.C_SovereignGuardianship, EPN.C_IndenturedAssets, EPN.C_PrivatizedExploration, EPN.C_PharmaState, EPN.C_CorporateProtectorate}
