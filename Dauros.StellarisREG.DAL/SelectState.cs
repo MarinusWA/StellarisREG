@@ -26,7 +26,7 @@ namespace Dauros.StellarisREG.DAL
 
         public static HashSet<String> AllDLC => new HashSet<string>()
         { EPN.D_AncientRelics, EPN.D_Apocalypse, EPN.D_Federations, EPN.D_Lithoids, EPN.D_Megacorp, EPN.D_Necroids, EPN.D_SyntheticDawn, EPN.D_Utopia, EPN.D_Humanoids, EPN.D_Plantoids,EPN.D_Nemesis, EPN.D_Aquatics,
-            EPN.D_Toxoids, EPN.D_AstralPlanes, EPN.D_Overlord, EPN.D_GalParagons };
+            EPN.D_Toxoids, EPN.D_AstralPlanes, EPN.D_Overlord, EPN.D_GalParagons, EPN.D_FirstContact };
 
         //public static HashSet<String> AllDLC => new HashSet<string>(){ EPN.D_GalParagons };
         /// <summary>
