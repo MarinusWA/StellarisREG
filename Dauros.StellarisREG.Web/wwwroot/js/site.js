@@ -117,7 +117,7 @@ function scanPreselect() {
 
 function generateEmpireList(amount) {
     var psdata = scanPreselect();
-    $('#empirelist').fadeOut(1000);
+    renderGenerating();
     //console.log(psdata);
     $.ajax({
         type: 'POST',
@@ -132,9 +132,17 @@ function generateEmpireList(amount) {
     });
 }
 
+function renderGenerating() {
+    var gen = '<div class="spinner-border" role="status"><span class="sr-only"> Loading...</span></div>';
+    $('#empirelist').html(gen);
+    $('#empirelist').fadeIn(100);
+}
+
+
 function renderEmpireList(htmldata) {
+    
     $('#empirelist').html(htmldata);
-    $('#empirelist').fadeIn(200);
+    
 }
 
 function refreshPreSelect(ppick) {
