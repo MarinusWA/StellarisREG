@@ -144,7 +144,7 @@ namespace Dauros.StellarisREG.DAL
                 EPN.O_FruitfulPartnership,
                 new Origin(EPN.O_FruitfulPartnership, EPN.D_Plantoids)
                 {
-                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Plantoid} },
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Plantoid}, new OrSet() { EPN.Pacifist, EPN.PacifistF, EPN.Xenophile, EPN.XenophileF, EPN.A_HiveMind}},
                     Prohibits = new AndSet(){ EPN.A_MachineIntelligence, EPN.C_DevouringSwarm }
                 }
             }
