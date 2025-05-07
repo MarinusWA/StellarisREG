@@ -133,7 +133,7 @@ namespace Dauros.StellarisREG.DAL
             },
             {
                 EPN.Gestalt,
-                new Ethic(EPN.Gestalt, EPN.D_SyntheticDawn, EPN.D_Utopia)
+                new Ethic(EPN.Gestalt, new[] {EPN.D_SyntheticDawn, EPN.D_Utopia }.ToOrSet())
                 {
                     Cost = 3
                 }
@@ -145,8 +145,8 @@ namespace Dauros.StellarisREG.DAL
 
         public int Cost { get; set; }
 
-        public Ethic(String name, bool inclusiveDLC, params String[] dlc) : base(name, EmpirePropertyType.Ethic, inclusiveDLC, dlc) { }
-        public Ethic(String name, params String[] dlc) : base(name, EmpirePropertyType.Ethic, false, dlc) { }
+        public Ethic(String name, HashSet<OrSet>? dlc = null, HashSet<OrSet>? requirements = null, AndSet? prohibitions = null)
+			: base(name, EmpirePropertyType.Ethic,dlc,requirements,prohibitions) { }
     }
 
     

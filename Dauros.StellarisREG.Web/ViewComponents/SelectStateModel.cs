@@ -36,8 +36,13 @@ namespace Dauros.StellarisREG.Web.ViewComponents
         public String? SelectedArchetype { get; set; }
         public List<String> ValidArchetypes { get; set; } = new List<string>();
         public List<String> ProhibitedArchetypes { get; set; } = new List<string>();
-        #endregion
+		#endregion
 
+		#region Shipsets
+		public String? SelectedShipset { get; set; }
+		public List<String> ValidShipsets { get; set; } = new List<string>();
+		public List<String> ProhibitedShipsets { get; set; } = new List<string>();
+		#endregion
 
-    }
+	}
 }

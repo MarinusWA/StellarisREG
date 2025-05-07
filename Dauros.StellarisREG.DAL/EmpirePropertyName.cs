@@ -57,13 +57,20 @@ namespace Dauros.StellarisREG.DAL
         public static String T_Serviles => "Serviles";
         public static String T_CloneSoldier => "Clone Soldier";
         public static String T_Survivor => "Survivor";
-        public static String T_VoidDweller => "Void Dweller";
+		public static String T_RadiationShields => "Radiation Shields";
+		public static String T_VoidDweller => "Void Dweller";
         public static String T_CaveDweller => "Cave Dweller";
-        public static String T_PerfectGenes => "Perfected Genes";
-        #endregion
+		public static String T_Molebots => "Molebots";
+		public static String T_PerfectGenes => "Perfected Genes";
+		public static String T_Wilderness => "Wilderness";
 
-        #region Humanoid
-        public static String T_EIteroparity => "Existential Iteroparity";
+		public static String T_LatentPsionic => "Latent Psionic";
+        public static String T_PathogenicGenes => "Pathogenic Genes";
+		public static String T_MalleableGenes => "Malleable Genes";
+		#endregion
+
+		#region Humanoid
+		public static String T_EIteroparity => "Existential Iteroparity";
         public static String T_PInfertility => "Psychological Infertility";
         public static String T_Jinxed => "Jinxed";
         #endregion
@@ -92,7 +99,8 @@ namespace Dauros.StellarisREG.DAL
         public static String T_MachineUnit => "MachineUnit";
         public static String T_Necrophage => "Necrophage";
         public static String T_Aquatic => "Aquatic";
-        public static String T_HiveMinded => "Hive-Minded";
+		public static String T_Waterproof => "Waterproof";
+		public static String T_HiveMinded => "Hive-Minded";
         public static String T_Stargazer => "Stargazer";
 
         #region Machine Traits
@@ -160,10 +168,15 @@ namespace Dauros.StellarisREG.DAL
         public static String D_Toxoids => "Toxoids";
         public static String D_AstralPlanes => "Astral Planes";
 
-        #endregion
+        public static String D_MachineAge => "Machine Age";
+		public static String D_CosmicStorms => "Cosmic Storms";
+		public static String D_GrandArchive => "Grand Archive";
+		public static String D_Biogenesis => "Biogenesis";
 
-        #region Ethics
-        public static String Materialist => "Materialist";
+		#endregion
+
+		#region Ethics
+		public static String Materialist => "Materialist";
         public static String MaterialistF => "Fanatic Materialist";
         public static String Spiritualist => "Spiritualist";
         public static String SpiritualistF => "Fanatic Spiritualist";
@@ -243,10 +256,22 @@ namespace Dauros.StellarisREG.DAL
         public static String C_DimensionalWorship => "Dimensional Worship";
         public static String C_HyperspaceSpeciality => "Hyperspace Speciality";
         public static String C_SovereignGuardianship => "Sovereign Guardianship";
+		public static String C_GenesisGuides => "Genesis Guides";
+		public static String C_CivilEducation => "Civil Education";
+		public static String C_Crowdsourcing => "Crowdsourcing";
+		public static String C_GeneticIdentification => "Genetic Identification";
+		public static String C_NaturalDesign => "Natural Design";
+		public static String C_Planetscapers => "Planetscapers";
+		public static String C_StormDevotion => "Storm Devotion";
+		public static String C_Beastmasters => "Beastmasters";
+		public static String C_GalacticCurators => "Galactic Curators";
+		public static String C_MarineMachines => "Marine Machines";
+		public static String C_LuxuryLubePools => "Luxury Lubrication Pools";
+		public static String C_LubriationTanks => "Lubrication Tanks";
 
-        #endregion
-        #region Hive Mind
-        public static String C_Ascetic => "Ascetic";
+		#endregion
+		#region Hive Mind
+		public static String C_Ascetic => "Ascetic";
         public static String C_DevouringSwarm => "Devouring Swarm";
         public static String C_DividedAttention => "Divided Attention";
         public static String C_ElevationalContemplations => "ElevationalContemplations";
@@ -262,9 +287,10 @@ namespace Dauros.StellarisREG.DAL
         public static String C_SubspaceEphapse => "Subspace Ephapse";
         public static String C_SubsumedWill => "Subsumed Will";
         public static String C_Terravore=> "Terravore";
-        
-        
-        public static String C_VoidHive => "VoidHive";
+        public static String C_WildSwarm => "Wild Swarm";
+        public static String C_ClimateModeling => "Climate Modeling";
+
+		public static String C_VoidHive => "VoidHive";
         public static String C_CordycepticDrones => "Cordyceptic Drones";
         public static String C_PermutationPools => "Permutation Pools";
         public static String C_Stargazers => "Stargazers";
@@ -272,11 +298,17 @@ namespace Dauros.StellarisREG.DAL
         public static String C_NeuralVaults => "Neural Vaults";
         public static String C_GuardianCluster => "Guardian Cluster";
         public static String C_HyperspaceSyncHM => "Hyperspace Synchronicity HM";
+        public static String C_CultivationDrones => "Cultivation Drones";
+		public static String C_GenesisSymbiotes => "Genesis Symbiotes";
+		public static String C_MycorrhizalIdeal => "Mycorrhizal Ideal";
+        public static String C_InnateDesign => "Innate Design";
+		public static String C_Bodysnatcher => "Bodysnatcher";
 
-        #endregion
+		#endregion
 
-        #region Machine Intelligence
-        public static String C_Constructobot => "Constructobot";
+		#region Machine Intelligence
+		public static String C_BuiltToLast => "Built to Last";
+		public static String C_Constructobot => "Constructobot";
         public static String C_DelegatedFunctions => "Delegated Functions";
         public static String C_DeterminedExterminator => "Determined Exterminator";
         public static String C_DrivenAssimilator => "Driven Assimilator";
@@ -295,18 +327,22 @@ namespace Dauros.StellarisREG.DAL
         public static String C_ZeroWasteProtocols => "Zero-Waste Protocols";
 
         
-        public static String C_OrganicReprocessingMI => "Organic Reprocessing MI";
-        public static String C_HyperLube => "Hyper Lubrication Basin";
-        public static String C_ExplorationProtocols => "Exploration Protocols";
+        public static String C_OrganicRetrofitting => "Organic Retrofitting";
+        
+        public static String C_HyperLubrication => "Hyper Lubrication";
+		public static String C_ExplorationProtocols => "Exploration Protocols";
         public static String C_XPCache => "Experience Cache";
         public static String C_SovereignCircuits => "Sovereign Circuits";
         public static String C_GuardianMatrix => "Guardian Matrix";
         public static String C_HyperspaceSyncMI => "Hyperspace Synchronicity MI";
+		public static String C_Astrometeorology => "Astrometeorology";
+        public static String C_GardeningProtocols => "Gardening Protocols";
+        public static String C_GenesisArchitects => "Genesis Architects";
 
-        #endregion
+		#endregion
 
-        #region Corporate
-        public static String C_BrandLoyalty => "Brand Loyalty";
+		#region Corporate
+		public static String C_BrandLoyalty => "Brand Loyalty";
         public static String C_CorporateDeathCult => "Corporate Death Cult";
         public static String C_CorporateHedonism => "Corporate Hedonism";
         public static String C_CriminalHeritage => "Criminal Heritage";
@@ -338,14 +374,26 @@ namespace Dauros.StellarisREG.DAL
         public static String C_DimensionalEnterprise => "Dimensional Enterprise";
         public static String C_HyperspaceTrade => "Hyperspace Trade";
         public static String C_ShadowCorpation => "Shadow Corporation";
+		public static String C_MutagenicLuxury => "Mutagenic Luxury";
+		public static String C_ShareholderValues => "Shareholder Values";
+		public static String C_AstrogenesisTechnologies => "Astrogenesis Technologies";
+		public static String C_WeatherExploitation => "Weather Exploitation";
+		public static String C_DecentralizedRandD => "Decentralized R&D";
+		public static String C_SequencedSecurities => "Sequenced Securities";
+        public static String C_GeoEngineeringInc => "Geo-Engineering Inc.";
+		public static String C_MaritimeRobotics => "Maritime Robotics";
+		public static String C_AugmentationBazaars => "Augmentation Bazaars";
+		public static String C_StormInfluencers => "Storm Influencers";
+		public static String C_AntiquarianExpertise => "Antiquarian Expertise";
+		public static String C_SpaceRanchers => "Space Ranchers";
 
 
-        #endregion
-        #endregion
+		#endregion
+		#endregion
 
-        #region Authority
+		#region Authority
 
-        public static String A_Democratic => "Democratic";
+		public static String A_Democratic => "Democratic";
         public static String A_Oligarchic => "Oligarchic";
         public static String A_Dictatorial => "Dictatorial";
         public static String A_Imperial => "Imperial";
@@ -355,19 +403,43 @@ namespace Dauros.StellarisREG.DAL
 
         #endregion
 
-        #region Origins
-        public static String O_LostColony => "Lost Colony";
+        #region ShipTypes
+        public static String S_Mechanical => "Mechanical";
+        public static String S_Biological => "Biological";
+		#endregion
+
+		#region Origins
+		#region Ascension Origins
+		public static String O_TeachersShroud => "Teachers of the Shroud";
+        public static String O_CyberneticCreed => "Cybernetic Creed";
+		public static String O_SyntheticFertility => "Synthetic Fertility";
+		public static String O_EvolutionaryPredators => "Evolutionary Predators";
+		#endregion
+
+		#region Species Restricted Origins
+		public static String O_FruitfulPartnership => "Fruitful Partnership";
+		public static String O_CalamitousBirth => "Calamitous Birth";
+		public static String O_ArcWelders => "Arc Welders";
+		#endregion
+
+		#region Gestalt Origins
+		public static String O_TreeofLife => "Tree of Life";
+		public static String O_ProgenitorHive => "Progenitor Hive";
+		public static String O_ResourceConsolidation => "Resource Consolidation";
+		public static String O_Wilderness => "Wilderness ";//This has an added space to differentiate it from the Wilderness trait
+		#endregion
+		public static String O_LostColony => "Lost Colony";
         public static String O_Mechanist => "Mechanist";
         public static String O_GalacticDoorstep => "Galactic Doorstep";
         public static String O_ProsperousUnification => "Prosperous Unification";
         public static String O_SyncreticEvolution => "Syncretic Evolution";
-        public static String O_TreeofLife => "Tree of Life";
-        public static String O_ResourceConsolidation => "Resource Consolidation";
+        
+        
         public static String O_CloneArmy => "Clone Army";
         public static String O_LifeSeeded => "Life-Seeded";
         public static String O_PostApocalyptic => "Post-Apocalyptic";
         public static String O_Remnants => "Remnants";
-        public static String O_CalamitousBirth => "Calamitous Birth";
+        
         public static String O_CommonGround => "Common Ground";
         public static String O_Hegemon => "Hegemon";
         public static String O_Doomsday => "Doomsday";
@@ -380,11 +452,12 @@ namespace Dauros.StellarisREG.DAL
         public static String O_OceanParadise => "Ocean Paradise";
 
         public static String O_ImperialFiefdom => "Imperial Fiefdom";
-        public static String O_ProgenitorHive => "Progenitor Hive";
-        public static String O_FruitfulPartnership => "Fruitful Partnership";
+        
+        
         public static String O_SlingshotStars => "Slingshot to the Stars";
         public static String O_Subterranean => "Subterranean";
-        public static String O_TeachersShroud => "Teachers of the Shroud";
+
+        
         public static String O_KnightsToxicGod => "Knights of the Toxic God";
         public static String O_Overtuned => "Overtuned";
         public static String O_BrokenShackles => "Broken Shackles";
@@ -392,14 +465,19 @@ namespace Dauros.StellarisREG.DAL
         public static String O_FearDark => "Fear of the Dark";
         public static String O_UnderOneRule => "Under One Rule";
         public static String O_Riftworld => "Riftworld";
+		public static String O_HardReset => "Hard Reset";
+		public static String O_StormChasers => "Storm Chasers";
+		public static String O_PrimalCalling => "Primal Calling";
+		public static String O_TreasureHunters => "Treasure Hunters";
+		public static String O_StarlitCitadel => "Starlit Citadel";
+        public static String O_RadioactiveRovers => "Radioactive Rovers";
+		#endregion
 
-        #endregion
 
-
-        #region Archetypes
-        public static String AT_Animal => "Animal";
-        public static String AT_Machine => "Machine ";
-        public static String AT_Lithoid => "Lithoid ";
+		#region Archetypes
+		public static String AT_Animal => "Animal";
+        public static String AT_Machine => "Machine";
+		public static String AT_Lithoid => "Lithoid ";
         public static String AT_Plantoid => "Plant/Fungus";
         
         #endregion
@@ -423,4 +501,6 @@ namespace Dauros.StellarisREG.DAL
 
         #endregion
     }
+
+   
 }

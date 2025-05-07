@@ -1,6 +1,7 @@
 ﻿using Dauros.StellarisREG.DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.Language;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Dauros.StellarisREG.Web.ViewComponents
     public class EmpireList : ViewComponent
     {
         public async Task<IViewComponentResult> InvokeAsync(HashSet<String> selectedDLC, string? selectedOrigin, HashSet<String> selectedEthics,
-            String? selectedAuthority, String? selectedArchetype, HashSet<String> selectedCivics)
+            String? selectedAuthority, String? selectedArchetype, string? selectedShipSet, HashSet<String> selectedCivics)
         {
             var result = new List<EmpireDataModel>();
             var states = new List<SelectState>();
@@ -28,6 +29,7 @@ namespace Dauros.StellarisREG.Web.ViewComponents
                 ss.OriginName = selectedOrigin;
                 ss.ArchetypeName = selectedArchetype;
                 ss.SelectedDLC = selectedDLC != null ? selectedDLC.ToHashSet() : SelectState.AllDLC.ToHashSet();
+                ss.ShipsetName = selectedShipSet;
 
                 //Set auto assigned EmpireProperties
                 if (selectedArchetype == EPN.AT_Lithoid)
@@ -45,18 +47,35 @@ namespace Dauros.StellarisREG.Web.ViewComponents
                 else if (selectedOrigin == EPN.O_SyncreticEvolution)
                     ss.TraitNames.Add(EPN.T_Serviles);
                 else if (selectedOrigin == EPN.O_PostApocalyptic)
-                    ss.TraitNames.Add(EPN.T_Survivor);
+                    if (ss.ArchetypeName == EPN.AT_Machine)
+						ss.TraitNames.Add(EPN.T_RadiationShields);
+					else
+						ss.TraitNames.Add(EPN.T_Survivor);
                 else if (selectedOrigin == EPN.O_VoidDwellers)
                     ss.TraitNames.Add(EPN.T_VoidDweller);
                 else if (selectedOrigin == EPN.O_Subterranean)
-                    ss.TraitNames.Add(EPN.T_CaveDweller);
+					if (ss.ArchetypeName == EPN.AT_Machine)
+						ss.TraitNames.Add(EPN.T_Molebots);
+                    else
+                        ss.TraitNames.Add(EPN.T_CaveDweller);
                 else if (selectedOrigin == EPN.O_UnderOneRule)
                     ss.TraitNames.Add(EPN.T_PerfectGenes);
-                
-                if (ss.CivicNames.Contains(EPN.C_Stargazers))
+                else if ( selectedOrigin == EPN.O_TeachersShroud)
+                    ss.TraitNames.Add(EPN.T_LatentPsionic);
+				else if (selectedOrigin == EPN.O_SyntheticFertility)
+					ss.TraitNames.Add(EPN.T_PathogenicGenes);
+				else if (selectedOrigin == EPN.O_EvolutionaryPredators)
+					ss.TraitNames.Add(EPN.T_MalleableGenes);
+
+
+				if (ss.CivicNames.Contains(EPN.C_Stargazers))
                     ss.TraitNames.Add(EPN.T_Stargazer);
                 if (ss.CivicNames.Contains(EPN.C_Anglers) || selectedOrigin == EPN.O_OceanParadise)
-                    ss.TraitNames.Add(EPN.T_Aquatic);
+                    if (ss.ArchetypeName == EPN.AT_Machine)
+						ss.TraitNames.Add(EPN.T_Waterproof);
+					else
+                        ss.TraitNames.Add(EPN.T_Aquatic);
+				ss.TraitNames.Add(EPN.T_Aquatic);
 
                 states.Add(ss);
             }
@@ -116,7 +135,22 @@ namespace Dauros.StellarisREG.Web.ViewComponents
             }
         }
 
-        private void AddRandomTraits(SelectState ss)
+        private void SetRandomShipSet(SelectState ss)
+		{
+			var dist = new List<String>() { EPN.S_Biological };
+			//Make biological pick less likely (1/10 chance)
+			for (int i = 0; i < 9; i++) dist.Add(EPN.S_Mechanical);
+
+            if(ss.ShipsetName == null)
+			{
+				var valid = ss.GetValidShipsets().ToArray();
+				dist.RemoveAll(d => !valid.Contains(d));
+				valid = dist.ToArray();
+				var r = new Random();
+				ss.ShipsetName = valid[r.Next(valid.Count())];
+			}
+		}
+		private void AddRandomTraits(SelectState ss)
         {
             var validTraits = ss.GetValidTraits().ToArray();
             var r = new Random();

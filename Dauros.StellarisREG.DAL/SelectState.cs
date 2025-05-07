@@ -23,12 +23,17 @@ namespace Dauros.StellarisREG.DAL
         public IReadOnlyCollection<Trait> Traits => TraitNames.Select(tn => Trait.Collection[tn]).ToHashSet();
         public String? ArchetypeName { get; set; }
         public SpeciesArchetype? Archetype => ArchetypeName != null ? SpeciesArchetype.Collection[ArchetypeName] : null;
+        public String? ShipsetName { get; set; }
+		public ShipSet? Shipset => ShipsetName != null ? ShipSet.Collection[ShipsetName] : null;
 
-        public static HashSet<String> AllDLC => new HashSet<string>()
+		/// <summary>
+		/// Returns all DLC that impact Empire choices.
+		/// </summary>
+		/// <remarks>This is a fixed value hashset because using reflection would reduce performance (and it's slow enough as it is)</remarks>
+		public static HashSet<String> AllDLC => new HashSet<string>()
         { EPN.D_AncientRelics, EPN.D_Apocalypse, EPN.D_Federations, EPN.D_Lithoids, EPN.D_Megacorp, EPN.D_Necroids, EPN.D_SyntheticDawn, EPN.D_Utopia, EPN.D_Humanoids, EPN.D_Plantoids,EPN.D_Nemesis, EPN.D_Aquatics,
-            EPN.D_Toxoids, EPN.D_AstralPlanes, EPN.D_Overlord, EPN.D_GalParagons, EPN.D_FirstContact };
+            EPN.D_Toxoids, EPN.D_AstralPlanes, EPN.D_Overlord, EPN.D_GalParagons, EPN.D_FirstContact, EPN.D_MachineAge, EPN.D_CosmicStorms, EPN.D_GrandArchive, EPN.D_Biogenesis };
 
-        //public static HashSet<String> AllDLC => new HashSet<string>(){ EPN.D_GalParagons };
         /// <summary>
         /// Contains all EmpireProperties that are set on this SelectState
         /// </summary>
@@ -43,7 +48,8 @@ namespace Dauros.StellarisREG.DAL
                 result.UnionWith(Civics);
                 result.UnionWith(Traits);
                 if (Archetype != null) result.Add(Archetype);
-                return result;
+                if (Shipset != null) result.Add(Shipset);
+				return result;
             }
         }
         /// <summary>
@@ -53,15 +59,23 @@ namespace Dauros.StellarisREG.DAL
         {
             get
             {
-                return AllEmpireProperties
-                    .Where(kvp =>
-                    !kvp.Value.Prohibits.Any(e => SelectedDLC.Contains(e))
-                    && (!kvp.Value.DLC.Any() || (kvp.Value.DLCIsInclusive && kvp.Value.DLC.Any(d=>SelectedDLC.Contains(d))) || kvp.Value.DLC.All(d=>SelectedDLC.Contains(d))) 
-                ).Select(kvp => kvp.Value).ToHashSet();
-            }
+                return AllEmpireProperties.Where(kvp =>
+					EmpirePropertyIsAllowedByDLC(kvp.Value)
+				).Select(kvp => kvp.Value).ToHashSet();
+			}
+		}
+
+        private Boolean EmpirePropertyIsAllowedByDLC(EmpireProperty ep)
+        {
+            //properties that are prohibited by selected DLC (like the Corporate Dominion civic)
+            if (ep.Prohibits.Overlaps(SelectedDLC)) return false;
+
+            //If any of the OrSets does not contain atleast one of the selected DLC, it is not allowed
+            return ep.DLC.All(orSet => orSet.Overlaps(SelectedDLC));
         }
 
-        private static Dictionary<String, EmpireProperty> _allEmpireProperties = null!;
+
+		private static Dictionary<String, EmpireProperty> _allEmpireProperties = null!;
         public static Dictionary<String, EmpireProperty> AllEmpireProperties
         {
             get
@@ -75,17 +89,19 @@ namespace Dauros.StellarisREG.DAL
                     result = result.Union(Authority.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
                     result = result.Union(Trait.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
                     result = result.Union(SpeciesArchetype.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
-                    _allEmpireProperties = result;
+                    result = result.Union(ShipSet.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
+					_allEmpireProperties = result;
                 }
                 return _allEmpireProperties;
             }
         }
 
-        public SelectState() { }
+        public SelectState() {
+		}
 
         public SelectState(HashSet<EmpireProperty> eps)
         {
-            foreach (var ep in eps)
+			foreach (var ep in eps)
             {
                 AddEmpireProperty(ep);
             }
@@ -128,7 +144,12 @@ namespace Dauros.StellarisREG.DAL
             return GetValidProperties().Where(ep => SelectState.GetEmpirePropertyType(ep) == EmpirePropertyType.SpeciesArchetype).ToHashSet();
         }
 
-        public AndSet GetProhibited()
+		public HashSet<String> GetValidShipsets()
+		{
+			return GetValidProperties().Where(ep => SelectState.GetEmpirePropertyType(ep) == EmpirePropertyType.Shipset).ToHashSet();
+		}
+
+		public AndSet GetProhibited()
         {
             var prohibited = new AndSet();
 
@@ -137,10 +158,10 @@ namespace Dauros.StellarisREG.DAL
                 //Don't check properties that are already selected
                 if (EmpireProperties.Contains(ep)) continue;
 
-                SelectState newState = new SelectState(this.EmpireProperties);
-                //Create a selectstate with the new addition
-
-                newState.AddEmpireProperty(ep);
+				//Create a selectstate with the new addition
+				SelectState newState = new SelectState(this.EmpireProperties);
+                newState.SelectedDLC = this.SelectedDLC;
+				newState.AddEmpireProperty(ep);
                 
                 if (!newState.ValidateState())
                 {
@@ -184,12 +205,17 @@ namespace Dauros.StellarisREG.DAL
             }
         }
 
-        public static Boolean ValidateSelection(HashSet<String> selectedEmpirePropertyNames)
+		/// <summary>
+		/// Tests if a selection set is valid based on rules other than EmpireProperty prohibitions or requirements.
+		/// </summary>
+		/// <param name="selectedEmpirePropertyNames"></param>
+		/// <returns></returns>
+		public static Boolean ValidateSelection(HashSet<String> selectedEmpirePropertyNames)
         {
             var selectedEmpireProperties = selectedEmpirePropertyNames.Select(n => AllEmpireProperties[n]);
 
-            //If a selectionset contains a selection that is prohibited by that same selectionset, it is invalid.
-            var valid = !selectedEmpireProperties.Where(e => e.Prohibits != null).Any(e => e.Prohibits.Any(pe => selectedEmpirePropertyNames.Contains(pe)));
+			//If a selectionset contains a selection that is prohibited by that same selectionset, it is invalid.
+			var valid = !selectedEmpireProperties.Where(e => e.Prohibits != null).Any(e => e.Prohibits.Any(pe => selectedEmpirePropertyNames.Contains(pe)));
             if (!valid) return valid;
 
             //two authorities is not allowed
@@ -250,9 +276,11 @@ namespace Dauros.StellarisREG.DAL
 
             foreach (var ep in propertiesToCheckRequirements)
             {
-                if (!ep.Requires.Any()) continue;
+				if (!ep.Requires.Any()) continue;
 
-                var selSets = RecurseRequirement(ep.Requires);
+				
+
+				var selSets = RecurseRequirement(new HashSet<OrSet>(ep.Requires), new HashSet<string>() { ep.Name });
                 var validSets = new HashSet<AndSet>();
                 foreach (var selSet in selSets)
                 {
@@ -319,35 +347,44 @@ namespace Dauros.StellarisREG.DAL
         /// </summary>
         /// <param name="remaining"></param>
         /// <returns></returns>
-        public HashSet<AndSet> RecurseRequirement(HashSet<OrSet> remaining)
+        public HashSet<AndSet> RecurseRequirement(HashSet<OrSet> remaining, HashSet<string> processing)
         {
             var result = new HashSet<AndSet>();
             var first = remaining.First();
-            foreach (var ep in first)
+            foreach (var epName in first)
             {
-                try
+				try
                 {
-                    //Check if this EP has requirements. If it does, add those to the remaining set
-                    var prop = AllEmpireProperties[ep];
-                    if (prop.Requires.Any())
+					
+					//Check if this EP has requirements. If it does, add those to the remaining set
+					var epProp = AllEmpireProperties[epName];
+					//if the machine age DLC is selected, ignore the requirements of the machine archetype
+					if (epProp.Requires.Any() && !(epName == EPN.AT_Machine && SelectedDLC.Contains(EPN.D_MachineAge)))
                     {
-                        remaining.UnionWith(prop.Requires);
+                        var addedRequirements = epProp.Requires.Select(os=>new OrSet(os)).ToHashSet();
+						foreach (var orSet in addedRequirements)
+						{
+                            orSet.RemoveWhere(x => processing.Contains(x));
+						}
+						remaining.UnionWith(addedRequirements);
                     }
 
                     var newRemaining = remaining.Where(r => r != first).ToHashSet();
                     if (newRemaining.Count > 0)
                     {
-                        var subSets = RecurseRequirement(newRemaining);
+                        //Add the EP being processed to the collection
+						processing.Add(epName);
+						var subSets = RecurseRequirement(newRemaining, processing);
                         foreach (var sub in subSets)
                         {
-                            sub.Add(ep);
+                            sub.Add(epName);
                         }
                         result.UnionWith(subSets);
                     }
                     else
                     {
 
-                        result.Add(new AndSet() { ep });
+                        result.Add(new AndSet() { epName });
                     }
                 }
                 catch (Exception ex) { throw; }

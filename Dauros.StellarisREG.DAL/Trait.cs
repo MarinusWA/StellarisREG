@@ -364,10 +364,18 @@ namespace Dauros.StellarisREG.DAL
                 new Trait(EPN.T_Survivor, EPN.D_Apocalypse)
                 {
                     Requires = new HashSet<OrSet>(){ new OrSet() { EPN.O_PostApocalyptic } },
-                    Cost=0
+					Prohibits = new AndSet(){ EPN.AT_Machine },
+					Cost=0
                 }
-            },
-            {
+            },{
+				EPN.T_RadiationShields,
+				new Trait(EPN.T_RadiationShields, EPN.D_Apocalypse)
+				{
+					Requires = new HashSet<OrSet>(){ new OrSet() { EPN.O_PostApocalyptic, EPN.AT_Machine } },
+					Cost=0
+				}
+			},
+			{
                 EPN.T_VoidDweller,
                 new Trait(EPN.T_VoidDweller, EPN.D_Federations)
                 {
@@ -379,7 +387,7 @@ namespace Dauros.StellarisREG.DAL
                 EPN.T_MachineUnit,
                 new Trait(EPN.T_MachineUnit, EPN.D_SyntheticDawn)
                 { 
-                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Machine, EPN.A_MachineIntelligence } },
+                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.AT_Machine } },
                     Cost=0
                 }
             },

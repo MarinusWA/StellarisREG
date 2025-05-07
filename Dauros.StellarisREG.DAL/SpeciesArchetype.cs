@@ -16,12 +16,12 @@ namespace Dauros.StellarisREG.DAL
             },
             {
                 EPN.AT_Machine,
-                new SpeciesArchetype(EPN.AT_Machine, EPN.D_SyntheticDawn){
-                    Prohibits = new AndSet(){EPN.T_Lithoid },
-                    Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_MachineIntelligence } }
+                new SpeciesArchetype(EPN.AT_Machine, EPN.D_SyntheticDawn, EPN.D_MachineAge){
+					Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_MachineIntelligence } },
+					Prohibits = new AndSet(){EPN.T_Lithoid, EPN.A_HiveMind },
                 }
             },
-            {
+			{
                 EPN.AT_Lithoid,
                 new SpeciesArchetype(EPN.AT_Lithoid, EPN.D_Lithoids){
                 }
@@ -34,6 +34,6 @@ namespace Dauros.StellarisREG.DAL
         };
 
         public SpeciesArchetype(string name, bool inclusiveDLC, params String[] dlc) : base(name, EmpirePropertyType.SpeciesArchetype, inclusiveDLC, dlc) { }
-        public SpeciesArchetype(string name, params String[] dlc) : base(name, EmpirePropertyType.SpeciesArchetype, false, dlc) { }
+        public SpeciesArchetype(string name, params String[] dlc) : base(name, EmpirePropertyType.SpeciesArchetype, true, dlc) { }
     }
 }
