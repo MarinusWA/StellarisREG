@@ -10,7 +10,7 @@ namespace Dauros.StellarisREG.DAL
         {
             { 
                 EPN.PH_Humanoid,
-                new SpeciesPhenotype(EPN.PH_Humanoid){}
+                new SpeciesPhenotype(EPN.PH_Humanoid){ }
             },
 			{
 				EPN.PH_Mammalian,
@@ -42,15 +42,16 @@ namespace Dauros.StellarisREG.DAL
 			},
 			{
 				EPN.PH_Lithoid,
-				new SpeciesPhenotype(EPN.PH_Lithoid, dlc: new []{EPN.D_Lithoids}.ToOrSet()){}
+				new SpeciesPhenotype(EPN.PH_Lithoid, dlc: new []{EPN.D_Lithoids}.ToOrSet())
+				{GrantedTraits = new AndSet(){ EPN.T_Lithoid } }
 			},
 			{
 				EPN.PH_Necroid,
-				new SpeciesPhenotype(EPN.PH_Necroid, dlc : new[] { EPN.D_Necroids }.ToOrSet()){}
+				new SpeciesPhenotype(EPN.PH_Necroid, dlc : new[] { EPN.D_Necroids }.ToOrSet())
 			},
 			{
 				EPN.PH_Aquatic,
-				new SpeciesPhenotype(EPN.PH_Aquatic, dlc : new[] { EPN.D_Aquatics }.ToOrSet()){}
+				new SpeciesPhenotype(EPN.PH_Aquatic, dlc : new[] { EPN.D_Aquatics }.ToOrSet())
 			},
 			{
 				EPN.PH_Toxoid,
@@ -61,7 +62,7 @@ namespace Dauros.StellarisREG.DAL
 				new SpeciesPhenotype(EPN.PH_Machine, 
 					dlc : new[] { EPN.D_SyntheticDawn,EPN.D_MachineAge }.ToOrSet(),
 					requirements : new []{EPN.A_MachineIntelligence}.ToOrSet()
-					){}
+					){GrantedTraits = new AndSet() { EPN.T_MachineUnit }}
 			},
 
 		};

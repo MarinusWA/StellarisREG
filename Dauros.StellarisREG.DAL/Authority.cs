@@ -26,15 +26,15 @@ namespace Dauros.StellarisREG.DAL
             },
             {
                 EPN.A_HiveMind,
-                new Authority(EPN.A_HiveMind, 
+                new Authority(EPN.A_HiveMind,
                     new [] { EPN.D_Utopia, EPN.D_Biogenesis }.ToOrSet(),
-					new [] { EPN.Gestalt }.ToOrSet(),
+                    new [] { EPN.Gestalt }.ToOrSet(),
                     new AndSet(){ EPN.Egalitarian,EPN.EgalitarianF, EPN.Authoritarian,EPN.AuthoritarianF,
                         EPN.Materialist,EPN.MaterialistF, EPN.Spiritualist, EPN.SpiritualistF,
                         EPN.Xenophile, EPN.XenophileF, EPN.Xenophobe,EPN.XenophobeF,
                         EPN.Militarist, EPN.MaterialistF, EPN.Pacifist, EPN.PacifistF, EPN.PH_Machine
                   }
-                )
+                ){ GrantedTraits = new AndSet(){ EPN.T_HiveMinded } }
 			},
             {
                 EPN.A_MachineIntelligence,

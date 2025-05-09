@@ -59,7 +59,7 @@ namespace Dauros.StellarisREG.DAL
 		public static String T_VoidDweller => "Void Dweller";
         public static String T_Necrophage => "Necrophage";
 		public static String T_CaveDweller => "Cave Dweller";
-		public static String T_PerfectGenes => "Perfected Genes";
+		public static String T_PerfectedGenes => "Perfected Genes";
 		public static String T_PathogenicGenes => "Pathogenic Genes";
 		public static String T_MalleableGenes => "Malleable Genes";
 		public static String T_Wilderness => "Wilderness";
@@ -88,7 +88,7 @@ namespace Dauros.StellarisREG.DAL
 
 		#region Humanoid
 		public static String T_ExistentialIteroparity => "Existential Iteroparity";
-        public static String T_PInfertility => "Psychological Infertility";
+        public static String T_PsychoInfertility => "Psychological Infertility";
         public static String T_Jinxed => "Jinxed";
         #endregion
 
@@ -186,7 +186,8 @@ namespace Dauros.StellarisREG.DAL
 
 		#region Overtuned
 		public static String T_AugmentedIntelligence => "Augmented Intelligence";
-        public static String T_CraftedSmiles => "Crafted Smiles";
+		public static String T_CommercialGenius => "Commercial Genius";
+		public static String T_CraftedSmiles => "Crafted Smiles";
         public static String T_DedicatedMiner => "Dedicated Miner";
         public static String T_ExpressedTradition => "Expressed Tradition";
         public static String T_FarmAppendages => "Farm Appendages";
@@ -195,7 +196,8 @@ namespace Dauros.StellarisREG.DAL
         public static String T_LowMaintenance => "Low Maintenance";
         public static String T_SplicedAdaptability => "Spliced Adaptability";
         public static String T_TechnicalTalent => "Technical Talent";
-        public static String T_ElevatedSynapses => "Elevated Synapses";
+		public static String T_FleetingExcellence => "Fleeting Excellence";
+		public static String T_ElevatedSynapses => "Elevated Synapses";
         public static String T_PrePlannedGrowth => "Pre-Planned Growth";
         public static String T_ExcessiveEndurance => "Excessive Endurance";
 		#endregion

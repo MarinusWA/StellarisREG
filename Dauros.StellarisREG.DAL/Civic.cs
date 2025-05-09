@@ -500,7 +500,7 @@ namespace Dauros.StellarisREG.DAL
 				new StandardCivic(EPN.C_StormDevotion,
 					dlc: new [] { EPN.D_CosmicStorms }.ToOrSet(),
 					prohibitions:new AndSet(){ EPN.O_HardReset }
-				)
+				){ GrantedTraits = new[]{ EPN.T_StormTouched } }
 			},
 			{
 				EPN.C_Beastmasters,
@@ -818,7 +818,7 @@ namespace Dauros.StellarisREG.DAL
 				new CorporateCivic(EPN.C_StormInfluencers,
 					dlc: new[] { EPN.D_CosmicStorms }.ToOrSet(),
 					prohibitions: new AndSet(){ EPN.O_HardReset }
-				)
+				){ GrantedTraits = new[]{ EPN.T_StormTouched } }
 			},
 			{
 				EPN.C_AntiquarianExpertise,
@@ -968,7 +968,7 @@ namespace Dauros.StellarisREG.DAL
 					dlc: new[] { EPN.D_FirstContact }.ToOrSet(),
 					prohibitions: new AndSet(){ EPN.C_HyperspaceSyncHM, EPN.C_GenesisSymbiotes, EPN.C_WildSwarm,
 					EPN.O_BrokenShackles,EPN.O_FearDark,EPN.O_Payback}
-				)
+				){ GrantedTraits = new[] { EPN.T_Stargazer } }
 			},
 			{
 				EPN.C_GuardianCluster,

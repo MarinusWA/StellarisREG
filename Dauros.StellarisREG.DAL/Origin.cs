@@ -58,7 +58,7 @@ namespace Dauros.StellarisREG.DAL
 						EPN.C_ParliamentarySystem, EPN.C_IdyllicBloom, EPN.C_HeroicPast, EPN.C_NaturalDesign,
 						EPN.C_CriminalHeritage,EPN.C_MediaConglomerate,EPN.C_TradingPosts, EPN.S_Biological
 					},
-					GrantedTraits = new[] { EPN.T_Resilient, EPN.T_QuickLearners }
+					GrantedTraits = new[] { EPN.T_CyberCommandos, EPN.T_Unplugged }
 				}
 			},{
 				EPN.O_LifeSeeded,
@@ -77,7 +77,8 @@ namespace Dauros.StellarisREG.DAL
 					Prohibits = new AndSet(EPNSET.HS_Anglers
                         .Union<string>(EPNSET.HS_Planetscapers)
                         ){ EPN.AT_Machine, EPN.C_AgrarianIdyll, },
-					PlanetType = EPN.PT_Tomb
+					PlanetType = EPN.PT_Tomb,
+					GrantedTraits = new[] { EPN.T_Survivor }
 				}
 			},{
 				EPN.O_RadioactiveRovers,
@@ -92,7 +93,8 @@ namespace Dauros.StellarisREG.DAL
 				EPN.O_CloneArmy,
 				new Origin(EPN.O_CloneArmy, new[] { EPN.D_Humanoids }.ToOrSet())
 				{
-					Prohibits = new AndSet(){ EPN.Gestalt, EPN.AT_Machine, EPN.C_NaturalDesign, EPN.C_PermanentEmployment }
+					Prohibits = new AndSet(){ EPN.Gestalt, EPN.AT_Machine, EPN.C_NaturalDesign, EPN.C_PermanentEmployment },
+					GrantedTraits = new[] { EPN.T_CloneSoldier }
 				}
 			},{
 				EPN.O_CommonGround,
@@ -140,14 +142,16 @@ namespace Dauros.StellarisREG.DAL
                         .Union<string>(EPNSET.HS_IdyllicBloom)
 						.Union<string>(EPNSET.HS_Planetscapers)
 						){ EPN.C_AgrarianIdyll}
-					,PlanetType = EPN.PT_Habitat
+					,PlanetType = EPN.PT_Habitat,
+					GrantedTraits = new[] { EPN.T_VoidDweller }
 				}
 			},{
 				EPN.O_Necrophage,
 				new Origin(EPN.O_Necrophage, new[] { EPN.D_Necroids }.ToOrSet())
 				{
 					Prohibits = new AndSet(EPNSET.HS_DeathCult){ EPN.AT_Machine, EPN.Xenophile,EPN.XenophileF,EPN.EgalitarianF,
-                    EPN.C_PermanentEmployment, EPN.C_Empath, EPN.C_Bodysnatcher}
+                    EPN.C_PermanentEmployment, EPN.C_Empath, EPN.C_Bodysnatcher},
+					GrantedTraits = new[] { EPN.T_Necrophage }
 				}
 			}
 			,{
@@ -191,7 +195,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.O_Subterranean,
 				new Origin(EPN.O_Subterranean, new[] { EPN.D_Overlord }.ToOrSet())
 				{
-					Prohibits = new AndSet(){  }
+					GrantedTraits = new[] { EPN.T_CaveDweller },
 				}
 			},{
 				EPN.O_BrokenShackles,
@@ -227,7 +231,8 @@ namespace Dauros.StellarisREG.DAL
 				new Origin(EPN.O_UnderOneRule,new[]{ EPN.D_GalParagons}.ToOrSet())
 				{
 					Requires = new HashSet<OrSet>(){ new OrSet() {EPN.A_Dictatorial }},
-					Prohibits = new AndSet(){ EPN.Gestalt, EPN.AT_Machine }
+					Prohibits = new AndSet(){ EPN.Gestalt, EPN.AT_Machine },
+					GrantedTraits = new[] { EPN.T_PerfectedGenes }
 				}
 			},{
 				EPN.O_Riftworld,
@@ -276,6 +281,7 @@ namespace Dauros.StellarisREG.DAL
 				{
 					Requires = new HashSet<OrSet>(){ new OrSet() {EPN.Spiritualist, EPN.SpiritualistF } },
 					Prohibits = new AndSet(){ EPN.AT_Machine, EPN.Egalitarian, EPN.EgalitarianF, EPN.C_NaturalDesign, EPN.C_PermanentEmployment }
+					, GrantedTraits = new[] { EPN.T_RitualisticImplants }
 				}
 			},{
 				EPN.O_SyntheticFertility,
@@ -285,7 +291,8 @@ namespace Dauros.StellarisREG.DAL
 						.Union<string>(EPNSET.HS_Reanimators)
 						.Union<string>(EPNSET.HS_MutagenicSpas)
 						){ EPN.Gestalt, EPN.AT_Machine, EPN.Spiritualist, EPN.SpiritualistF,
-						EPN.C_NaturalDesign, EPN.C_AugmentationBazaars}
+						EPN.C_NaturalDesign, EPN.C_AugmentationBazaars},
+					GrantedTraits = new[] { EPN.T_PathogenicGenes }
 				}
 			},{
 				EPN.O_EvolutionaryPredators,
@@ -293,7 +300,8 @@ namespace Dauros.StellarisREG.DAL
 				{
 					Prohibits = new AndSet(EPNSET.HS_IdyllicBloom
 						.Union<string>(EPNSET.HS_NaturalDesign)
-						){ EPN.AT_Machine, EPN.C_PermanentEmployment, EPN.C_AugmentationBazaars, EPN.C_Bodysnatcher}
+						){ EPN.AT_Machine, EPN.C_PermanentEmployment, EPN.C_AugmentationBazaars, EPN.C_Bodysnatcher},
+					GrantedTraits = new[] { EPN.T_MalleableGenes }
 				}
 			},{
 				EPN.O_FruitfulPartnership,
@@ -348,7 +356,8 @@ namespace Dauros.StellarisREG.DAL
 				{
 					Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind, EPN.S_Biological }},
 					Prohibits = new AndSet(){ EPN.C_OrganicReprocessing, EPN.C_MemorialistHM, EPN.C_PermutationPools,
-						EPN.C_GenesisSymbiotes, EPN.C_ClimateModelingHM, EPN.C_CultivationDrones }
+						EPN.C_GenesisSymbiotes, EPN.C_ClimateModelingHM, EPN.C_CultivationDrones },
+					GrantedTraits = new[] { EPN.T_Wilderness }
 				}
 			},
 		};

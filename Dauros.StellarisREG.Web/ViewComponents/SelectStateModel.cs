@@ -44,5 +44,11 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 		public List<String> ProhibitedShipsets { get; set; } = new List<string>();
 		#endregion
 
+		#region Phenotype
+		public String? SelectedPhenotype { get; set; }
+		public List<String> ValidPhenotypes { get; set; } = new List<string>();
+		public List<String> ProhibitedPhenotypes { get; set; } = new List<string>();
+		#endregion
+
 	}
 }

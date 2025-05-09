@@ -11,20 +11,23 @@ namespace Dauros.StellarisREG.DAL
     public class SelectState
     {
         public HashSet<String> SelectedDLC { get; set; } = new HashSet<string>();
-        public HashSet<String> EthicNames { get; set; } = new HashSet<String>();
+        public HashSet<String> EthicNames { get; } = new HashSet<String>();
         public IReadOnlyCollection<Ethic> Ethics => EthicNames.Select(en => Ethic.Collection[en]).ToHashSet();
-        public String? OriginName { get; set; }
-        public Origin? Origin => OriginName != null ? Origin.Collection[OriginName] : null;
-        public String? AuthorityName { get; set; }
-        public Authority? Authority => AuthorityName != null ? Authority.Collection[AuthorityName] : null;
-        public HashSet<String> CivicNames { get; set; } = new HashSet<String>();
+        public String? OriginName { get; private set; }
+        public Origin? Origin => OriginName is { } name ? Origin.Collection[name] : null;
+        public String? AuthorityName { get; private set; }
+        public Authority? Authority => AuthorityName is { } name ? Authority.Collection[name] : null;
+        public HashSet<String> CivicNames { get; private set; } = new HashSet<String>();
         public IReadOnlyCollection<Civic> Civics => CivicNames.Select(en => Civic.Collection[en]).ToHashSet();
-        public HashSet<String> TraitNames { get; set; } = new HashSet<String>();
+        public HashSet<String> TraitNames { get; private set; } = new HashSet<String>();
         public IReadOnlyCollection<Trait> Traits => TraitNames.Select(tn => Trait.Collection[tn]).ToHashSet();
-        public String? ArchetypeName { get; set; }
-        public SpeciesPhenotype? Archetype => ArchetypeName != null ? SpeciesPhenotype.Collection[ArchetypeName] : null;
-        public String? ShipsetName { get; set; }
+        public String? ArchetypeName { get; private set; }
+        public SpeciesPhenotype? Archetype => ArchetypeName is { } name ? SpeciesPhenotype.Collection[name] : null;
+        public String? ShipsetName { get; private set; }
 		public ShipSet? Shipset => ShipsetName != null ? ShipSet.Collection[ShipsetName] : null;
+        public String? PhenotypeName { get; private set; }
+		public SpeciesPhenotype? Phenotype => PhenotypeName is { } name ? SpeciesPhenotype.Collection[name] : null;
+
 
 		/// <summary>
 		/// Returns all DLC that impact Empire choices.
@@ -49,6 +52,7 @@ namespace Dauros.StellarisREG.DAL
                 result.UnionWith(Traits);
                 if (Archetype != null) result.Add(Archetype);
                 if (Shipset != null) result.Add(Shipset);
+                if (Phenotype != null) result.Add(Phenotype);
 				return result;
             }
         }
@@ -95,6 +99,14 @@ namespace Dauros.StellarisREG.DAL
                 return _allEmpireProperties;
             }
         }
+
+        public static HashSet<String> GrantedEmpireProperties
+        {
+			get
+			{
+				return AllEmpireProperties.Where(kvp => kvp.Value.GrantedTraits.Any()).Select(kvp => kvp.Key).ToHashSet();
+			}
+		}
 
         public SelectState() {
 		}
@@ -144,6 +156,11 @@ namespace Dauros.StellarisREG.DAL
             return GetValidProperties().Where(ep => SelectState.GetEmpirePropertyType(ep) == EmpirePropertyType.SpeciesArchetype).ToHashSet();
         }
 
+		public HashSet<String> GetValidPhenotypes()
+		{
+			return GetValidProperties().Where(ep => SelectState.GetEmpirePropertyType(ep) == EmpirePropertyType.SpeciesPhenotype).ToHashSet();
+		}
+
 		public HashSet<String> GetValidShipsets()
 		{
 			return GetValidProperties().Where(ep => SelectState.GetEmpirePropertyType(ep) == EmpirePropertyType.Shipset).ToHashSet();
@@ -171,9 +188,29 @@ namespace Dauros.StellarisREG.DAL
             return prohibited;
         }
 
-        public void AddEmpireProperty(string empireProperty)
+		public void AddEmpireProperty(IEnumerable<string?> empirePropertyNames)
+		{
+			foreach(var epn in empirePropertyNames)
+			{
+				AddEmpireProperty(epn);
+			}
+		}
+
+		public void AddEmpireProperty(string? empirePropertyName)
         {
-            AddEmpireProperty(AllEmpireProperties[empireProperty]);
+            if (empirePropertyName == null) return;
+			
+            var ep = AllEmpireProperties[empirePropertyName];
+			AddEmpireProperty(ep);
+			//If the empireproperty also grants traits, add these to the selectstate as well
+			if (ep.GrantedTraits.Any())
+			{
+				foreach (var trait in ep.GrantedTraits)
+				{
+                    AddEmpireProperty(trait);
+				}
+			}
+			
         }
 
         public void AddEmpireProperty(EmpireProperty ep)
@@ -248,21 +285,20 @@ namespace Dauros.StellarisREG.DAL
             if (!valid) return valid;
 
             //Machine empires only get one basepoint
-            var basepoints = selectedEmpirePropertyNames.Contains(EPN.A_MachineIntelligence) || selectedEmpirePropertyNames.Contains(EPN.AT_Machine) ? 1 : 2;
+            var basepoints = 2;
+            var basePicks = 5;
+            if (selectedEmpirePropertyNames.Contains(EPN.A_MachineIntelligence)) basepoints = 1;
+            else if (selectedEmpirePropertyNames.Contains(EPN.O_Overtuned)) { basepoints += 2; basePicks += 1; }
+			
             var selectedTraits = selectedEmpireProperties.Where(ep => ep.Type == EmpirePropertyType.Trait).Select(ep => (ep as Trait)!);
-            if (selectedTraits.Count() == 4)
-            {
-                //Disallow traits with cost >= 2
-                valid = selectedTraits.Sum(t => t.Cost) - basepoints <= 2;
-            }
-            else if (selectedTraits.Count() == 5)
+            if (selectedTraits.Count() == basePicks)
             {
                 valid = selectedTraits.Sum(t => t.Cost) - basepoints <= 0;
             }
             if (!valid) return valid;
 
             //Trait count may not exceed 5
-            valid = selectedTraits.Count() <= 5;
+            valid = selectedTraits.Count() <= basePicks;
             if (!valid) return valid;
 
             return valid;
