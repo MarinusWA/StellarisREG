@@ -22,7 +22,7 @@ namespace Dauros.StellarisREG.DAL
         public HashSet<String> TraitNames { get; set; } = new HashSet<String>();
         public IReadOnlyCollection<Trait> Traits => TraitNames.Select(tn => Trait.Collection[tn]).ToHashSet();
         public String? ArchetypeName { get; set; }
-        public SpeciesArchetype? Archetype => ArchetypeName != null ? SpeciesArchetype.Collection[ArchetypeName] : null;
+        public SpeciesPhenotype? Archetype => ArchetypeName != null ? SpeciesPhenotype.Collection[ArchetypeName] : null;
         public String? ShipsetName { get; set; }
 		public ShipSet? Shipset => ShipsetName != null ? ShipSet.Collection[ShipsetName] : null;
 
@@ -88,7 +88,7 @@ namespace Dauros.StellarisREG.DAL
                     result = result.Union(Origin.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
                     result = result.Union(Authority.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
                     result = result.Union(Trait.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
-                    result = result.Union(SpeciesArchetype.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
+                    result = result.Union(SpeciesPhenotype.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
                     result = result.Union(ShipSet.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
 					_allEmpireProperties = result;
                 }
@@ -218,15 +218,23 @@ namespace Dauros.StellarisREG.DAL
 			var valid = !selectedEmpireProperties.Where(e => e.Prohibits != null).Any(e => e.Prohibits.Any(pe => selectedEmpirePropertyNames.Contains(pe)));
             if (!valid) return valid;
 
-            //two authorities is not allowed
+            //two or more authorities is not allowed
             valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.Authority) <= 1;
             if (!valid) return valid;
 
-            //two orgins is not allowed
-            valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.Origin) <= 1;
+			//two or more shipsets is not allowed
+			valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.Shipset) <= 1;
+			if (!valid) return valid;
+
+			//two or more phenotypes is not allowed
+			valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.SpeciesPhenotype) <= 1;
+			if (!valid) return valid;
+
+			//two or more orgins is not allowed
+			valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.Origin) <= 1;
             if (!valid) return valid;
 
-            //two archetypes is not allowed
+            //two or more archetypes is not allowed
             valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.SpeciesArchetype) <= 1;
             if (!valid) return valid;
 
@@ -355,11 +363,10 @@ namespace Dauros.StellarisREG.DAL
             {
 				try
                 {
-					
 					//Check if this EP has requirements. If it does, add those to the remaining set
 					var epProp = AllEmpireProperties[epName];
-					//if the machine age DLC is selected, ignore the requirements of the machine archetype
-					if (epProp.Requires.Any() && !(epName == EPN.AT_Machine && SelectedDLC.Contains(EPN.D_MachineAge)))
+					//if the machine age DLC is selected, ignore the requirements of the machine phenotype
+					if (epProp.Requires.Any() && !(epName == EPN.PH_Machine && SelectedDLC.Contains(EPN.D_MachineAge)))
                     {
                         var addedRequirements = epProp.Requires.Select(os=>new OrSet(os)).ToHashSet();
 						foreach (var orSet in addedRequirements)

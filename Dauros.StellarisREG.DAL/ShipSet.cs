@@ -16,12 +16,13 @@ namespace Dauros.StellarisREG.DAL
 			},
 			{
 				EPN.S_Biological,
-				new ShipSet(EPN.S_Biological, EPN.D_Biogenesis){ }
+				new ShipSet(EPN.S_Biological, new[]{ EPN.D_Biogenesis }.ToOrSet()){ }
 			},
 
 		};
 
-		public ShipSet(string name, bool inclusiveDLC, params String[] dlc) : base(name, EmpirePropertyType.Shipset, inclusiveDLC, dlc) { }
-		public ShipSet(string name, params String[] dlc) : base(name, EmpirePropertyType.Shipset, false, dlc) { }
+		public ShipSet(String name, HashSet<OrSet>? dlc = null,
+			HashSet<OrSet>? requirements = null, AndSet? prohibitions = null)
+			: base(name, EmpirePropertyType.Shipset, dlc, requirements, prohibitions) { }
 	}
 }

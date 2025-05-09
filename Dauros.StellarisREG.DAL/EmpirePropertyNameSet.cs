@@ -11,14 +11,20 @@ namespace Dauros.StellarisREG.DAL
 		public static HashSet<String> HS_Anglers =
 			new HashSet<String>() { EPN.C_Anglers, EPN.C_TrawlingOperations, EPN.C_MarineMachines, EPN.C_MaritimeRobotics};
 
+		public static HashSet<String> HS_Beastmasters =
+			new HashSet<String>() { EPN.C_Beastmasters, EPN.C_SpaceRanchers};
+
 		public static HashSet<String> HS_Catalytic =
-			new HashSet<String>() { EPN.C_CatalyticProcessing, EPN.C_CatalyticRecyclers, EPN.C_OrganicReprocessingHM };
+			new HashSet<String>() { EPN.C_CatalyticProcessing, EPN.C_CatalyticRecyclers, EPN.C_OrganicReprocessing };
 
 		public static HashSet<String> HS_DarkConsortium =
 			new HashSet<String>() { EPN.C_DarkConsortium, EPN.C_ShadowCorpation};
 		
 		public static HashSet<String> HS_DeathCult =
 			new HashSet<String>() { EPN.C_DeathCult, EPN.C_CorporateDeathCult };
+
+		public static HashSet<String> HS_DimensionalWorship =
+			new HashSet<String>() { EPN.C_DimensionalWorship, EPN.C_DimensionalEnterprise };
 
 		public static HashSet<String> HS_EagerExplorers =
 			new HashSet<String>() { EPN.C_EagerExplorers, EPN.C_PrivatizedExploration };
@@ -36,7 +42,7 @@ namespace Dauros.StellarisREG.DAL
 			new HashSet<String>() { EPN.C_IdyllicBloom, EPN.C_MycorrhizalIdeal };
 
 		public static HashSet<String> HS_MutagenicSpas =
-			new HashSet<String>() { EPN.C_MutagenicSpas, EPN.C_MutagenicLuxury,EPN.C_LuxuryLubePools,EPN.C_LubriationTanks,
+			new HashSet<String>() { EPN.C_MutagenicSpas, EPN.C_MutagenicLuxury,EPN.C_LuxuryLubePools,EPN.C_LubricationTanks,
 				EPN.C_PermutationPools,EPN.C_HyperLubrication };
 
 		public static HashSet<String> HS_NaturalDesign =

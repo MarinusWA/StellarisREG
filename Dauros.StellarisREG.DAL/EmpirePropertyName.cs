@@ -55,22 +55,39 @@ namespace Dauros.StellarisREG.DAL
 
         #region Origin Traits
         public static String T_Serviles => "Serviles";
-        public static String T_CloneSoldier => "Clone Soldier";
-        public static String T_Survivor => "Survivor";
-		public static String T_RadiationShields => "Radiation Shields";
+		public static String T_Survivor => "Survivor";
 		public static String T_VoidDweller => "Void Dweller";
-        public static String T_CaveDweller => "Cave Dweller";
-		public static String T_Molebots => "Molebots";
+        public static String T_Necrophage => "Necrophage";
+		public static String T_CaveDweller => "Cave Dweller";
 		public static String T_PerfectGenes => "Perfected Genes";
-		public static String T_Wilderness => "Wilderness";
-
-		public static String T_LatentPsionic => "Latent Psionic";
-        public static String T_PathogenicGenes => "Pathogenic Genes";
+		public static String T_PathogenicGenes => "Pathogenic Genes";
 		public static String T_MalleableGenes => "Malleable Genes";
+		public static String T_Wilderness => "Wilderness";
+		public static String T_Stargazer => "Stargazer";
+		public static String T_StormTouched => "Storm Touched";
+
+		public static String T_CyberCommandos => "Cyber Commandos";
+		public static String T_Unplugged => "Unplugged";
+		public static String T_CloneSoldier => "Clone Soldier";
+		
+        public static String T_RadiationShields => "Radiation Shields";
+		public static String T_Molebots => "Molebots";
+		public static String T_ZeroGOptimized => "Zero-G Optimized";
+		public static String T_SyntheticSalvation => "Synthetic Salvation";
+		public static String T_LatentPsionic => "Latent Psionic";
+
+
+
+		#endregion
+
+		#region Leviathan Traits
+		public static string T_Voidling => "Voidling";
+		public static string T_Polymelic => "Polymelic";
+		public static string T_DrakeScaled => "Drake-Scaled";
 		#endregion
 
 		#region Humanoid
-		public static String T_EIteroparity => "Existential Iteroparity";
+		public static String T_ExistentialIteroparity => "Existential Iteroparity";
         public static String T_PInfertility => "Psychological Infertility";
         public static String T_Jinxed => "Jinxed";
         #endregion
@@ -78,7 +95,7 @@ namespace Dauros.StellarisREG.DAL
         #region Toxoid
         public static String T_Incubators => "Incubators";
         public static String T_Noxious => "Noxious";
-        public static String T_InBreath => "Inorganic Breath";
+        public static String T_InorganicBreath => "Inorganic Breath";
         #endregion
 
         #region PlantoidFungoid
@@ -92,47 +109,83 @@ namespace Dauros.StellarisREG.DAL
         public static String T_ScintillatingSkin => "Scintillating Skin";
         public static String T_VolatileExcretions => "Volatile Excretions";
         public static String T_Crystallization => "Crystallization";
-        public static String T_Lithoid => "Lithoid";
-        #endregion
 
+		#endregion
 
-        public static String T_MachineUnit => "MachineUnit";
-        public static String T_Necrophage => "Necrophage";
-        public static String T_Aquatic => "Aquatic";
-		public static String T_Waterproof => "Waterproof";
+		#region Biogenesis
+		public static String T_Familial => "Familial";
+		public static String T_GeneticMemory => "Genetic Memory";
+		public static String T_Camouflage => "Camouflage";
+		public static String T_Chromalogs => "Chromalogs";
+		public static String T_EggLaying => "Egg Laying";
+		public static String T_SpareOrgans => "Spare Organs";
+		public static String T_SeasonalDormancy => "Seasonal Dormancy";
+		public static String T_Flight => "Flight";
+		public static String T_SpatialMastery => "Spatial Mastery";
+		public static String T_Shelled => "Shelled";
+		public static String T_AcidicVascularity => "Acidic Vascularity";
+
+		public static String T_NascentStage => "Nascent Stage";
+		public static String T_PermeableSkin => "Permeable Skin";
+		public static String T_HollowBones => "Hollow Bones";
+		public static String T_Rooted => "Rooted";
+		public static String T_Brittle => "Brittle";
+
+		#endregion
+
+		#region Basic Traits
 		public static String T_HiveMinded => "Hive-Minded";
-        public static String T_Stargazer => "Stargazer";
+		public static String T_Lithoid => "Lithoid";
+		public static String T_Aquatic => "Aquatic";
+		public static String T_MachineUnit => "Machine";
+		#endregion
 
-        #region Machine Traits
 
-        public static String T_DomesticProtocols => "Domestic Protocols";
-        public static String T_DoubleJointed => "Double Jointed";
-        public static String T_Bulky => "Bulky";
+        
+		public static String T_Waterproof => "Waterproof";
+
+		#region Machine Traits
+		#region Positive
+		public static String T_AdaptiveFrames => "Adaptive Frames";
+		public static String T_EfficientProcessors => "Efficient Processors";
+		public static String T_Harvesters => "Harvesters";
+		public static String T_PowerDrills => "Power Drills";
+		public static String T_Superconductive => "Superconductive";
+		public static String T_DoubleJointed => "Double Jointed";
         public static String T_Durable => "Durable";
-        public static String T_HighMaintenance => "High Maintenance";
-        public static String T_EfficientProcessors => "Efficient Processors";
-        public static String T_EmotionEmulators => "Emotion Emulators";
-        public static String T_Uncanny => "Uncanny";
-        public static String T_EnhancedMemory => "Enhanced Memory";
-        public static String T_Harvesters => "Harvesters";
-        public static String T_LearningAlgorithms => "Learning Algorithms";
+		public static String T_EmotionEmulators => "Emotion Emulators";
+		public static String T_MassProduced => "Mass-Produced";
+		public static String T_Recycled => "Recycled";
+		public static String T_StreamlinedProtocols => "Streamlined Protocols";
+        public static String T_DomesticProtocols => "Domestic Protocols";
+		public static String T_LogicEngines => "Logic Engines";
+		public static String T_TradingAlgorithms => "Trading Algorithms";
+		public static String T_EternalMachine => "Eternal Machine";
+		public static String T_LoyaltyCircuits => "Loyalty Circuits";
+		public static String T_PropagandaMachines => "Propaganda Machines";
+		public static String T_EnhancedMemory => "Enhanced Memory";
+		public static String T_LearningAlgorithms => "Learning Algorithms";
+		public static String T_EngineeringCore => "Engineering Core";
+		public static String T_PhysicsCore => "Physics Core";
+		public static String T_SociologyCore => "Sociology Core";
+		public static String T_IntegratedWeaponry => "Integrated Weaponry";
+		#endregion
+		#region Negative
+		public static String T_Bulky => "Bulky";
+		public static String T_CustomMade => "Custom-Made";
+		public static String T_HighBandwidth => "High Bandwidth";
+		public static String T_HighMaintenance => "High Maintenance";
+		public static String T_Luxurious => "Luxurious";
+		public static String T_Uncanny => "Uncanny";
         public static String T_RepurposedHardware => "Repurposed Hardware";
-        public static String T_LogicEngines => "Logic Engines";
-        public static String T_LoyaltyCircuits => "Loyalty Circuits";
-        public static String T_MassProduced => "Mass-Produced";
-        public static String T_CustomMade => "Custom-Made";
-        public static String T_PowerDrills => "Power Drills";
-        public static String T_PropagandaMachines => "Propaganda Machines";
-        public static String T_Recycled => "Recycled";
-        public static String T_Luxurious => "Luxurious";
-        public static String T_StreamlinedProtocols => "Streamlined Protocols";
-        public static String T_HighBandwidth => "High Bandwidth";
-        public static String T_Superconductive => "Superconductive";
+		public static String T_DelicateChassis => "Delicate Chassis";
+		public static String T_ScarcitySubroutines => "Scarcity Subroutines";
 
-        #endregion
+		#endregion
+		#endregion
 
-        #region Overtuned
-        public static String T_AugmentedIntelligence => "Augmented Intelligence";
+		#region Overtuned
+		public static String T_AugmentedIntelligence => "Augmented Intelligence";
         public static String T_CraftedSmiles => "Crafted Smiles";
         public static String T_DedicatedMiner => "Dedicated Miner";
         public static String T_ExpressedTradition => "Expressed Tradition";
@@ -145,12 +198,35 @@ namespace Dauros.StellarisREG.DAL
         public static String T_ElevatedSynapses => "Elevated Synapses";
         public static String T_PrePlannedGrowth => "Pre-Planned Growth";
         public static String T_ExcessiveEndurance => "Excessive Endurance";
-        #endregion
+		#endregion
 
-        #endregion
+		#region Cybernetic Creed
+		public static String T_RitualisticImplants => "Ritualistic Implants";
+		public static String T_AugmentationsChoir => "Augmentations of the Choir";
+		public static String T_AugmentationsCommune => "Augmentations of the Commune";
+		public static String T_AugmentationsFellowship => "Augmentations of the Fellowship";
+		public static String T_AugmentationsTemplars => "Augmentations of the Templars";
 
-        #region DLC
-        public static String D_Utopia => "Utopia";
+		#endregion
+
+		#region BioAscension 
+		//These are the traits that are unlocked by Biological Ascension and therefore cannot be selected at game start
+		//There are included here because they can act as blockers for other traits
+		public static String T_Delicious => "Delicious";
+		public static String T_Felsic => "Felsic";
+		public static String T_NaturalMachinist => "Natural Machinist";
+		public static String T_NerveStapled => "Nerve Stapled";
+		public static String T_VatGrown => "Vat-Grown";
+		public static String T_Erudite => "Erudite";
+		public static String T_Fertile => "Fertile";
+		public static String T_Robust => "Robust";
+		public static String T_ExoticMetabolism => "Exotic Metabolism";
+		#endregion
+
+		#endregion
+
+		#region DLC
+		public static String D_Utopia => "Utopia";
         public static String D_Lithoids => "Lithoids";
         public static String D_SyntheticDawn => "Synthetic Dawn";
         public static String D_Megacorp => "Megacorp";
@@ -267,7 +343,11 @@ namespace Dauros.StellarisREG.DAL
 		public static String C_GalacticCurators => "Galactic Curators";
 		public static String C_MarineMachines => "Marine Machines";
 		public static String C_LuxuryLubePools => "Luxury Lubrication Pools";
-		public static String C_LubriationTanks => "Lubrication Tanks";
+		public static String C_LubricationTanks => "Lubrication Tanks";
+
+        public static String C_RapidReplicator => "Rapid Replicator";
+		public static String C_StaticResearchAnalysis => "Static Research Analysis";
+		public static String C_Warbots => "Warbots";
 
 		#endregion
 		#region Hive Mind
@@ -281,14 +361,14 @@ namespace Dauros.StellarisREG.DAL
         public static String C_MemorialistHM => "Memorialist HM";
         
         public static String C_OneMind => "One Mind";
-        public static String C_OrganicReprocessingHM => "Organic Reprocessing HM";
+        public static String C_OrganicReprocessing => "Organic Reprocessing";
         public static String C_PooledKnowledge => "Pooled Knowledge";
         public static String C_StrengthofLegions=> "Strength of Legions";
         public static String C_SubspaceEphapse => "Subspace Ephapse";
         public static String C_SubsumedWill => "Subsumed Will";
         public static String C_Terravore=> "Terravore";
         public static String C_WildSwarm => "Wild Swarm";
-        public static String C_ClimateModeling => "Climate Modeling";
+        public static String C_ClimateModelingHM => "Climate Modeling HM";
 
 		public static String C_VoidHive => "VoidHive";
         public static String C_CordycepticDrones => "Cordyceptic Drones";
@@ -302,7 +382,12 @@ namespace Dauros.StellarisREG.DAL
 		public static String C_GenesisSymbiotes => "Genesis Symbiotes";
 		public static String C_MycorrhizalIdeal => "Mycorrhizal Ideal";
         public static String C_InnateDesign => "Innate Design";
+		public static string C_AerospaceAdaption => "Aerospace Adaptation";
 		public static String C_Bodysnatcher => "Bodysnatcher";
+		public static String C_FamiliarFace => "Familiar Face";
+        public static String C_SharedGenetics => "Shared Genetics";
+		public static String C_DevouringWilderness => "Devouring Wilderness";
+		public static string C_CaretakerNetworkHM => "Caretaker Network HM";
 
 		#endregion
 
@@ -318,12 +403,12 @@ namespace Dauros.StellarisREG.DAL
         public static String C_MaintenanceProtocols => "Maintenance Protocols";
         public static String C_MemorialistMI => "Memorialist MI";
         public static String C_OTAUpdates => "OTA Updates";
-        public static String C_RapidReplicator => "Rapid Replicator";
+        public static String C_RapidReplicatorMI => "Rapid Replicator ";
         public static String C_Rockbreakers => "Rockbreakers";
         public static String C_RogueServitor => "Rogue Servitor";
-        public static String C_StaticResearchAnalysis => "Static Research Analysis";
+        public static String C_StaticResearchAnalysisMI => "Static Research Analysis ";
         public static String C_UnitaryCohesion => "Unitary Cohesion";
-        public static String C_Warbots => "Warbots";
+        public static String C_WarbotsMI => "Warbots ";
         public static String C_ZeroWasteProtocols => "Zero-Waste Protocols";
 
         
@@ -338,7 +423,17 @@ namespace Dauros.StellarisREG.DAL
 		public static String C_Astrometeorology => "Astrometeorology";
         public static String C_GardeningProtocols => "Gardening Protocols";
         public static String C_GenesisArchitects => "Genesis Architects";
-
+		public static String C_ObsessionalDirective => "Obsessional Directive";
+        public static String C_AstroMiningDrones => "Astro-Mining Drones";
+		public static String C_SpywareDirectives => "Spyware Directives";
+        public static String C_HyperLubeBasins => "Hyper Lubrication Basin";
+		public static String C_Biodrones => "Biodrones";
+        public static String C_ExperienceCache => "Experience Cache";
+		public static String C_DiplomaticProtocols => "Diplomatic Protocols";
+		public static String C_ClimateModelingMI => "Climate Modeling MI";
+		public static String C_StalwartNetwork => "Stalwart Network";
+		public static String C_TacticalAlgorithms => "Tactical Algorithms";
+		public static string C_CaretakerNetworkMI => "Caretaker Network MI";
 		#endregion
 
 		#region Corporate
@@ -386,7 +481,6 @@ namespace Dauros.StellarisREG.DAL
 		public static String C_StormInfluencers => "Storm Influencers";
 		public static String C_AntiquarianExpertise => "Antiquarian Expertise";
 		public static String C_SpaceRanchers => "Space Ranchers";
-
 
 		#endregion
 		#endregion
@@ -474,16 +568,38 @@ namespace Dauros.StellarisREG.DAL
 		#endregion
 
 
-		#region Archetypes
-		public static String AT_Animal => "Animal";
-        public static String AT_Machine => "Machine";
-		public static String AT_Lithoid => "Lithoid ";
-        public static String AT_Plantoid => "Plant/Fungus";
-        
+		#region Species Archetypes
+
+		public static String AT_Organic => "Organic type";
+		public static String AT_Machine => "Machine type";
+		public static String AT_Lithoid => "Lithoid type";
+
+		#endregion
+		#region Phenotypes
+
+
+		public static String PH_Humanoid => "Humanoid species";
+		public static String PH_Mammalian => "Mammalian species";
+		public static String PH_Reptilian => "Reptilian species";
+        public static String PH_Avian => "Avian species";
+		public static String PH_Arthropoid => "Arthropoid species";
+		public static String PH_Molluscoid => "Molluscoid species";
+		public static String PH_Fungoid => "Fungoid species";
+		public static String PH_Plantoid => "Plantoid species";
+		public static String PH_Lithoid => "Lithoid species";
+		public static String PH_Necroid => "Necroid species";
+		public static String PH_Aquatic => "Aquatic species";
+		public static String PH_Toxoid => "Toxoid species";
+		public static String PH_Machine => "Machine species";
+
         #endregion
 
         #region PlanetTypes
-        public static String PT_Arid => "Arid";
+        public static String PT_Dry => "Dry";
+		public static String PT_Wet => "Wet";
+		public static String PT_Cold => "Cold";
+
+		public static String PT_Arid => "Arid";
         public static String PT_Desert => "Desert";
         public static String PT_Savanna => "Savanna";
         public static String PT_Alpine => "Alpine";
@@ -492,15 +608,20 @@ namespace Dauros.StellarisREG.DAL
         public static String PT_Continental => "Continental";
         public static String PT_Ocean => "Ocean";
         public static String PT_Tropical => "Tropical";
-        public static String PT_Gaia => "Gaia";
-        public static String PT_Tomb => "Tomb";
-        public static String PT_Relic => "Relic";
-        public static String PT_RingWorld => "Ring Segment";
-        public static String PT_Machine => "Machine World";
+		public static String PT_Habitat => "Habitat";
+		public static String PT_Gaia => "Gaia";
+		public static String PT_RingWorld => "Ring World";
+		public static String PT_Machine => "Machine World";
+		public static String PT_Tomb => "Tomb World";
+        public static String PT_Relic => "Relic World";
+		public static String PT_Ecumenopolis => "Ecumenopolis";
+		public static String PT_HiveWorld => "Hive World";
+		public static String PT_NaniteWorld => "Nanite World";
+		public static String PT_SynapticLathe => "Synaptic Lathe";
 
 
-        #endregion
-    }
+		#endregion
+	}
 
    
 }

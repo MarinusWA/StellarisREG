@@ -32,20 +32,19 @@ namespace Dauros.StellarisREG.DAL
                     new AndSet(){ EPN.Egalitarian,EPN.EgalitarianF, EPN.Authoritarian,EPN.AuthoritarianF,
                         EPN.Materialist,EPN.MaterialistF, EPN.Spiritualist, EPN.SpiritualistF,
                         EPN.Xenophile, EPN.XenophileF, EPN.Xenophobe,EPN.XenophobeF,
-                        EPN.Militarist, EPN.MaterialistF, EPN.Pacifist, EPN.PacifistF, EPN.AT_Machine
+                        EPN.Militarist, EPN.MaterialistF, EPN.Pacifist, EPN.PacifistF, EPN.PH_Machine
                   }
                 )
 			},
             {
                 EPN.A_MachineIntelligence,
                 new Authority(EPN.A_MachineIntelligence, 
-                    new[] { EPN.D_SyntheticDawn, EPN.D_MachineAge }.ToOrSet(),
-                    new[] { EPN.Gestalt, EPN.AT_Machine }.ToOrSet(),
+                    dlc: new[] { EPN.D_SyntheticDawn, EPN.D_MachineAge }.ToOrSet(),
+                    requirements: new HashSet<OrSet>(){ new OrSet() { EPN.Gestalt }, new OrSet() { EPN.PH_Machine }},
 					new AndSet(){ EPN.Egalitarian,EPN.EgalitarianF, EPN.Authoritarian,EPN.AuthoritarianF,
 						EPN.Materialist,EPN.MaterialistF, EPN.Spiritualist, EPN.SpiritualistF,
 						EPN.Xenophile, EPN.XenophileF, EPN.Xenophobe,EPN.XenophobeF,
-						EPN.Militarist, EPN.MaterialistF, EPN.Pacifist, EPN.PacifistF,
-						EPN.AT_Animal, EPN.AT_Lithoid, EPN.AT_Plantoid
+						EPN.Militarist, EPN.MaterialistF, EPN.Pacifist, EPN.PacifistF
 					}
 				)
             },

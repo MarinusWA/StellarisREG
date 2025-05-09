@@ -70,7 +70,9 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 
 				if (ss.CivicNames.Contains(EPN.C_Stargazers))
                     ss.TraitNames.Add(EPN.T_Stargazer);
-                if (ss.CivicNames.Contains(EPN.C_Anglers) || selectedOrigin == EPN.O_OceanParadise)
+				if (ss.CivicNames.Contains(EPN.C_StormInfluencers))
+					ss.TraitNames.Add(EPN.T_StormTouched);
+				if (ss.CivicNames.Contains(EPN.C_Anglers) || selectedOrigin == EPN.O_OceanParadise)
                     if (ss.ArchetypeName == EPN.AT_Machine)
 						ss.TraitNames.Add(EPN.T_Waterproof);
 					else
@@ -109,7 +111,7 @@ namespace Dauros.StellarisREG.Web.ViewComponents
                     Ethics = ss.EthicNames,
                     Traits = ss.TraitNames,
                     PlanetType = GetRandomPlanetType(ss),
-                    Archetype = ss.ArchetypeName ?? EPN.AT_Animal
+                    Archetype = ss.ArchetypeName ?? EPN.AT_Organic
             };
 
                 result.Add(empireData);
@@ -122,8 +124,8 @@ namespace Dauros.StellarisREG.Web.ViewComponents
         {
             var dist = new List<String>() {EPN.AT_Lithoid,EPN.AT_Machine };
             //Make biological pick more likely
-            for (int i = 0; i < 4; i++) dist.Add(EPN.AT_Animal);
-            for (int i = 0; i < 2; i++) dist.Add(EPN.AT_Plantoid);
+            for (int i = 0; i < 4; i++) dist.Add(EPN.AT_Organic);
+            for (int i = 0; i < 2; i++) dist.Add(EPN.PH_Plantoid);
 
             if (ss.ArchetypeName == null)
             {

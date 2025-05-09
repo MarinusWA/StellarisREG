@@ -14,7 +14,16 @@ namespace Dauros.StellarisREG.DAL
         public HashSet<OrSet> DLC { get; init; } = new HashSet<OrSet>();
 		public int ID => Name.GetHashCode();
 
-        public EmpireProperty(String name, EmpirePropertyType type, IEnumerable<OrSet>? dlc = null,
+		/// <summary>
+		/// The planettype set by this EmpireProperty.
+		/// </summary>
+		public string? PlanetType { get; init; }
+		/// <summary>
+		/// Traits that are granted by this EmpireProperty.
+		/// </summary>
+		public IEnumerable<string> GrantedTraits { get; init; } = Enumerable.Empty<string>();
+
+		public EmpireProperty(String name, EmpirePropertyType type, IEnumerable<OrSet>? dlc = null,
             IEnumerable<OrSet>? requirements = null, IEnumerable<string>? prohibitions = null)
         {
             Requires.UnionWith(requirements ?? Enumerable.Empty<OrSet>());  
