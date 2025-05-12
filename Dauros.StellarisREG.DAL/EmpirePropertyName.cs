@@ -181,7 +181,16 @@ namespace Dauros.StellarisREG.DAL
 		public static String T_DelicateChassis => "Delicate Chassis";
 		public static String T_ScarcitySubroutines => "Scarcity Subroutines";
 
+        #endregion
+        #region Design Traits
+        public static String T_ArtGenerator => "Art Generator";
+		public static String T_ConversationalAI => "Conversational AI";
+		public static String T_Nannybot => "Nannybot";
+		public static String T_ResearchAssistants => "Research Assistants";
+		public static String T_WarMachine => "War Machine";
+		public static String T_Workerbots => "Workerbots";
 		#endregion
+
 		#endregion
 
 		#region Overtuned
@@ -410,7 +419,7 @@ namespace Dauros.StellarisREG.DAL
         public static String C_RogueServitor => "Rogue Servitor";
         public static String C_StaticResearchAnalysisMI => "Static Research Analysis ";
         public static String C_UnitaryCohesion => "Unitary Cohesion";
-        public static String C_WarbotsMI => "Warbots ";
+        public static String C_WarbotsMI => "Warbots MI";
         public static String C_ZeroWasteProtocols => "Zero-Waste Protocols";
 
         
@@ -543,7 +552,8 @@ namespace Dauros.StellarisREG.DAL
         public static String O_Scion => "Scion";
         public static String O_ShatteredRing => "Shattered Ring";
         public static String O_VoidDwellers => "Void Dwellers";
-        public static String O_Necrophage => "Necrophage";
+		public static String O_Voidforged => "Voidforged";
+		public static String O_Necrophage => "Necrophage";
         public static String O_HereBeDragons => "Here Be Dragons";
         public static String O_OceanParadise => "Ocean Paradise";
 
@@ -572,9 +582,9 @@ namespace Dauros.StellarisREG.DAL
 
 		#region Species Archetypes
 
-		public static String AT_Organic => "Organic type";
-		public static String AT_Machine => "Machine type";
-		public static String AT_Lithoid => "Lithoid type";
+		//public static String AT_Organic => "Organic type";
+		//public static String AT_Machine => "Machine type";
+		//public static String AT_Lithoid => "Lithoid type";
 
 		#endregion
 		#region Phenotypes

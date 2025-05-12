@@ -65,8 +65,8 @@ function hookPreSelectEvents() {
         
     });
 
-    //Hook refresh on archetype pick
-    $("#ps_archetype :radio").change(function () {
+    //Hook refresh on phenotype pick
+    $("#ps_phenotype :radio").change(function () {
         var label = $(this).parent().children("label");
         refreshPreSelect(label.text());
     });
@@ -94,7 +94,7 @@ function scanPreselect() {
     //Get Authority
     var checkedAuthority = $("#ps_auth :radio:checked").val();
     var checkedOrigin = $("#ps_origin :radio:checked").val();
-    var checkedArchetype = $("#ps_archetype :radio:checked").val();
+    var checkedPhenotype = $("#ps_phenotype :radio:checked").val();
 
     //Get Civics
     var checkedCivics = [];
@@ -107,11 +107,11 @@ function scanPreselect() {
         selectedDLC: checkedDLC,
         selectedEthics: checkedEthics,
         selectedAuthority: checkedAuthority,
-        selectedArchetype: checkedArchetype,
+        selectedPhenotype: checkedPhenotype,
         selectedOrigin: checkedOrigin,
         selectedCivics: checkedCivics
     };
-    
+
     return psdata;
 }
 

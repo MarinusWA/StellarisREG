@@ -5,23 +5,23 @@ using System.Text;
 
 namespace Dauros.StellarisREG.DAL
 {
-    public class Origin : EmpireProperty
-    {
-        #region Singletons
+	public class Origin : EmpireProperty
+	{
+		#region Singletons
 
 
 		public static Dictionary<String, Origin> Collection { get; } = new Dictionary<string, Origin>()
-        {
-            {
-                EPN.O_GalacticDoorstep,
-                new Origin(EPN.O_GalacticDoorstep){ }
-            },{
-                EPN.O_ProsperousUnification,
-                new Origin(EPN.O_ProsperousUnification){ }
-            },{
-                EPN.O_LostColony,
-                new Origin(EPN.O_LostColony){ }
-            },{
+		{
+			{
+				EPN.O_GalacticDoorstep,
+				new Origin(EPN.O_GalacticDoorstep){ }
+			},{
+				EPN.O_ProsperousUnification,
+				new Origin(EPN.O_ProsperousUnification){ }
+			},{
+				EPN.O_LostColony,
+				new Origin(EPN.O_LostColony){ }
+			},{
 				EPN.O_Remnants,
 				new Origin(EPN.O_Remnants, new []{ EPN.D_AncientRelics, EPN.D_Federations}.ToOrSet())
 				{
@@ -29,32 +29,32 @@ namespace Dauros.StellarisREG.DAL
 					PlanetType = EPN.PT_Relic
 				}
 			},{
-                EPN.O_Mechanist,
-                new Origin(EPN.O_Mechanist, new[] { EPN.D_Utopia }.ToOrSet())
-                {
-                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.Materialist, EPN.MaterialistF }},
-                    Prohibits = new AndSet(){ EPN.Gestalt, EPN.AT_Machine, EPN.C_PermanentEmployment }
-                }
-            },{
-                EPN.O_SyncreticEvolution,
-                new Origin(EPN.O_SyncreticEvolution, new[] { EPN.D_Utopia }.ToOrSet())
-                {
-                    Prohibits = new AndSet(EPNSET.HS_GenesisGuides){ EPN.Gestalt, EPN.C_FanaticPurifiers }
-                }
-            },{
+				EPN.O_Mechanist,
+				new Origin(EPN.O_Mechanist, new[] { EPN.D_Utopia }.ToOrSet())
+				{
+					Requires = new HashSet<OrSet>(){new OrSet(){ EPN.Materialist, EPN.MaterialistF }},
+					Prohibits = new AndSet(){ EPN.Gestalt, EPN.PH_Machine, EPN.C_PermanentEmployment }
+				}
+			},{
+				EPN.O_SyncreticEvolution,
+				new Origin(EPN.O_SyncreticEvolution, new[] { EPN.D_Utopia }.ToOrSet())
+				{
+					Prohibits = new AndSet(EPNSET.HS_GenesisGuides){ EPN.Gestalt, EPN.C_FanaticPurifiers }
+				}
+			},{
 				EPN.O_HardReset,
 				new Origin(EPN.O_HardReset, new[] { EPN.D_SyntheticDawn }.ToOrSet())
 				{
 					Requires = new HashSet<OrSet>(){ new OrSet() {EPN.Militarist,EPN.MilitaristF }},
 					Prohibits = new AndSet(EPNSET.HS_HyperspaceSpeciality
-                        .Union<string>(EPNSET.HS_DarkConsortium)
-                        .Union<string>(EPNSET.HS_GenesisGuides)
+						.Union<string>(EPNSET.HS_DarkConsortium)
+						.Union<string>(EPNSET.HS_GenesisGuides)
 						.Union<string>(EPNSET.HS_Planetscapers)
 						.Union<string>(EPNSET.HS_StormDevotion)
 						.Union<string>(EPNSET.HS_EagerExplorers)
 						.Union<string>(EPNSET.HS_PleasureSeekers)
-						){ 
-                        EPN.Gestalt, EPN.SpiritualistF, EPN.XenophileF, EPN.C_AristocraticElite,
+						){
+						EPN.Gestalt, EPN.SpiritualistF, EPN.XenophileF, EPN.C_AristocraticElite,
 						EPN.C_ParliamentarySystem, EPN.C_IdyllicBloom, EPN.C_HeroicPast, EPN.C_NaturalDesign,
 						EPN.C_CriminalHeritage,EPN.C_MediaConglomerate,EPN.C_TradingPosts, EPN.S_Biological
 					},
@@ -65,7 +65,7 @@ namespace Dauros.StellarisREG.DAL
 				new Origin(EPN.O_LifeSeeded, new[] { EPN.D_Apocalypse }.ToOrSet())
 				{
 					Prohibits = new AndSet(EPNSET.HS_RelentlessIndustrialists
-                        .Union<string>(EPNSET.HS_MutagenicSpas)
+						.Union<string>(EPNSET.HS_MutagenicSpas)
 						.Union<string>(EPNSET.HS_GenesisGuides)
 						){ },
 					PlanetType = EPN.PT_Gaia
@@ -75,8 +75,8 @@ namespace Dauros.StellarisREG.DAL
 				new Origin(EPN.O_PostApocalyptic, new[] { EPN.D_Apocalypse }.ToOrSet())
 				{
 					Prohibits = new AndSet(EPNSET.HS_Anglers
-                        .Union<string>(EPNSET.HS_Planetscapers)
-                        ){ EPN.AT_Machine, EPN.C_AgrarianIdyll, },
+						.Union<string>(EPNSET.HS_Planetscapers)
+						){ EPN.PH_Machine, EPN.C_AgrarianIdyll, },
 					PlanetType = EPN.PT_Tomb,
 					GrantedTraits = new[] { EPN.T_Survivor }
 				}
@@ -84,7 +84,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.O_RadioactiveRovers,
 				new Origin(EPN.O_RadioactiveRovers, new[] { EPN.D_Apocalypse }.ToOrSet())
 				{
-                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.AT_Machine }},
+					Requires = new HashSet<OrSet>(){new OrSet(){ EPN.PH_Machine }},
 					Prohibits = new AndSet(EPNSET.HS_Anglers
 						.Union<string>(EPNSET.HS_Planetscapers)
 						){ EPN.C_AgrarianIdyll, }
@@ -93,7 +93,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.O_CloneArmy,
 				new Origin(EPN.O_CloneArmy, new[] { EPN.D_Humanoids }.ToOrSet())
 				{
-					Prohibits = new AndSet(){ EPN.Gestalt, EPN.AT_Machine, EPN.C_NaturalDesign, EPN.C_PermanentEmployment },
+					Prohibits = new AndSet(){ EPN.Gestalt, EPN.PH_Machine, EPN.C_NaturalDesign, EPN.C_PermanentEmployment },
 					GrantedTraits = new[] { EPN.T_CloneSoldier }
 				}
 			},{
@@ -101,14 +101,14 @@ namespace Dauros.StellarisREG.DAL
 				new Origin(EPN.O_CommonGround, new[] { EPN.D_Federations }.ToOrSet())
 				{
 					Prohibits = new AndSet(EPNSET.HS_Genocidal)
-                    { EPN.Xenophobe,EPN.XenophobeF, EPN.C_InwardPerfection, EPN.C_BarbaricDespoilers }
+					{ EPN.Xenophobe,EPN.XenophobeF, EPN.C_InwardPerfection, EPN.C_BarbaricDespoilers }
 				}
 			},{
 				EPN.O_Hegemon,
 				new Origin(EPN.O_Hegemon, new[] { EPN.D_Federations }.ToOrSet())
 				{
 					Prohibits = new AndSet(EPNSET.HS_Genocidal)
-                    { EPN.Xenophobe, EPN.XenophobeF, EPN.Egalitarian,EPN.EgalitarianF,  EPN.C_InwardPerfection }
+					{ EPN.Xenophobe, EPN.XenophobeF, EPN.Egalitarian,EPN.EgalitarianF,  EPN.C_InwardPerfection }
 				}
 			},{
 				EPN.O_Doomsday,
@@ -117,21 +117,21 @@ namespace Dauros.StellarisREG.DAL
 				EPN.O_Giants,
 				new Origin(EPN.O_Giants, new[] { EPN.D_Federations }.ToOrSet())
 				{
-					Prohibits = new AndSet(){ EPN.Gestalt, EPN.AT_Machine }
+					Prohibits = new AndSet(){ EPN.Gestalt, EPN.PH_Machine }
 				}
 			},{
 				EPN.O_Scion,
 				new Origin(EPN.O_Scion, new[] { EPN.D_Federations }.ToOrSet())
 				{
-					Prohibits = new AndSet(){ EPN.XenophobeF, EPN.Gestalt, EPN.C_PompousPurists, EPN.AT_Machine }
+					Prohibits = new AndSet(){ EPN.XenophobeF, EPN.Gestalt, EPN.C_PompousPurists, EPN.PH_Machine }
 				}
 			},{
 				EPN.O_ShatteredRing,
 				new Origin(EPN.O_ShatteredRing, new[] { EPN.D_Federations }.ToOrSet())
 				{
 					Prohibits = new AndSet(EPNSET.HS_Anglers
-                        .Union<string>(EPNSET.HS_Planetscapers)
-                        ){ EPN.C_AgrarianIdyll},
+						.Union<string>(EPNSET.HS_Planetscapers)
+						){ EPN.C_AgrarianIdyll},
 					PlanetType = EPN.PT_RingWorld
 				}
 			},{
@@ -139,18 +139,29 @@ namespace Dauros.StellarisREG.DAL
 				new Origin(EPN.O_VoidDwellers, new[] { EPN.D_Federations }.ToOrSet())
 				{
 					Prohibits = new AndSet(EPNSET.HS_Anglers
-                        .Union<string>(EPNSET.HS_IdyllicBloom)
+						.Union<string>(EPNSET.HS_IdyllicBloom)
 						.Union<string>(EPNSET.HS_Planetscapers)
 						){ EPN.C_AgrarianIdyll}
 					,PlanetType = EPN.PT_Habitat,
 					GrantedTraits = new[] { EPN.T_VoidDweller }
 				}
 			},{
+				EPN.O_Voidforged,
+				new Origin(EPN.O_Voidforged, new[] { EPN.D_Federations }.ToOrSet())
+				{
+					Prohibits = new AndSet(EPNSET.HS_Anglers
+						.Union<string>(EPNSET.HS_IdyllicBloom)
+						.Union<string>(EPNSET.HS_Planetscapers)
+						){ EPN.C_AgrarianIdyll}
+					,PlanetType = EPN.PT_Habitat,
+					GrantedTraits = new[] { EPN.T_ZeroGOptimized }
+				}
+			},{
 				EPN.O_Necrophage,
 				new Origin(EPN.O_Necrophage, new[] { EPN.D_Necroids }.ToOrSet())
 				{
-					Prohibits = new AndSet(EPNSET.HS_DeathCult){ EPN.AT_Machine, EPN.Xenophile,EPN.XenophileF,EPN.EgalitarianF,
-                    EPN.C_PermanentEmployment, EPN.C_Empath, EPN.C_Bodysnatcher},
+					Prohibits = new AndSet(EPNSET.HS_DeathCult){ EPN.PH_Machine, EPN.Xenophile,EPN.XenophileF,EPN.EgalitarianF,
+					EPN.C_PermanentEmployment, EPN.C_Empath, EPN.C_Bodysnatcher},
 					GrantedTraits = new[] { EPN.T_Necrophage }
 				}
 			}
@@ -171,13 +182,13 @@ namespace Dauros.StellarisREG.DAL
 				EPN.O_KnightsToxicGod,
 				new Origin(EPN.O_KnightsToxicGod, new[] { EPN.D_Toxoids }.ToOrSet())
 				{
-					Prohibits = new AndSet(EPNSET.HS_Genocidal){ EPN.Gestalt, EPN.AT_Machine, EPN.C_OppressiveAutocracy }
+					Prohibits = new AndSet(EPNSET.HS_Genocidal){ EPN.Gestalt, EPN.PH_Machine, EPN.C_OppressiveAutocracy }
 				}
 			},{
 				EPN.O_Overtuned,
 				new Origin(EPN.O_Overtuned, new[] { EPN.D_Toxoids }.ToOrSet())
 				{
-					Prohibits = new AndSet(EPNSET.HS_NaturalDesign){ EPN.AT_Machine }
+					Prohibits = new AndSet(EPNSET.HS_NaturalDesign){ EPN.PH_Machine }
 				}
 			},{
 				EPN.O_ImperialFiefdom,
@@ -203,8 +214,8 @@ namespace Dauros.StellarisREG.DAL
 				{
 					Prohibits = new AndSet(EPNSET.HS_SovereignGuardianship
 						.Union<string>(EPNSET.HS_EagerExplorers)
-						){ EPN.Authoritarian, EPN.AuthoritarianF, EPN.Xenophobe, EPN.XenophobeF, 
-						EPN.Gestalt, EPN.AT_Machine, EPN.C_SelectiveKinship, EPN.C_PharmaState }
+						){ EPN.Authoritarian, EPN.AuthoritarianF, EPN.Xenophobe, EPN.XenophobeF,
+						EPN.Gestalt, EPN.PH_Machine, EPN.C_SelectiveKinship, EPN.C_PharmaState }
 				}
 			},{
 				EPN.O_Payback,
@@ -213,7 +224,7 @@ namespace Dauros.StellarisREG.DAL
 					Prohibits = new AndSet(EPNSET.HS_SovereignGuardianship
 						.Union<string>(EPNSET.HS_Genocidal)
 						.Union<string>(EPNSET.HS_EagerExplorers)
-						){ EPN.Gestalt, EPN.AT_Machine, EPN.C_SlaverGuilds, EPN.C_PompousPurists,
+						){ EPN.Gestalt, EPN.PH_Machine, EPN.C_SlaverGuilds, EPN.C_PompousPurists,
 					EPN.C_OppressiveAutocracy, EPN.C_PharmaState}
 				}
 			},{
@@ -223,7 +234,7 @@ namespace Dauros.StellarisREG.DAL
 					Prohibits = new AndSet(EPNSET.HS_Genocidal
 						.Union<string>(EPNSET.HS_EagerExplorers)
 						.Union<string>(EPNSET.HS_SovereignGuardianship)
-						){ EPN.Gestalt, EPN.AT_Machine, EPN.C_InwardPerfection, EPN.S_Biological }
+						){ EPN.Gestalt, EPN.PH_Machine, EPN.C_InwardPerfection, EPN.S_Biological }
 				}
 			},
 			{
@@ -231,7 +242,7 @@ namespace Dauros.StellarisREG.DAL
 				new Origin(EPN.O_UnderOneRule,new[]{ EPN.D_GalParagons}.ToOrSet())
 				{
 					Requires = new HashSet<OrSet>(){ new OrSet() {EPN.A_Dictatorial }},
-					Prohibits = new AndSet(){ EPN.Gestalt, EPN.AT_Machine },
+					Prohibits = new AndSet(){ EPN.Gestalt, EPN.PH_Machine },
 					GrantedTraits = new[] { EPN.T_PerfectedGenes }
 				}
 			},{
@@ -252,7 +263,7 @@ namespace Dauros.StellarisREG.DAL
 				new Origin(EPN.O_PrimalCalling,new[]{ EPN.D_GrandArchive}.ToOrSet())
 				{
 					Prohibits = new AndSet()
-					{ EPN.AT_Machine }
+					{ EPN.PH_Machine }
 				}
 			},
 			{
@@ -273,14 +284,14 @@ namespace Dauros.StellarisREG.DAL
 				new Origin(EPN.O_TeachersShroud,new[]{ EPN.D_Overlord}.ToOrSet())
 				{
 					Requires = new HashSet<OrSet>(){ new OrSet() {EPN.Spiritualist, EPN.SpiritualistF } },
-					Prohibits = new AndSet(EPNSET.HS_Genocidal){ EPN.AT_Machine, EPN.C_NaturalDesign, EPN.C_AugmentationBazaars}
+					Prohibits = new AndSet(EPNSET.HS_Genocidal){ EPN.PH_Machine, EPN.C_NaturalDesign, EPN.C_AugmentationBazaars}
 				}
 			},{
 				EPN.O_CyberneticCreed,
 				new Origin(EPN.O_CyberneticCreed,new[]{ EPN.D_MachineAge}.ToOrSet())
 				{
 					Requires = new HashSet<OrSet>(){ new OrSet() {EPN.Spiritualist, EPN.SpiritualistF } },
-					Prohibits = new AndSet(){ EPN.AT_Machine, EPN.Egalitarian, EPN.EgalitarianF, EPN.C_NaturalDesign, EPN.C_PermanentEmployment }
+					Prohibits = new AndSet(){ EPN.PH_Machine, EPN.Egalitarian, EPN.EgalitarianF, EPN.C_NaturalDesign, EPN.C_PermanentEmployment }
 					, GrantedTraits = new[] { EPN.T_RitualisticImplants }
 				}
 			},{
@@ -290,7 +301,7 @@ namespace Dauros.StellarisREG.DAL
 					Prohibits = new AndSet(EPNSET.HS_EagerExplorers
 						.Union<string>(EPNSET.HS_Reanimators)
 						.Union<string>(EPNSET.HS_MutagenicSpas)
-						){ EPN.Gestalt, EPN.AT_Machine, EPN.Spiritualist, EPN.SpiritualistF,
+						){ EPN.Gestalt, EPN.PH_Machine, EPN.Spiritualist, EPN.SpiritualistF,
 						EPN.C_NaturalDesign, EPN.C_AugmentationBazaars},
 					GrantedTraits = new[] { EPN.T_PathogenicGenes }
 				}
@@ -300,7 +311,7 @@ namespace Dauros.StellarisREG.DAL
 				{
 					Prohibits = new AndSet(EPNSET.HS_IdyllicBloom
 						.Union<string>(EPNSET.HS_NaturalDesign)
-						){ EPN.AT_Machine, EPN.C_PermanentEmployment, EPN.C_AugmentationBazaars, EPN.C_Bodysnatcher},
+						){ EPN.PH_Machine, EPN.C_PermanentEmployment, EPN.C_AugmentationBazaars, EPN.C_Bodysnatcher},
 					GrantedTraits = new[] { EPN.T_MalleableGenes }
 				}
 			},{
@@ -314,7 +325,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.O_CalamitousBirth,
 				new Origin(EPN.O_CalamitousBirth,new[]{ EPN.D_Lithoids}.ToOrSet())
 				{
-					Requires = new HashSet<OrSet>(){new OrSet(){ EPN.AT_Lithoid}},
+					Requires = new HashSet<OrSet>(){new OrSet(){ EPN.PH_Lithoid}},
 					Prohibits = new AndSet(EPNSET.HS_Catalytic
 						.Union<string>(EPNSET.HS_GenesisGuides)
 						.Union<string>(EPNSET.HS_Planetscapers)
@@ -325,16 +336,16 @@ namespace Dauros.StellarisREG.DAL
 				EPN.O_ArcWelders,
 				new Origin(EPN.O_ArcWelders,new[]{ EPN.D_MachineAge}.ToOrSet())
 				{
-					Requires = new HashSet<OrSet>(){new OrSet(){ EPN.AT_Machine}},
+					Requires = new HashSet<OrSet>(){new OrSet(){ EPN.PH_Machine}},
 				}
 			},{
-                EPN.O_TreeofLife,
-                new Origin(EPN.O_TreeofLife,new[]{ EPN.D_Utopia}.ToOrSet())
-                {
-                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind }},
-                    Prohibits = new AndSet(){ EPN.C_DevouringSwarm, EPN.C_Terravore }
-                }
-            },{
+				EPN.O_TreeofLife,
+				new Origin(EPN.O_TreeofLife,new[]{ EPN.D_Utopia}.ToOrSet())
+				{
+					Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind }},
+					Prohibits = new AndSet(){ EPN.C_DevouringSwarm, EPN.C_Terravore }
+				}
+			},{
 				EPN.O_ProgenitorHive,
 				new Origin(EPN.O_ProgenitorHive,new[]{ EPN.D_Overlord}.ToOrSet())
 				{
@@ -342,14 +353,14 @@ namespace Dauros.StellarisREG.DAL
 					Prohibits = new AndSet(){ EPN.C_WildSwarm }
 				}
 			},{
-                EPN.O_ResourceConsolidation,
-                new Origin(EPN.O_ResourceConsolidation,new[]{ EPN.D_SyntheticDawn}.ToOrSet())
-                {
-                    Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_MachineIntelligence }},
-                    Prohibits = new AndSet(){ EPN.C_RogueServitor, EPN.C_OrganicRetrofitting, EPN.C_GenesisArchitects, EPN.C_GardeningProtocols },
+				EPN.O_ResourceConsolidation,
+				new Origin(EPN.O_ResourceConsolidation,new[]{ EPN.D_SyntheticDawn}.ToOrSet())
+				{
+					Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_MachineIntelligence }},
+					Prohibits = new AndSet(){ EPN.C_RogueServitor, EPN.C_OrganicRetrofitting, EPN.C_GenesisArchitects, EPN.C_GardeningProtocols },
 					PlanetType = EPN.PT_Machine
 				}
-            },
+			},
 			{
 				EPN.O_Wilderness,
 				new Origin(EPN.O_Wilderness, new[]{ EPN.D_Biogenesis }.ToOrSet())

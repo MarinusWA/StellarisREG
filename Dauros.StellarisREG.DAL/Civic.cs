@@ -238,7 +238,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.C_SelectiveKinship,
 				new StandardCivic(EPN.C_SelectiveKinship,
 					dlc: new[] { EPN.D_Lithoids }.ToOrSet(),
-					prohibitions: new AndSet() { EPN.Xenophile, EPN.XenophileF, EPN.EgalitarianF, EPN.O_BrokenShackles, EPN.C_FanaticPurifiers, EPN.AT_Machine }
+					prohibitions: new AndSet() { EPN.Xenophile, EPN.XenophileF, EPN.EgalitarianF, EPN.O_BrokenShackles, EPN.C_FanaticPurifiers, EPN.PH_Machine }
 				)
 			},
 			{
@@ -268,21 +268,22 @@ namespace Dauros.StellarisREG.DAL
 				new StandardCivic(EPN.C_Reanimators,
 					dlc: new[] { EPN.D_Necroids }.ToOrSet(),
 					prohibitions: new AndSet(EPNSET.HS_SovereignGuardianship)
-					{EPN.Pacifist, EPN.PacifistF, EPN.C_CitizenService, EPN.O_SyntheticFertility, EPN.AT_Machine }
+					{EPN.Pacifist, EPN.PacifistF, EPN.C_CitizenService, EPN.O_SyntheticFertility, EPN.PH_Machine }
 				)
 			},
 			{
 				EPN.C_MutagenicSpas,
 				new StandardCivic(EPN.C_MutagenicSpas, 
 					dlc: new[] { EPN.D_Toxoids }.ToOrSet(),
-					prohibitions: new AndSet(EPNSET.HS_Planetscapers){ EPN.AT_Machine, EPN.O_LifeSeeded, EPN.O_SyntheticFertility }
+					prohibitions: new AndSet(EPNSET.HS_Planetscapers){ EPN.PH_Machine, EPN.O_LifeSeeded, EPN.O_SyntheticFertility }
 				)
 			},
 			{
 				EPN.C_LubricationTanks,
-				new MachineIntelligenceCivic(EPN.C_LubricationTanks,
+				new StandardCivic(EPN.C_LubricationTanks,
 					dlc: new[] { EPN.D_Toxoids }.ToOrSet(),
-					prohibitions: new AndSet(EPNSET.HS_Planetscapers){ EPN.AT_Machine, EPN.O_LifeSeeded, EPN.O_SyntheticFertility }
+					requirements: new[] { EPN.PH_Machine }.ToOrSet(),
+					prohibitions: new AndSet(EPNSET.HS_Planetscapers){EPN.A_MachineIntelligence, EPN.O_LifeSeeded, EPN.O_SyntheticFertility }
 				)
 			},
 			{
@@ -365,21 +366,21 @@ namespace Dauros.StellarisREG.DAL
 				EPN.C_RapidReplicator,
 				new StandardCivic(EPN.C_RapidReplicator,
 					dlc: new[] { EPN.D_MachineAge }.ToOrSet(),
-					requirements: new[] { EPN.AT_Machine }.ToOrSet()
+					requirements: new[] { EPN.PH_Machine }.ToOrSet()
 				)
 			},
 			{
 				EPN.C_StaticResearchAnalysis,
 				new StandardCivic(EPN.C_StaticResearchAnalysis,
 					dlc: new[] { EPN.D_MachineAge }.ToOrSet(),
-					requirements: new[] { EPN.AT_Machine }.ToOrSet()
+					requirements: new[] { EPN.PH_Machine }.ToOrSet()
 				)
 			},
 			{
 				EPN.C_Warbots,
 				new StandardCivic(EPN.C_Warbots,
 					dlc: new[] { EPN.D_MachineAge }.ToOrSet(),
-					requirements: new[] { EPN.AT_Machine }.ToOrSet()
+					requirements: new[] { EPN.PH_Machine }.ToOrSet()
 				)
 			},
 			{
@@ -407,7 +408,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.C_GeneticIdentification,
 				new StandardCivic(EPN.C_GeneticIdentification,
 					dlc: new[] { EPN.D_Biogenesis }.ToOrSet(),
-					prohibitions: new AndSet(){ EPN.AT_Machine }
+					prohibitions: new AndSet(){ EPN.PH_Machine }
 				)
 			},
 			#endregion
@@ -451,14 +452,14 @@ namespace Dauros.StellarisREG.DAL
 				EPN.C_Anglers,
 				new StandardCivic(EPN.C_Anglers, 
 					dlc: new [] { EPN.D_Aquatics }.ToOrSet(),
-					prohibitions:new AndSet(){ EPN.AT_Machine, EPN.O_PostApocalyptic,EPN.O_ShatteredRing,EPN.O_VoidDwellers,EPN.O_Subterranean}
+					prohibitions:new AndSet(){ EPN.PH_Machine, EPN.O_PostApocalyptic,EPN.O_ShatteredRing,EPN.O_VoidDwellers,EPN.O_Subterranean}
 				)
 			},
 			{
 				EPN.C_MarineMachines,
 				new StandardCivic(EPN.C_MarineMachines,
 					dlc: new [] { EPN.D_Aquatics }.ToOrSet(),
-					requirements: new[]{ EPN.AT_Machine }.ToOrSet(),
+					requirements: new[]{ EPN.PH_Machine }.ToOrSet(),
 					prohibitions:new AndSet(){ EPN.O_PostApocalyptic,EPN.O_ShatteredRing,EPN.O_VoidDwellers,EPN.O_Subterranean}
 				)
 			},
@@ -483,7 +484,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.C_NaturalDesign,
 				new StandardCivic(EPN.C_NaturalDesign,
 					dlc: new [] { EPN.D_MachineAge }.ToOrSet(),
-					prohibitions:new AndSet(){ EPN.AT_Machine, EPN.C_GenesisGuides, EPN.O_HardReset, EPN.O_CloneArmy,
+					prohibitions:new AndSet(){ EPN.PH_Machine, EPN.C_GenesisGuides, EPN.O_HardReset, EPN.O_CloneArmy,
 					EPN.O_Overtuned,EPN.O_TeachersShroud,EPN.O_CyberneticCreed,EPN.O_SyntheticFertility}
 				)
 			},
@@ -640,21 +641,21 @@ namespace Dauros.StellarisREG.DAL
 				new CorporateCivic(EPN.C_PermanentEmployment,
 					dlc: new[] { EPN.D_Necroids }.ToOrSet(),
 					prohibitions: new AndSet(){ EPN.Egalitarian, EPN.O_Mechanist, EPN.O_CloneArmy, EPN.O_Necrophage,
-					EPN.O_CyberneticCreed, EPN.O_SyntheticFertility, EPN.AT_Machine}
+					EPN.O_CyberneticCreed, EPN.O_SyntheticFertility, EPN.PH_Machine}
 				)
 			},
 			{
 				EPN.C_MutagenicLuxury,
 				new CorporateCivic(EPN.C_MutagenicLuxury,
 					dlc: new[] { EPN.D_Toxoids }.ToOrSet(),
-					prohibitions: new AndSet(EPNSET.HS_Planetscapers){ EPN.AT_Machine, EPN.C_MutagenicSpas, EPN.O_LifeSeeded, EPN.O_SyntheticFertility }
+					prohibitions: new AndSet(EPNSET.HS_Planetscapers){ EPN.PH_Machine, EPN.C_MutagenicSpas, EPN.O_LifeSeeded, EPN.O_SyntheticFertility }
 				)
 			},
 			{
 				EPN.C_LuxuryLubePools,
 				new CorporateCivic(EPN.C_LuxuryLubePools,
 					dlc: new[] { EPN.D_Toxoids }.ToOrSet(),
-					requirements: new[] { EPN.AT_Machine }.ToOrSet(),
+					requirements: new[] { EPN.PH_Machine }.ToOrSet(),
 					prohibitions: new AndSet(EPNSET.HS_Planetscapers){ EPN.C_LubricationTanks, EPN.O_LifeSeeded, EPN.O_SyntheticFertility }
 				)
 			},
@@ -704,7 +705,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.C_PharmaState,
 				new CorporateCivic(EPN.C_PharmaState,
 					dlc: new[] { EPN.D_GalParagons }.ToOrSet(),
-					prohibitions: new AndSet(){ EPN.O_BrokenShackles, EPN.O_Payback, EPN.AT_Machine }
+					prohibitions: new AndSet(){ EPN.O_BrokenShackles, EPN.O_Payback, EPN.PH_Machine }
 				)
 			},
 			{
@@ -755,7 +756,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.C_SequencedSecurities,
 				new CorporateCivic(EPN.C_SequencedSecurities,
 					dlc: new[] { EPN.D_Biogenesis }.ToOrSet(),
-					prohibitions: new AndSet(){ EPN.AT_Machine, EPN.C_GeneticIdentification }
+					prohibitions: new AndSet(){ EPN.PH_Machine, EPN.C_GeneticIdentification }
 				)
 			},
 			#endregion
@@ -768,7 +769,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.C_TrawlingOperations,
 				new CorporateCivic(EPN.C_TrawlingOperations,
 					dlc: new[] { EPN.D_Aquatics }.ToOrSet(),
-					prohibitions: new AndSet(){ EPN.AT_Machine, EPN.O_HardReset, EPN.O_PostApocalyptic, EPN.O_ShatteredRing,
+					prohibitions: new AndSet(){ EPN.PH_Machine, EPN.O_HardReset, EPN.O_PostApocalyptic, EPN.O_ShatteredRing,
 					EPN.O_VoidDwellers, EPN.O_Subterranean}
 				)
 			},
@@ -776,7 +777,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.C_MaritimeRobotics,
 				new CorporateCivic(EPN.C_MaritimeRobotics,
 					dlc: new[] { EPN.D_Aquatics }.ToOrSet(),
-					requirements: new[] { EPN.AT_Machine }.ToOrSet(),
+					requirements: new[] { EPN.PH_Machine }.ToOrSet(),
 					prohibitions: new AndSet(){ EPN.O_PostApocalyptic, EPN.O_ShatteredRing,EPN.O_VoidDwellers,EPN.O_Subterranean }
 				)
 			},
@@ -800,7 +801,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.C_AugmentationBazaars,
 				new CorporateCivic(EPN.C_AugmentationBazaars,
 					dlc: new[] { EPN.D_MachineAge }.ToOrSet(),
-					prohibitions: new AndSet(){ EPN.AT_Machine, EPN.O_TeachersShroud,EPN.O_SyntheticFertility }
+					prohibitions: new AndSet(){ EPN.PH_Machine, EPN.O_TeachersShroud,EPN.O_SyntheticFertility }
 				)
 			},
 			{
@@ -1039,7 +1040,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.C_DevouringSwarm,
 				new HiveMindCivic(EPN.C_DevouringSwarm,
 					dlc: new[] { EPN.D_Utopia }.ToOrSet(),
-					prohibitions: new AndSet(){ EPN.AT_Lithoid, EPN.C_Empath, EPN.C_MemorialistHM, EPN.C_GuardianCluster,
+					prohibitions: new AndSet(){ EPN.PH_Lithoid, EPN.C_Empath, EPN.C_MemorialistHM, EPN.C_GuardianCluster,
 					EPN.C_Bodysnatcher, EPN.C_FamiliarFace, EPN.O_CommonGround, EPN.O_Hegemon, EPN.O_ImperialFiefdom, EPN.O_Wilderness,
 					EPN.O_TreeofLife, EPN.O_FruitfulPartnership, EPN.O_HereBeDragons, EPN.O_StormChasers,EPN.O_TreasureHunters}
 				)
@@ -1048,7 +1049,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.C_Terravore,
 				new HiveMindCivic(EPN.C_NeuralVaults,
 					dlc: new HashSet<OrSet>(){ new OrSet() { EPN.D_Utopia },new OrSet() {EPN.D_Lithoids } },
-					requirements: new[] { EPN.AT_Lithoid }.ToOrSet(),
+					requirements: new[] { EPN.PH_Lithoid }.ToOrSet(),
 					prohibitions: new AndSet(){ EPN.C_Empath, EPN.C_MemorialistHM, EPN.C_GuardianCluster,
 					EPN.C_Bodysnatcher, EPN.C_FamiliarFace, EPN.O_CommonGround, EPN.O_Hegemon, EPN.O_ImperialFiefdom, EPN.O_Wilderness,
 					EPN.O_TreeofLife, EPN.O_FruitfulPartnership, EPN.O_HereBeDragons, EPN.O_StormChasers,EPN.O_TreasureHunters}
@@ -1059,7 +1060,7 @@ namespace Dauros.StellarisREG.DAL
 				new HiveMindCivic(EPN.C_DevouringWilderness,
 					dlc: new HashSet<OrSet>(){ new OrSet() { EPN.D_Utopia }, new OrSet() {EPN.D_Biogenesis } },
 					requirements: new[] { EPN.O_Wilderness }.ToOrSet(),
-					prohibitions: new AndSet(){ EPN.AT_Lithoid, EPN.C_Empath, EPN.C_MemorialistHM, EPN.C_GuardianCluster,
+					prohibitions: new AndSet(){ EPN.PH_Lithoid, EPN.C_Empath, EPN.C_MemorialistHM, EPN.C_GuardianCluster,
 					EPN.C_Bodysnatcher,EPN.C_FamiliarFace}
 				)
 			},

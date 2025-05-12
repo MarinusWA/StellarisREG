@@ -104,7 +104,7 @@ namespace Dauros.StellarisREG.DAL
         {
 			get
 			{
-				return AllEmpireProperties.Where(kvp => kvp.Value.GrantedTraits.Any()).Select(kvp => kvp.Key).ToHashSet();
+				return AllEmpireProperties.Where(kvp => kvp.Value.GrantedTraits.Any()).SelectMany(kvp => kvp.Value.GrantedTraits).ToHashSet();
 			}
 		}
 
@@ -234,8 +234,8 @@ namespace Dauros.StellarisREG.DAL
                     break;
                 case EmpirePropertyType.Habitat:
                     break;
-                case EmpirePropertyType.SpeciesArchetype:
-                    this.ArchetypeName = ep.Name;
+                case EmpirePropertyType.SpeciesPhenotype:
+                    this.PhenotypeName = ep.Name;
                     break;
                 default:
                     break;
@@ -249,14 +249,15 @@ namespace Dauros.StellarisREG.DAL
 		/// <returns></returns>
 		public static Boolean ValidateSelection(HashSet<String> selectedEmpirePropertyNames)
         {
+            
             var selectedEmpireProperties = selectedEmpirePropertyNames.Select(n => AllEmpireProperties[n]);
 
 			//If a selectionset contains a selection that is prohibited by that same selectionset, it is invalid.
 			var valid = !selectedEmpireProperties.Where(e => e.Prohibits != null).Any(e => e.Prohibits.Any(pe => selectedEmpirePropertyNames.Contains(pe)));
             if (!valid) return valid;
-
+			
             //two or more authorities is not allowed
-            valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.Authority) <= 1;
+			valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.Authority) <= 1;
             if (!valid) return valid;
 
 			//two or more shipsets is not allowed
@@ -269,10 +270,6 @@ namespace Dauros.StellarisREG.DAL
 
 			//two or more orgins is not allowed
 			valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.Origin) <= 1;
-            if (!valid) return valid;
-
-            //two or more archetypes is not allowed
-            valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.SpeciesArchetype) <= 1;
             if (!valid) return valid;
 
             //more than three civics is not allowed
@@ -300,8 +297,12 @@ namespace Dauros.StellarisREG.DAL
             //Trait count may not exceed 5
             valid = selectedTraits.Count() <= basePicks;
             if (!valid) return valid;
+            
+            //At most one Design Trait is allowed for Machine Empires
+			valid = selectedEmpireProperties.OfType<MachineTrait>().Count(mt => mt.IsDesignTrait) <= 1;
+			if (!valid) return valid;
 
-            return valid;
+			return valid;
         }
 
         public Boolean ValidateState()
@@ -322,14 +323,12 @@ namespace Dauros.StellarisREG.DAL
             {
 				if (!ep.Requires.Any()) continue;
 
-				
-
-				var selSets = RecurseRequirement(new HashSet<OrSet>(ep.Requires), new HashSet<string>() { ep.Name });
+				var combinedRequirementSets = RecurseRequirement(new HashSet<OrSet>(ep.Requires), new HashSet<string>() { ep.Name });
                 var validSets = new HashSet<AndSet>();
-                foreach (var selSet in selSets)
+                foreach (var reqSet in combinedRequirementSets)
                 {
-                    var isValid = ValidateSelection(selSet);
-                    if (isValid) validSets.Add(selSet);
+                    var isValid = ValidateSelection(reqSet);
+                    if (isValid) validSets.Add(reqSet);
                 }
                 allPropertySelectedSets.Add(validSets);
             }
@@ -408,6 +407,7 @@ namespace Dauros.StellarisREG.DAL
 						foreach (var orSet in addedRequirements)
 						{
                             orSet.RemoveWhere(x => processing.Contains(x));
+                            if (!orSet.Any()) addedRequirements.Remove(orSet);
 						}
 						remaining.UnionWith(addedRequirements);
                     }

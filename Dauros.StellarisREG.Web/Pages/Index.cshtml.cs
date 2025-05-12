@@ -37,7 +37,7 @@ namespace Dauros.StellarisREG.Web.Pages
         }
 
         public async Task<IActionResult> OnPostPreSelectAsync(HashSet<String> selectedDLC, HashSet<String> selectedEthics,
-            String selectedAuthority, String? selectedArchetype, String selectedOrigin, HashSet<String> selectedCivics, String prohibitedPick)
+            String selectedAuthority, String? selectedPhenotype, String selectedOrigin, HashSet<String> selectedCivics, String prohibitedPick)
         {
             return ViewComponent("PreSelect", new
             {
@@ -45,9 +45,9 @@ namespace Dauros.StellarisREG.Web.Pages
                 selectedOrigin = selectedOrigin,
                 selectedEthics = selectedEthics,
                 selectedAuthority = selectedAuthority,
-                selectedArchetype = selectedArchetype,
                 selectedCivics = selectedCivics,
-                pick = prohibitedPick ?? String.Empty
+				selectedPhenotype = selectedPhenotype,
+				pick = prohibitedPick ?? String.Empty
             });
         }
 

@@ -15,7 +15,7 @@ namespace Dauros.StellarisREG.DAL
 		public int ID => Name.GetHashCode();
 
 		/// <summary>
-		/// The planettype set by this EmpireProperty.
+		/// The planettype this EmpireProperty forces the empire to start with.
 		/// </summary>
 		public string? PlanetType { get; init; }
 		/// <summary>

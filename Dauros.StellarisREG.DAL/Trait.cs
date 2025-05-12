@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Dauros.StellarisREG.DAL
@@ -65,7 +66,7 @@ namespace Dauros.StellarisREG.DAL
 			},
 			{
 				EPN.T_Agrarian,
-				new Trait(EPN.T_Agrarian, prohibitions : new AndSet() { EPN.AT_Lithoid})
+				new Trait(EPN.T_Agrarian, prohibitions : new AndSet() { EPN.PH_Lithoid})
 				{
 					Cost = 2
 				}
@@ -483,7 +484,7 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.T_Decadent,
 				new Trait(EPN.T_Decadent,
-					prohibitions: new AndSet(){ EPN.T_HiveMinded}
+					prohibitions: new AndSet(){ EPN.Gestalt}
 					)
 				{
 					Cost = -1
@@ -492,7 +493,7 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.T_Deviants,
 				new Trait(EPN.T_Deviants,
-					prohibitions: new AndSet(){ EPN.T_HiveMinded, EPN.T_Conformists}
+					prohibitions: new AndSet(){ EPN.Gestalt, EPN.T_Conformists}
 					)
 				{
 					Cost = -1
@@ -528,7 +529,7 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.T_Quarrelsome,
 				new Trait(EPN.T_Quarrelsome,
-					prohibitions: new AndSet(){ EPN.T_Traditional}
+					prohibitions: new AndSet(){ EPN.T_Traditional, EPN.Gestalt}
 					)
 				{
 					Cost = -1
@@ -583,7 +584,7 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.T_Wasteful,
 				new Trait(EPN.T_Wasteful,
-					prohibitions: new AndSet(){ EPN.T_HiveMinded, EPN.T_Conservationist}
+					prohibitions: new AndSet(){ EPN.Gestalt, EPN.T_Conservationist}
 					)
 				{
 					Cost = -1
@@ -600,7 +601,7 @@ namespace Dauros.StellarisREG.DAL
 			},
 			{
 				EPN.T_Jinxed,
-				new Trait(EPN.T_Jinxed, 
+				new Trait(EPN.T_Jinxed,
 					dlc: new[]{ EPN.D_Humanoids }.ToOrSet())
 				{
 					Cost = -1
@@ -961,12 +962,453 @@ namespace Dauros.StellarisREG.DAL
 			#endregion
 
 			#region Machine
-
+			#region Granted Traits
+			{ 
+				EPN.T_MachineUnit,
+				new MachineTrait(EPN.T_MachineUnit)
+				{
+					Cost = 0
+				}
+			},
+			{
+				EPN.T_RadiationShields,
+				new MachineTrait(EPN.T_RadiationShields,
+					dlc: new[]{ EPN.D_Apocalypse }.ToOrSet(),
+					requirements: new[] { EPN.O_RadioactiveRovers }.ToOrSet()
+					)
+				{
+					Cost = 0
+				}
+			},
+			{
+				EPN.T_ZeroGOptimized,
+				new MachineTrait(EPN.T_ZeroGOptimized,
+					dlc: new[]{ EPN.D_Federations }.ToOrSet(),
+					requirements: new[] { EPN.O_Voidforged }.ToOrSet()
+					)
+				{
+					Cost = 0
+				}
+			},
+			{
+				EPN.T_Molebots,
+				new MachineTrait(EPN.T_Molebots,
+					dlc: new HashSet<OrSet>(){ new OrSet{ EPN.D_Overlord }, new OrSet{EPN.D_MachineAge } }
+					)
+				{
+					Cost = 0
+				}
+			},
+			{
+				EPN.T_SyntheticSalvation,
+				new MachineTrait(EPN.T_SyntheticSalvation,
+					dlc: new[]{ EPN.D_MachineAge }.ToOrSet(),
+					requirements: new[] { EPN.O_SyntheticFertility }.ToOrSet()
+					)
+				{
+					Cost = 0
+				}
+			},
+			{
+				EPN.T_Waterproof,
+				new MachineTrait(EPN.T_Waterproof,
+					dlc: new[]{ EPN.D_Aquatics }.ToOrSet(),
+					requirements: new[] { EPN.T_Molebots }.ToOrSet()
+					)
+				{
+					Cost = 2
+				}
+			},
+			#endregion
+			#region Basic
+			#region Positive
+			{
+				EPN.T_AdaptiveFrames,
+				new MachineTrait(EPN.T_AdaptiveFrames)
+				{
+					Cost = 3
+				}
+			},
+			{
+				EPN.T_EfficientProcessors,
+				new MachineTrait(EPN.T_EfficientProcessors)
+				{
+					Cost = 3
+				}
+			},
+			{
+				EPN.T_Harvesters,
+				new MachineTrait(EPN.T_Harvesters)
+				{
+					Cost = 2
+				}
+			},
+			{
+				EPN.T_PowerDrills,
+				new MachineTrait(EPN.T_PowerDrills)
+				{
+					Cost = 2
+				}
+			},
+			{
+				EPN.T_Superconductive,
+				new MachineTrait(EPN.T_Superconductive)
+				{
+					Cost = 2
+				}
+			},
+			{
+				EPN.T_DoubleJointed,
+				new MachineTrait(EPN.T_DoubleJointed,
+					prohibitions: new AndSet(){ EPN.T_Bulky }
+					)
+				{
+					Cost = 1
+				}
+			},
+			{
+				EPN.T_Durable,
+				new MachineTrait(EPN.T_Durable,
+					prohibitions: new AndSet(){ EPN.T_HighMaintenance }
+					)
+				{
+					Cost = 1
+				}
+			},
+			{
+				EPN.T_EmotionEmulators,
+				new MachineTrait(EPN.T_EmotionEmulators,
+					prohibitions: new AndSet(){ EPN.T_Uncanny }
+					)
+				{
+					Cost = 1
+				}
+			},
+			{
+				EPN.T_MassProduced,
+				new MachineTrait(EPN.T_MassProduced,
+					prohibitions: new AndSet(){ EPN.T_CustomMade }
+					)
+				{
+					Cost = 1
+				}
+			},
+			{
+				EPN.T_Recycled,
+				new MachineTrait(EPN.T_Recycled,
+					prohibitions: new AndSet(){ EPN.T_Luxurious }
+					)
+				{
+					Cost = 2
+				}
+			},
+			{
+				EPN.T_StreamlinedProtocols,
+				new MachineTrait(EPN.T_StreamlinedProtocols,
+					prohibitions: new AndSet(){ EPN.T_HighBandwidth }
+					)
+				{
+					Cost = 2
+				}
+			},
+			//This trait is used for Robots only
+			//{
+			//	EPN.T_DomesticProtocols,
+			//	new MachineTrait(EPN.T_DomesticProtocols,
+			//		prohibitions: new AndSet(){ EPN.PH_Machine }
+			//		)
+			//	{
+			//		Cost = 2
+			//	}
+			//},
+			{
+				EPN.T_LogicEngines,
+				new MachineTrait(EPN.T_LogicEngines)
+				{
+					Cost = 2
+				}
+			},
+			{
+				EPN.T_TradingAlgorithms,
+				new MachineTrait(EPN.T_TradingAlgorithms,
+					prohibitions: new AndSet(){ EPN.A_MachineIntelligence, EPN.T_ScarcitySubroutines }
+					)
+				{
+					Cost = 2
+				}
+			},
+			{
+				EPN.T_EternalMachine,
+				new MachineTrait(EPN.T_EternalMachine)
+				{
+					Cost = 4
+				}
+			},
+			{
+				EPN.T_LoyaltyCircuits,
+				new MachineTrait(EPN.T_LoyaltyCircuits,
+					prohibitions: new AndSet(){ EPN.A_MachineIntelligence }
+					)
+				{
+					Cost = 2
+				}
+			},
+			{
+				EPN.T_PropagandaMachines,
+				new MachineTrait(EPN.T_PropagandaMachines,
+					prohibitions: new AndSet(){ EPN.T_Quarrelsome }
+					)
+				{
+					Cost = 1
+				}
+			},
+			{
+				EPN.T_EnhancedMemory,
+				new MachineTrait(EPN.T_EnhancedMemory)
+				{
+					Cost = 2
+				}
+			},
+			{
+				EPN.T_LearningAlgorithms,
+				new MachineTrait(EPN.T_LearningAlgorithms,
+					prohibitions: new AndSet(){ EPN.T_RepurposedHardware }
+					)
+				{
+					Cost = 1
+				}
+			},
+			{
+				EPN.T_EngineeringCore,
+				new MachineTrait(EPN.T_EngineeringCore,
+					dlc: new[]{ EPN.D_MachineAge }.ToOrSet(),
+					prohibitions: new AndSet(){ }
+					)
+				{
+					Cost = 1
+				}
+			},
+			{
+				EPN.T_PhysicsCore,
+				new MachineTrait(EPN.T_PhysicsCore,
+					dlc: new[]{ EPN.D_MachineAge }.ToOrSet(),
+					prohibitions: new AndSet(){ }
+					)
+				{
+					Cost = 1
+				}
+			},
+			{
+				EPN.T_SociologyCore,
+				new MachineTrait(EPN.T_SociologyCore,
+					dlc: new[]{ EPN.D_MachineAge }.ToOrSet(),
+					prohibitions: new AndSet(){ }
+					)
+				{
+					Cost = 1
+				}
+			},
+			{
+				EPN.T_IntegratedWeaponry,
+				new MachineTrait(EPN.T_IntegratedWeaponry,
+					dlc: new[]{ EPN.D_MachineAge }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.T_DelicateChassis }
+					)
+				{
+					Cost = 2
+				}
+			},
+			#endregion
+			#region Negative
+			{
+				EPN.T_Bulky,
+				new MachineTrait(EPN.T_Bulky,
+					prohibitions: new AndSet(){ EPN.T_DoubleJointed }
+					)
+				{
+					Cost = -1
+				}
+			},
+			{
+				EPN.T_CustomMade,
+				new MachineTrait(EPN.T_CustomMade,
+					prohibitions: new AndSet(){ EPN.T_MassProduced })
+				{
+					Cost = -1
+				}
+			},
+			{
+				EPN.T_HighBandwidth,
+				new MachineTrait(EPN.T_HighBandwidth,
+					prohibitions: new AndSet(){ EPN.T_StreamlinedProtocols })
+				{
+					Cost = -2
+				}
+			},
+			{
+				EPN.T_HighMaintenance,
+				new MachineTrait(EPN.T_HighMaintenance,
+					prohibitions: new AndSet(){ EPN.T_Durable })
+				{
+					Cost = -1
+				}
+			},
+			{
+				EPN.T_Luxurious,
+				new MachineTrait(EPN.T_Luxurious,
+					prohibitions: new AndSet(){ EPN.T_Recycled })
+				{
+					Cost = -2
+				}
+			},
+			{
+				EPN.T_Uncanny,
+				new MachineTrait(EPN.T_Uncanny,
+					prohibitions: new AndSet(){ EPN.T_EmotionEmulators })
+				{
+					Cost = -1
+				}
+			},
+			//{
+			//	EPN.T_Decadent,
+			//	new MachineTrait(EPN.T_Decadent,
+			//		prohibitions: new AndSet(){ EPN.A_MachineIntelligence })
+			//	{
+			//		Cost = -1
+			//	}
+			//},
+			//{
+			//	EPN.T_Deviants,
+			//	new MachineTrait(EPN.T_Deviants,
+			//		prohibitions: new AndSet(){ EPN.A_MachineIntelligence })
+			//	{
+			//		Cost = -1
+			//	}
+			//},
+			//{
+			//	EPN.T_Quarrelsome,
+			//	new MachineTrait(EPN.T_Quarrelsome,
+			//		prohibitions: new AndSet(){ EPN.A_MachineIntelligence, EPN.T_PropagandaMachines })
+			//	{
+			//		Cost = -1
+			//	}
+			//},
+			//{
+			//	EPN.T_Wasteful,
+			//	new MachineTrait(EPN.T_Wasteful,
+			//		prohibitions: new AndSet(){ EPN.A_MachineIntelligence })
+			//	{
+			//		Cost = -1
+			//	}
+			//},
+			{
+				EPN.T_RepurposedHardware,
+				new MachineTrait(EPN.T_RepurposedHardware,
+					prohibitions: new AndSet(){ EPN.T_LearningAlgorithms })
+				{
+					Cost = -1
+				}
+			},
+			{
+				EPN.T_DelicateChassis,
+				new MachineTrait(EPN.T_DelicateChassis,
+					prohibitions: new AndSet(){ EPN.T_IntegratedWeaponry })
+				{
+					Cost = -1
+				}
+			},
+			{
+				EPN.T_ScarcitySubroutines,
+				new MachineTrait(EPN.T_ScarcitySubroutines,
+					prohibitions: new AndSet(){ EPN.T_TradingAlgorithms, EPN.A_MachineIntelligence })
+				{
+					Cost = -1
+				}
+			},
+			#endregion
+			#endregion
+			#endregion
+			#region Design Traits
+			{
+				EPN.T_ArtGenerator,
+				new MachineTrait(EPN.T_ArtGenerator,
+					dlc: new[]{ EPN.D_MachineAge }.ToOrSet())
+				{
+					Cost = 0,
+					IsDesignTrait = true
+				}
+			},
+			{
+				EPN.T_ConversationalAI,
+				new MachineTrait(EPN.T_ConversationalAI,
+					dlc: new[]{ EPN.D_MachineAge }.ToOrSet())
+				{
+					Cost = 0,
+					IsDesignTrait = true
+				}
+			},
+			{
+				EPN.T_Nannybot,
+				new MachineTrait(EPN.T_Nannybot,
+					dlc: new[]{ EPN.D_MachineAge }.ToOrSet())
+				{
+					Cost = 0,
+					IsDesignTrait = true
+				}
+			},
+			{
+				EPN.T_ResearchAssistants,
+				new MachineTrait(EPN.T_ResearchAssistants,
+					dlc: new[]{ EPN.D_MachineAge }.ToOrSet())
+				{
+					Cost = 0,
+					IsDesignTrait = true
+				}
+			},
+			{
+				EPN.T_WarMachine,
+				new MachineTrait(EPN.T_WarMachine,
+					dlc: new[]{ EPN.D_MachineAge }.ToOrSet())
+				{
+					Cost = 0,
+					IsDesignTrait = true
+				}
+			},
+			{
+				EPN.T_Workerbots,
+				new MachineTrait(EPN.T_Workerbots,
+					dlc: new[]{ EPN.D_MachineAge }.ToOrSet())
+				{
+					Cost = 0,
+					IsDesignTrait = true
+				}
+			},
 			#endregion
 		};
 
 		public Trait(String name, HashSet<OrSet>? dlc = null,
 			HashSet<OrSet>? requirements = null, AndSet? prohibitions = null)
 			: base(name, EmpirePropertyType.Trait, dlc, requirements, prohibitions) { }
+
+
+	}
+
+	public class MachineTrait : Trait
+	{
+		/// <summary>
+		/// Design traits are only available at empire creation and do not cost trait points. 
+		/// A species can only have one design trait. 
+		/// </summary>
+		public bool IsDesignTrait { get; init; } = false;
+
+		public MachineTrait(string name, HashSet<OrSet>? dlc = null,
+			HashSet<OrSet>? requirements = null, AndSet? prohibitions = null)
+			: base(name,
+				new[] { EPN.D_SyntheticDawn, EPN.D_MachineAge }.ToOrSet()
+					.Union(dlc ?? new HashSet<OrSet>()).ToHashSet(),
+			new[] {EPN.PH_Machine }.ToOrSet()
+					.Union(requirements ?? new HashSet<OrSet>()).ToHashSet(),
+			prohibitions)
+		{ }
 	}
 }

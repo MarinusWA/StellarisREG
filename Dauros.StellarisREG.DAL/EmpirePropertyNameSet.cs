@@ -8,6 +8,9 @@ namespace Dauros.StellarisREG.DAL
 {
 	public static class EPNSET
 	{
+
+
+
 		public static HashSet<String> HS_Anglers =
 			new HashSet<String>() { EPN.C_Anglers, EPN.C_TrawlingOperations, EPN.C_MarineMachines, EPN.C_MaritimeRobotics};
 

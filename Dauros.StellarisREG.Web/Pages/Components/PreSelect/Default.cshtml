@@ -2,29 +2,29 @@
 <div class="row w-100">
     <div class="col-sm">
         <div class="row">
-            <div class="col" id="ps_archetype">
-                <h5>Species Archetype</h5>
+            <div class="col" id="ps_phenotype">
+                <h5>Species</h5>
                 <ul>
-                    @if (!String.IsNullOrWhiteSpace(Model.SelectedArchetype))
+                    @if (!String.IsNullOrWhiteSpace(Model.SelectedPhenotype))
                     {
                         var id = String.Format("sat0");
                         <li>
-                            @Html.RadioButton("at", Model.SelectedArchetype, true, new { id = id })&nbsp;@Html.Label(id, Model.SelectedArchetype, new { @class = "ps_selected" })
+                            @Html.RadioButton("at", Model.SelectedPhenotype, true, new { id = id })&nbsp;@Html.Label(id, Model.SelectedPhenotype, new { @class = "ps_selected" })
                         </li>
                     }
-                    @foreach (var archetype in Model.ValidArchetypes.OrderBy(o => o))
+                    @foreach (var phenotype in Model.ValidPhenotypes.OrderBy(o => o))
                     {
 
-                        var id = String.Format("vat{0}", Model.ValidArchetypes.IndexOf(archetype));
+                        var id = String.Format("vat{0}", Model.ValidPhenotypes.IndexOf(phenotype));
                         <li>
-                            @Html.RadioButton("at", archetype, false, new { id = id })&nbsp;@Html.Label(id, archetype)
+                            @Html.RadioButton("at", phenotype, false, new { id = id })&nbsp;@Html.Label(id, phenotype)
                         </li>
                     }
-                    @foreach (var archetype in Model.ProhibitedArchetypes.OrderBy(o => o))
+                    @foreach (var phenotype in Model.ProhibitedPhenotypes.OrderBy(o => o))
                     {
-                        var id = String.Format("pat{0}", Model.ProhibitedArchetypes.IndexOf(archetype));
+                        var id = String.Format("pat{0}", Model.ProhibitedPhenotypes.IndexOf(phenotype));
                         <li>
-                            @Html.RadioButton("at", archetype, false, new { id = id })&nbsp;@Html.Label(id, archetype, new { @class = "ps_prohibited" })
+                            @Html.RadioButton("at", phenotype, false, new { id = id })&nbsp;@Html.Label(id, phenotype, new { @class = "ps_prohibited" })
                         </li>
                     }
                 </ul>

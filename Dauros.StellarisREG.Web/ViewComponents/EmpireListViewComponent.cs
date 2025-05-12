@@ -64,8 +64,8 @@ namespace Dauros.StellarisREG.Web.ViewComponents
                     Ethics = ss.EthicNames,
                     Traits = ss.TraitNames,
                     PlanetType = GetRandomPlanetType(ss),
-                    Archetype = ss.ArchetypeName ?? EPN.AT_Organic
-            };
+                    SpeciesPhenotype = ss.PhenotypeName!
+                };
 
                 result.Add(empireData);
             }
@@ -73,22 +73,6 @@ namespace Dauros.StellarisREG.Web.ViewComponents
             return View(result);
         }
 
-        private void SetRandomArchetype(SelectState ss)
-        {
-            var dist = new List<String>() {EPN.AT_Lithoid,EPN.AT_Machine };
-            //Make biological pick more likely
-            for (int i = 0; i < 4; i++) dist.Add(EPN.AT_Organic);
-            for (int i = 0; i < 2; i++) dist.Add(EPN.PH_Plantoid);
-
-            if (ss.ArchetypeName == null)
-            {
-                var valid = ss.GetValidArchetypes().ToArray();
-                dist.RemoveAll(d => !valid.Contains(d));
-                valid = dist.ToArray();
-                var r = new Random();
-                ss.AddEmpireProperty(valid[r.Next(valid.Count())]);
-            }
-        }
 
 		private void SetRandomPhenotype(SelectState ss)
 		{
@@ -201,6 +185,6 @@ namespace Dauros.StellarisREG.Web.ViewComponents
         public String Origin { get; set; }
         public String Authority { get; set; }
         public String PlanetType { get; set; }
-        public String Archetype { get; set; }
+        public String SpeciesPhenotype { get; set; }
     }
 }
