@@ -1,9 +1,11 @@
 ﻿using Dauros.StellarisREG.DAL;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Intrinsics.X86;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Dauros.StellarisREG.Web.ViewComponents
@@ -11,11 +13,16 @@ namespace Dauros.StellarisREG.Web.ViewComponents
     [ViewComponent]
     public class PreSelect : ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync(HashSet<String> selectedDLC, string? selectedOrigin, HashSet<String> selectedEthics,
+        public async Task<IViewComponentResult> InvokeAsync(HashSet<String>? selectedDLC, string? selectedOrigin, HashSet<String> selectedEthics,
             String? selectedAuthority, String? selectedPhenotype, HashSet<String> selectedCivics, string? selectedShipset, string pick = "")
         {
-			var ss = new SelectState();
-			ss.SelectedDLC = selectedDLC ?? SelectState.AllDLC.ToHashSet();
+            var cookieName = "selectedDLC";
+
+            var ss = new SelectState()
+            {
+                SelectedDLC = GetSelectedDLC(selectedDLC, cookieName)
+            };
+
 			ss.AddEmpireProperty(selectedCivics ?? new HashSet<string>());
 			ss.AddEmpireProperty(selectedEthics ?? new HashSet<string>());
 			ss.AddEmpireProperty(selectedAuthority);
@@ -23,25 +30,22 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 			//ss.AddEmpireProperty(selectedShipSet);
 			ss.AddEmpireProperty(selectedPhenotype);
 
+			//Set the selected DLC in the cookie
+			CookieHelper.SetJsonCookie(HttpContext.Response, cookieName, ss.SelectedDLC);
+
 			//If state is invalid, create a state with just the pick selected
-			//If the pick is not an empireproperty assume its a dlc string and return an empty selectstate
 			if (!ss.ValidateState())
             {
-                ss = new SelectState();
-                ss.SelectedDLC = selectedDLC ?? SelectState.AllDLC.ToHashSet();
+                ss = new SelectState() { SelectedDLC = GetSelectedDLC(selectedDLC, cookieName) };
 				ss.AddEmpireProperty(pick);
-            }
-            else if (!SelectState.AllEmpireProperties.ContainsKey(pick))
+			}
+			//If the pick is not an empireproperty assume its a dlc string and return an empty selectstate
+			else if (pick!= String.Empty && !SelectState.AllEmpireProperties.ContainsKey(pick))
             {
-                ss = new SelectState();
-            }
-            
-            ss.SelectedDLC = selectedDLC ?? SelectState.AllDLC.ToHashSet();
+				ss = new SelectState() { SelectedDLC = GetSelectedDLC(selectedDLC, cookieName) };
+			}
 
-			
-            
-
-            var prohibited = ss.GetProhibited();
+			var prohibited = ss.GetProhibited();
             var ssm = new SelectStateModel();
 
             ssm.SelectedAuthority = ss.AuthorityName;
@@ -70,5 +74,12 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 
 			return View(ssm);
         }
-    }
+
+        public HashSet<String> GetSelectedDLC(HashSet<String>? incomingDLC, string cookieName)
+        {
+			return incomingDLC
+				?? CookieHelper.GetJsonCookie<HashSet<String>?>(HttpContext.Request, cookieName)
+				?? SelectState.AllDLC.ToHashSet();
+		}
+	}
 }

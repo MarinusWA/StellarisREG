@@ -3,18 +3,25 @@
 
 // Write your Javascript code.
 $(document).ready(function () {
-    console.info("Document Ready");
+    //console.info("Document Ready");
 
     $('#dlcselect').multiselect({
+        includeSelectAllOption: false,
+        enableFiltering: true,
+        enableCaseInsensitiveFiltering: true,
+        filterPlaceholder: 'Search DLC...',
+        maxHeight: 400,
         buttonWidth: '100%',
-        nonSelectedText: 'No DLC selected.',
-        allSelectedText: 'All DLC selected.',
-
+        nonSelectedText: 'Select DLC',
+        allSelectedText: 'All DLC selected',
+        nSelectedText: 'DLC selected'
     });
 
     $('#ps_dlc :checkbox').change(function () {
         refreshPreSelect($(this).val());
     });
+
+
 
     $("#generate").click(function () {
         var jq_ps = $("#preselect");
@@ -41,40 +48,99 @@ $(document).ready(function () {
 
 });
 
-
+function getCookie(name) {
+    const value = document.cookie
+        .split('; ')
+        .find(row => row.startsWith(name + '='));
+    return value ? decodeURIComponent(value.split('=')[1]) : null;
+}
 
 function hookPreSelectEvents() {
-    
-    //Hook refresh on ethic or civic pick
-    $('#preselect :checkbox').change(function () {
-        var label = $(this).parent().children("label");
-        refreshPreSelect(label.text());
+
+    $('#originselect').multiselect({
+        enableFiltering: true,
+        enableCaseInsensitiveFiltering: true,
+        filterPlaceholder: 'Search...',
+        maxHeight: 400,
+        buttonWidth: '100%',
+        nonSelectedText: 'Any', // Button text if nothing selected
+        includeSelectAllOption: false,
+        multiple: false,
+        maxSelectable: 1,
+        onChange: function (option, checked, select) {
+            var selectedValue = $(option).val();
+            // Now you can do something with this value
+            refreshPreSelect(selectedValue);
+        }
     });
 
-    //Hook Deselect authority function
-    $('#authds').click(function () {
-        $('input[id^=auth]').each(function () {
-            $(this).prop('checked', false);
-        });
-        refreshPreSelect();
+    $('#ethicselect').multiselect({
+        enableFiltering: true,
+        enableCaseInsensitiveFiltering: true,
+        filterPlaceholder: 'Search...',
+        maxHeight: 400,
+        buttonWidth: '100%',
+        nonSelectedText: 'Select Ethics',
+        nSelectedText: 'Ethic selected',
+        includeSelectAllOption: false,
     });
-    //Hook refresh on authority pick
-    $("#ps_auth :radio").change(function () {
-        var label = $(this).parent().children("label");
-        refreshPreSelect(label.text());
+
+    $('#ps_ethics :checkbox').change(function () {
+        refreshPreSelect($(this).val());
+    });
+
+    $('#authselect').multiselect({
+        enableFiltering: true,
+        enableCaseInsensitiveFiltering: true,
+        filterPlaceholder: 'Search...',
+        maxHeight: 400,
+        buttonWidth: '100%',
+        nonSelectedText: 'Any', // Button text if nothing selected
+        includeSelectAllOption: false,
+        multiple: false,
+        maxSelectable: 1,
+        onChange: function (option, checked, select) {
+            var selectedValue = $(option).val();
+            // Now you can do something with this value
+            refreshPreSelect(selectedValue);
+        }
+    });
+
         
+
+
+    //Setup the multiselect for the species
+    $('#phenotypeselect').multiselect({
+        enableFiltering: true,
+        enableCaseInsensitiveFiltering: true,
+        filterPlaceholder: 'Search...',
+        maxHeight: 400,
+        buttonWidth: '100%',
+        nonSelectedText: 'Any', // Button text if nothing selected
+        includeSelectAllOption: false,
+        multiple: false,
+        maxSelectable: 1,
+        onChange: function (option, checked, select) {
+            var selectedValue = $(option).val();
+            // Now you can do something with this value
+            refreshPreSelect(selectedValue);
+        }
     });
 
-    //Hook refresh on phenotype pick
-    $("#ps_phenotype :radio").change(function () {
-        var label = $(this).parent().children("label");
-        refreshPreSelect(label.text());
+    //Setup the multiselect for the civics
+    $('#civicselect').multiselect({
+        includeSelectAllOption: false,
+        enableFiltering: true,
+        enableCaseInsensitiveFiltering: true,
+        filterPlaceholder: 'Search Civics...',
+        maxHeight: 900,
+        buttonWidth: '100%',
+        nonSelectedText: 'Select Civics',
+        nSelectedText: 'Civic selected'
     });
 
-    //Hook refresh on origin pick
-    $("#ps_origin :radio").change(function () {
-        var label = $(this).parent().children("label");
-        refreshPreSelect(label.text());
+    $('#ps_civics :checkbox').change(function () {
+        refreshPreSelect($(this).val());
     });
 }
 //
@@ -85,22 +151,24 @@ function scanPreselect() {
         //console.log(idx + " " + cb.value + ": " + cb.checked);
         if (cb.checked) checkedDLC.push(cb.value);
     });
+
     //Get Ethics
     var checkedEthics = [];
     $('#ps_ethics :checkbox').each(function (idx, cb) {
         //console.log(cb.name + ": " + cb.checked);
-        if (cb.checked) checkedEthics.push(cb.name);
+        if (cb.checked) checkedEthics.push(cb.value);
     });
+
     //Get Authority
-    var checkedAuthority = $("#ps_auth :radio:checked").val();
-    var checkedOrigin = $("#ps_origin :radio:checked").val();
-    var checkedPhenotype = $("#ps_phenotype :radio:checked").val();
+    var checkedAuthority = $("#authselect").val();
+    var checkedOrigin = $("#originselect").val();
+    var checkedPhenotype = $('#phenotypeselect').val();
 
     //Get Civics
     var checkedCivics = [];
     $('#ps_civics :checkbox').each(function (idx, cb) {
-        //console.log(cb.name + ": " + cb.checked);
-        if (cb.checked) checkedCivics.push(cb.name);
+        //console.log(idx + " " + cb.value + ": " + cb.checked);
+        if (cb.checked) checkedCivics.push(cb.value);
     });
 
     var psdata = {

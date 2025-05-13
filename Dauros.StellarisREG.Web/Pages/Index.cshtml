@@ -12,9 +12,11 @@
 <div class="row w-100 mb-2">
     <div class="col w-100" id="ps_dlc">
         <select multiple="multiple" id="dlcselect">
-            @foreach (var dlc in Model.DLC)
+            @foreach (var dlc in Model.AvailableDLC)
             {
-                <option selected="selected">@dlc</option>
+                <option value="@dlc" selected="@(Model.SelectedDLC.Contains(dlc) ? "selected" : null)">
+                    @dlc
+                </option>
             }
         </select>
     </div>

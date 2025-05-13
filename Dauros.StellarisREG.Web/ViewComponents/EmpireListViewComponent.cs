@@ -22,8 +22,9 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 
             for (int i = 0; i < 10; i++)
             {
-                var ss = new SelectState();
-				ss.SelectedDLC = selectedDLC ?? SelectState.AllDLC.ToHashSet();
+                var ss = new SelectState() {
+					SelectedDLC = selectedDLC ?? SelectState.AllDLC.ToHashSet()
+				};
                 ss.AddEmpireProperty(selectedCivics ?? new HashSet<string>());
 				ss.AddEmpireProperty(selectedEthics ?? new HashSet<string>());
                 ss.AddEmpireProperty(selectedAuthority);

@@ -8,6 +8,9 @@ using Microsoft.Extensions.Logging;
 using Dauros.StellarisREG.DAL;
 using System.Security.Policy;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Http;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace Dauros.StellarisREG.Web.Pages
 {
@@ -16,9 +19,11 @@ namespace Dauros.StellarisREG.Web.Pages
     {
         private readonly ILogger<IndexModel> _logger;
 
-        public List<String> DLC { get; set; }
+		public List<string> AvailableDLC { get; set; } = new();
+		public HashSet<string> SelectedDLC { get; set; } = new();
 
-        public IndexModel(ILogger<IndexModel> logger)
+
+		public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
         }
@@ -32,14 +37,20 @@ namespace Dauros.StellarisREG.Web.Pages
                 return RedirectPermanent("https://stellarisreg.azurewebsites.net");
             }
 #endif
-            DLC = SelectState.AllDLC.Order().ToList();
-            return Page();
+
+			SelectedDLC = CookieHelper.GetJsonCookie<HashSet<string>>(Request, "selectedDLC")
+				 ?? new HashSet<string>();
+
+			AvailableDLC = SelectState.AllDLC.Order().ToList();
+			return Page();
         }
 
-        public async Task<IActionResult> OnPostPreSelectAsync(HashSet<String> selectedDLC, HashSet<String> selectedEthics,
+		
+
+		public async Task<IActionResult> OnPostPreSelectAsync(HashSet<String> selectedDLC, HashSet<String> selectedEthics,
             String selectedAuthority, String? selectedPhenotype, String selectedOrigin, HashSet<String> selectedCivics, String prohibitedPick)
         {
-            return ViewComponent("PreSelect", new
+			return ViewComponent("PreSelect", new
             {
                 selectedDLC = selectedDLC,
                 selectedOrigin = selectedOrigin,
@@ -52,7 +63,7 @@ namespace Dauros.StellarisREG.Web.Pages
         }
 
         public async Task<IActionResult> OnPostEmpireListAsync(HashSet<String> selectedDLC, HashSet<String> selectedEthics,
-            String selectedAuthority, String? selectedArchetype, String selectedOrigin, HashSet<String> selectedCivics)
+            String selectedAuthority, String? selectedPhenotype, String selectedOrigin, HashSet<String> selectedCivics)
         {
             return ViewComponent("EmpireList", new
             {
@@ -60,8 +71,8 @@ namespace Dauros.StellarisREG.Web.Pages
                 selectedOrigin = selectedOrigin,
                 selectedEthics = selectedEthics,
                 selectedAuthority = selectedAuthority,
-                selectedArchetype = selectedArchetype,
-                selectedCivics = selectedCivics
+				selectedPhenotype = selectedPhenotype,
+				selectedCivics = selectedCivics
             });
         }
     }

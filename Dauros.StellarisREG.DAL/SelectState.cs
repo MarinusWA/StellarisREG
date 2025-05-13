@@ -5,12 +5,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Dauros.StellarisREG.DAL
 {
     public class SelectState
     {
-        public HashSet<String> SelectedDLC { get; set; } = new HashSet<string>();
+        public HashSet<String> SelectedDLC { get; init; } = new HashSet<string>();
         public HashSet<String> EthicNames { get; } = new HashSet<String>();
         public IReadOnlyCollection<Ethic> Ethics => EthicNames.Select(en => Ethic.Collection[en]).ToHashSet();
         public String? OriginName { get; private set; }
@@ -69,7 +70,17 @@ namespace Dauros.StellarisREG.DAL
 			}
 		}
 
-        private Boolean EmpirePropertyIsAllowedByDLC(EmpireProperty ep)
+		public HashSet<EmpireProperty> DisallowedByDLCEmpireProperties
+		{
+			get
+			{
+				return AllEmpireProperties.Where(kvp =>
+					!EmpirePropertyIsAllowedByDLC(kvp.Value)
+				).Select(kvp => kvp.Value).ToHashSet();
+			}
+		}
+
+		private Boolean EmpirePropertyIsAllowedByDLC(EmpireProperty ep)
         {
             //properties that are prohibited by selected DLC (like the Corporate Dominion civic)
             if (ep.Prohibits.Overlaps(SelectedDLC)) return false;
@@ -166,18 +177,26 @@ namespace Dauros.StellarisREG.DAL
 			return GetValidProperties().Where(ep => SelectState.GetEmpirePropertyType(ep) == EmpirePropertyType.Shipset).ToHashSet();
 		}
 
+
+		/// <summary>
+		/// All empire properties that are prohibited by the current selection set.
+		/// </summary>
+		/// <returns></returns>
 		public AndSet GetProhibited()
         {
-            var prohibited = new AndSet();
+            //var prohibited = new AndSet(DisallowedByDLCEmpireProperties.Select(ep=>ep.Name));
+			var prohibited = new AndSet();
 
-            foreach (var ep in AllowedByDLCEmpireProperties)
+			//Only properties allowed by the selected DLC are checked (because the remainder is already prohibited)
+			foreach (var ep in AllowedByDLCEmpireProperties)
             {
                 //Don't check properties that are already selected
                 if (EmpireProperties.Contains(ep)) continue;
 
 				//Create a selectstate with the new addition
-				SelectState newState = new SelectState(this.EmpireProperties);
-                newState.SelectedDLC = this.SelectedDLC;
+				SelectState newState = new SelectState(this.EmpireProperties) {
+					SelectedDLC = this.SelectedDLC
+				};
 				newState.AddEmpireProperty(ep);
                 
                 if (!newState.ValidateState())
@@ -321,7 +340,7 @@ namespace Dauros.StellarisREG.DAL
 
             foreach (var ep in propertiesToCheckRequirements)
             {
-				if (!ep.Requires.Any()) continue;
+				if (!ep.Requires.Any() || (ep.Name == EPN.PH_Machine && SelectedDLC.Contains(EPN.D_MachineAge))) continue;
 
 				var combinedRequirementSets = RecurseRequirement(new HashSet<OrSet>(ep.Requires), new HashSet<string>() { ep.Name });
                 var validSets = new HashSet<AndSet>();
