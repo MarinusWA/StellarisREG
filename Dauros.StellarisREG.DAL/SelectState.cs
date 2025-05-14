@@ -151,7 +151,7 @@ namespace Dauros.StellarisREG.DAL
             }
         }
 
-        public static HashSet<String> GrantedEmpireProperties
+        public static HashSet<String> GrantedTraits
         {
 			get
 			{

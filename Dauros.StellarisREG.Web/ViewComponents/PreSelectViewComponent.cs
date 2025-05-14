@@ -66,25 +66,25 @@ namespace Dauros.StellarisREG.Web.ViewComponents
             //ssm.SelectedArchetype = ss.ArchetypeName;
             ssm.SelectedShipset = ss.ShipsetName;
 			ssm.SelectedPhenotype = ss.PhenotypeName;
-            ssm.SelectedTraits = ss.TraitNames.ToList();
+            ssm.SelectedTraits = ss.TraitNames.Except(SelectState.GrantedTraits).ToList();
 
-			ssm.ProhibitedAuthorities = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Authority).Except(SelectState.GrantedEmpireProperties).ToList();
-            ssm.ProhibitedCivics = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Civic).Except(SelectState.GrantedEmpireProperties).ToList();
-            ssm.ProhibitedEthics = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Ethic).Except(SelectState.GrantedEmpireProperties).ToList();
-            ssm.ProhibitedOrigins = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Origin).Except(SelectState.GrantedEmpireProperties).ToList();
+			ssm.ProhibitedAuthorities = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Authority).ToList();
+            ssm.ProhibitedCivics = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Civic).ToList();
+            ssm.ProhibitedEthics = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Ethic).ToList();
+            ssm.ProhibitedOrigins = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Origin).ToList();
             //ssm.ProhibitedArchetypes = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.SpeciesArchetype).Except(SelectState.GrantedEmpireProperties).ToList();
-            ssm.ProhibitedShipsets = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Shipset).Except(SelectState.GrantedEmpireProperties).ToList();
-			ssm.ProhibitedPhenotypes = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.SpeciesPhenotype).Except(SelectState.GrantedEmpireProperties).ToList();
-            ssm.ProhibitedTraits = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Trait).Except(SelectState.GrantedEmpireProperties).ToList();
+            ssm.ProhibitedShipsets = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Shipset).ToList();
+			ssm.ProhibitedPhenotypes = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.SpeciesPhenotype).ToList();
+            ssm.ProhibitedTraits = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Trait).Except(SelectState.GrantedTraits).ToList();
 
-			ssm.ValidAuthorities = ss.GetValidAuthorities().Except(SelectState.GrantedEmpireProperties).ToList();
-            ssm.ValidCivics = ss.GetValidCivics().Except(SelectState.GrantedEmpireProperties).ToList();
-            ssm.ValidEthics = ss.GetValidEthics().Except(SelectState.GrantedEmpireProperties).ToList();
-            ssm.ValidOrigins = ss.GetValidOrigins().Except(SelectState.GrantedEmpireProperties).ToList();
+			ssm.ValidAuthorities = ss.GetValidAuthorities().ToList();
+            ssm.ValidCivics = ss.GetValidCivics().ToList();
+            ssm.ValidEthics = ss.GetValidEthics().ToList();
+            ssm.ValidOrigins = ss.GetValidOrigins().ToList();
             //ssm.ValidArchetypes = ss.GetValidArchetypes().Except(SelectState.GrantedEmpireProperties).ToList();
-            ssm.ValidShipsets = ss.GetValidShipsets().Except(SelectState.GrantedEmpireProperties).ToList();
-            ssm.ValidPhenotypes = ss.GetValidPhenotypes().Except(SelectState.GrantedEmpireProperties).ToList();
-            ssm.ValidTraits = ss.GetValidTraits().Except(SelectState.GrantedEmpireProperties).ToList();
+            ssm.ValidShipsets = ss.GetValidShipsets().ToList();
+            ssm.ValidPhenotypes = ss.GetValidPhenotypes().ToList();
+            ssm.ValidTraits = ss.GetValidTraits().Except(SelectState.GrantedTraits).ToList();
 
 			return View(ssm);
         }
