@@ -128,6 +128,22 @@ function hookPreSelectEvents() {
     });
 
     //Setup the multiselect for the civics
+    $('#traitselect').multiselect({
+        includeSelectAllOption: false,
+        enableFiltering: true,
+        enableCaseInsensitiveFiltering: true,
+        filterPlaceholder: 'Search Traits...',
+        maxHeight: 900,
+        buttonWidth: '100%',
+        nonSelectedText: 'Select Traits',
+        nSelectedText: 'Traits selected'
+    });
+
+    $('#ps_traits :checkbox').change(function () {
+        refreshPreSelect($(this).val());
+    });
+
+    //Setup the multiselect for the civics
     $('#civicselect').multiselect({
         includeSelectAllOption: false,
         enableFiltering: true,
@@ -171,13 +187,21 @@ function scanPreselect() {
         if (cb.checked) checkedCivics.push(cb.value);
     });
 
+    //Get Civics
+    var checkedTraits = [];
+    $('#ps_traits :checkbox').each(function (idx, cb) {
+        //console.log(idx + " " + cb.value + ": " + cb.checked);
+        if (cb.checked) checkedTraits.push(cb.value);
+    });
+
     var psdata = {
         selectedDLC: checkedDLC,
         selectedEthics: checkedEthics,
         selectedAuthority: checkedAuthority,
         selectedPhenotype: checkedPhenotype,
         selectedOrigin: checkedOrigin,
-        selectedCivics: checkedCivics
+        selectedCivics: checkedCivics,
+        selectedTraits: checkedTraits
     };
 
     return psdata;

@@ -6,11 +6,25 @@
     @foreach (var empire in Model)
     {
         i++;
-        <hr />
-        <strong>@i.</strong>
+        
         <div class="row">
-            <div class="col-sm-3"></div>
+            <div class="col-sm-3">
+                <strong>@i.</strong>
+            </div>
             <div class="col-sm-5">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <strong>Phenotype:</strong>
+                        @if (Model.All(e => e.Phenotype == empire.Phenotype))
+                        {
+                            <span class="ps_selected">@empire.Phenotype</span>
+                        }
+                        else
+                        {
+                            <span>@empire.Phenotype</span>
+                        }
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <strong>Origin:</strong>
@@ -84,12 +98,7 @@
                         @empire.PlanetType
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <strong>Archetype:</strong>
-                        @empire.SpeciesPhenotype
-                    </div>
-                </div>
+                
             </div>
             <div class="col-sm-1"></div>
         </div>

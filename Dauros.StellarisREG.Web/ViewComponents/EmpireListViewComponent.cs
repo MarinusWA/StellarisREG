@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,17 +13,24 @@ namespace Dauros.StellarisREG.Web.ViewComponents
     [ViewComponent]
     public class EmpireList : ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync(HashSet<String> selectedDLC, string? selectedOrigin, HashSet<String> selectedEthics,
-            String? selectedAuthority, String? selectedPhenotype, string? selectedShipSet, HashSet<String> selectedCivics)
+		private readonly IMemoryCache _memoryCache;
+        private Random _random = new Random();
+
+		public EmpireList(IMemoryCache memoryCache)
+		{
+			_memoryCache = memoryCache;
+		}
+
+		public IViewComponentResult Invoke(HashSet<String> selectedDLC, string? selectedOrigin, HashSet<String> selectedEthics,
+            String? selectedAuthority, String? selectedPhenotype, string? selectedShipSet,
+            HashSet<String> selectedCivics, HashSet<String> selectedTraits)
         {
             var result = new List<EmpireDataModel>();
             var states = new List<SelectState>();
 
-            var r = new Random();
-
             for (int i = 0; i < 10; i++)
             {
-                var ss = new SelectState() {
+                var ss = new SelectState(_memoryCache) {
 					SelectedDLC = selectedDLC ?? SelectState.AllDLC.ToHashSet()
 				};
                 ss.AddEmpireProperty(selectedCivics ?? new HashSet<string>());
@@ -31,44 +39,52 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 				ss.AddEmpireProperty(selectedOrigin);
                 ss.AddEmpireProperty(selectedShipSet);
                 ss.AddEmpireProperty(selectedPhenotype);
+				ss.AddEmpireProperty(selectedTraits ?? new HashSet<string>());
 
-                states.Add(ss);
+				states.Add(ss);
             }
 
             foreach (var ss in states)
             {
-				//SetRandomArchetype(ss);
-				SetRandomPhenotype(ss);
-				//Mix up if it starts randomizing with an origin or with civics
-				//this is to prevent civics restricted by origins (and vice versa) from having very low chances of appearing
-				var firstProp = r.Next(2);
-                if (firstProp == 0)
+                try
                 {
-                    AddRandomCivics(ss);
-                    AddRandomOrigin(ss);
-                }
-                else
-                {
-                    AddRandomOrigin(ss);
-                    AddRandomCivics(ss);
-                }
-                AddRandomEthics(ss);
-                AddRandomAuthority(ss);
-                
-                AddRandomTraits(ss);
+                    //SetRandomArchetype(ss);
+                    SetRandomPhenotype(ss);
+                    //Mix up if it starts randomizing with an origin or with civics
+                    //this is to prevent civics restricted by origins (and vice versa) from having very low chances of appearing
+                    var firstProp = _random.Next(2);
+                    if (firstProp == 0)
+                    {
+                        AddRandomCivics(ss);
+                        SetRandomOrigin(ss);
+                    }
+                    else
+                    {
+                        SetRandomOrigin(ss);
+                        AddRandomCivics(ss);
+                    }
+                    AddRandomEthics(ss);
+                    SetRandomAuthority(ss);
 
-                var empireData = new EmpireDataModel()
-                {
-                    Authority = ss.AuthorityName!,
-                    Origin = ss.OriginName!,
-                    Civics = ss.CivicNames,
-                    Ethics = ss.EthicNames,
-                    Traits = ss.TraitNames,
-                    PlanetType = GetRandomPlanetType(ss),
-                    SpeciesPhenotype = ss.PhenotypeName!
-                };
+                    AddRandomTraits(ss);
 
-                result.Add(empireData);
+                    var empireData = new EmpireDataModel()
+                    {
+                        Authority = ss.AuthorityName!,
+                        Origin = ss.OriginName!,
+                        Civics = ss.CivicNames,
+                        Ethics = ss.EthicNames,
+                        Traits = ss.TraitNames,
+                        PlanetType = GetRandomPlanetType(ss),
+                        Phenotype = ss.PhenotypeName!
+                    };
+
+                    result.Add(empireData);
+                }
+                catch (Exception e)
+                {
+                    throw;
+                }
             }
 
             return View(result);
@@ -80,8 +96,10 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 			if (ss.PhenotypeName == null)
 			{
 				var valid = ss.GetValidPhenotypes().ToArray();
-				var r = new Random();
-				ss.AddEmpireProperty(valid[r.Next(valid.Count())]);
+                if (valid.Any())
+                {
+                    ss.AddEmpireProperty(valid[_random.Next(valid.Count())]);
+                }
 			}
 		}
 
@@ -96,17 +114,15 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 				var valid = ss.GetValidShipsets().ToArray();
 				dist.RemoveAll(d => !valid.Contains(d));
 				valid = dist.ToArray();
-				var r = new Random();
-				ss.AddEmpireProperty(valid[r.Next(valid.Count())]);
+				ss.AddEmpireProperty(valid[_random.Next(valid.Count())]);
 			}
 		}
 		private void AddRandomTraits(SelectState ss)
         {
             var validTraits = ss.GetValidTraits().ToArray();
-            var r = new Random();
             while (validTraits.Any())
             {
-                var picked = validTraits[r.Next(validTraits.Count())];
+                var picked = validTraits[_random.Next(validTraits.Count())];
                 ss.AddEmpireProperty(picked);
 				if (ss.Traits.Where(t=>t.CountsToCap).Count() >= 3 && ss.Traits.Sum(t => t.Cost) == 2) break;
                 validTraits = ss.GetValidTraits().ToArray();
@@ -114,49 +130,48 @@ namespace Dauros.StellarisREG.Web.ViewComponents
         }
 
 
-        private void AddRandomOrigin(SelectState ss)
+        private void SetRandomOrigin(SelectState ss)
         {
             if (ss.OriginName == null)
             {
                 var validOrigins = ss.GetValidOrigins().ToArray();
-                var r = new Random();
-                ss.AddEmpireProperty(validOrigins[r.Next(validOrigins.Count())]);
+                if (validOrigins.Any())
+                {
+                    ss.AddEmpireProperty(validOrigins[_random.Next(validOrigins.Count())]);
+                }
             }
         }
 
-        private void AddRandomAuthority(SelectState ss)
+        private void SetRandomAuthority(SelectState ss)
         {
             if (ss.AuthorityName == null)
             {
                 var validAuths = ss.GetValidAuthorities().ToArray();
-                var r = new Random();
-                ss.AddEmpireProperty(validAuths[r.Next(validAuths.Count())]);
+                if (validAuths.Any())
+                {
+                    ss.AddEmpireProperty(validAuths[_random.Next(validAuths.Count())]);
+                }
             }
         }
 
         private String GetRandomPlanetType(SelectState ss)
         {
-            var r = new Random();
-            var validPTypes = new List<String>() {
-                EPN.PT_Arid, EPN.PT_Alpine,EPN.PT_Artic,EPN.PT_Continental,EPN.PT_Desert,EPN.PT_Ocean,EPN.PT_Savanna,EPN.PT_Tropical,EPN.PT_Tundra
-            };
-            var result = validPTypes[r.Next(validPTypes.Count)];
-
-            if (ss.OriginName == EPN.O_LifeSeeded) result = EPN.PT_Gaia;
-            else if (ss.OriginName == EPN.O_PostApocalyptic) result = EPN.PT_Tomb;
-            else if (ss.OriginName == EPN.O_Remnants) result = EPN.PT_Relic;
-            else if (ss.OriginName == EPN.O_ResourceConsolidation) result = EPN.PT_Machine;
-            else if (ss.OriginName == EPN.O_ShatteredRing) result = EPN.PT_RingWorld;
-
+            //Only origins set planettype (for now)
+            string? result = ss.Origin?.PlanetType;
+            if (result == null)
+            {
+                var validPTypes = new List<String>() {
+                EPN.PT_Arid, EPN.PT_Alpine,EPN.PT_Artic,EPN.PT_Continental,EPN.PT_Desert,EPN.PT_Ocean,EPN.PT_Savanna,EPN.PT_Tropical,EPN.PT_Tundra};
+                result = validPTypes[_random.Next(validPTypes.Count)];
+            }
             return result;
         }
         private void AddRandomCivics(SelectState ss)
         {
             var validCivics = ss.GetValidCivics().ToArray();
-            var r = new Random();
             while (validCivics.Any())
             {
-                var picked = validCivics[r.Next(validCivics.Count())];
+                var picked = validCivics[_random.Next(validCivics.Count())];
                 ss.AddEmpireProperty(picked);
                 validCivics = ss.GetValidCivics().ToArray();
             }
@@ -165,10 +180,9 @@ namespace Dauros.StellarisREG.Web.ViewComponents
         private void AddRandomEthics(SelectState ss)
         {
             var validEthics = ss.GetValidEthics().ToArray();
-            var r = new Random();
             while (validEthics.Any())
             {
-                var picked = validEthics[r.Next(validEthics.Count())];
+                var picked = validEthics[_random.Next(validEthics.Count())];
                 ss.AddEmpireProperty(picked);
                 validEthics = ss.GetValidEthics().ToArray();
             }
@@ -186,6 +200,6 @@ namespace Dauros.StellarisREG.Web.ViewComponents
         public String Origin { get; set; }
         public String Authority { get; set; }
         public String PlanetType { get; set; }
-        public String SpeciesPhenotype { get; set; }
+        public String Phenotype { get; set; }
     }
 }

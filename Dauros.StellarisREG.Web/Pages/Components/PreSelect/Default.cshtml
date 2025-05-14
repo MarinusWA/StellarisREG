@@ -1,5 +1,5 @@
 ﻿@model Dauros.StellarisREG.Web.ViewComponents.SelectStateModel
-<div class="row w-100">
+
 	<div class="col-sm">
 		<div class="row">
 			<div class="col" id="ps_phenotype">
@@ -54,6 +54,29 @@
 			</div>
 		</div>
 		<div class="row">
+			<div class="col" id="ps_traits">
+				<h5>Traits</h5>
+				<select id="traitselect" multiple="multiple">
+					@foreach (var trait in Model.SelectedTraits.OrderBy(e => e))
+					{
+						<option value="@trait" class="ps_selected" selected="selected">
+							@trait
+						</option>
+					}
+					@foreach (var trait in Model.ValidTraits.OrderBy(o => o))
+					{
+						<option value="@trait">@trait</option>
+					}
+					@foreach (var trait in Model.ProhibitedTraits.OrderBy(o => o))
+					{
+						<option value="@trait" class="ps_prohibited">@trait</option>
+					}
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm">
+		<div class="row">
 			<div class="col" id="ps_ethics">
 				<h5>Ethics</h5>
 				<select multiple="multiple" id="ethicselect">
@@ -104,8 +127,6 @@
 				</select>
 			</div>
 		</div>
-	</div>
-	<div class="col-sm">
 		<div class="row">
 			<div class="col" id="ps_civics">
 				<h5>Civics</h5>
@@ -135,4 +156,4 @@
 			</div>
 		</div>
 	</div>
-</div>
+

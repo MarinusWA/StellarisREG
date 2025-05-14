@@ -553,8 +553,8 @@ namespace Dauros.StellarisREG.DAL
         public static String O_ShatteredRing => "Shattered Ring";
         public static String O_VoidDwellers => "Void Dwellers";
 		public static String O_Voidforged => "Voidforged";
-		public static String O_Necrophage => "Necrophage";
-        public static String O_HereBeDragons => "Here Be Dragons";
+		public static String O_Necrophage => "Necrophage ";//This has an added space to differentiate it from the Necrophage trait
+		public static String O_HereBeDragons => "Here Be Dragons";
         public static String O_OceanParadise => "Ocean Paradise";
 
         public static String O_ImperialFiefdom => "Imperial Fiefdom";

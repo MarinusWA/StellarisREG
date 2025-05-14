@@ -1,15 +1,18 @@
-﻿using System;
+﻿using Microsoft.Extensions.Caching.Memory;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Transactions;
 using System.Xml.Linq;
 
 namespace Dauros.StellarisREG.DAL
 {
-    public class SelectState
+    public class SelectState : IEquatable<SelectState>
     {
         public HashSet<String> SelectedDLC { get; init; } = new HashSet<string>();
         public HashSet<String> EthicNames { get; } = new HashSet<String>();
@@ -22,12 +25,11 @@ namespace Dauros.StellarisREG.DAL
         public IReadOnlyCollection<Civic> Civics => CivicNames.Select(en => Civic.Collection[en]).ToHashSet();
         public HashSet<String> TraitNames { get; private set; } = new HashSet<String>();
         public IReadOnlyCollection<Trait> Traits => TraitNames.Select(tn => Trait.Collection[tn]).ToHashSet();
-        public String? ArchetypeName { get; private set; }
-        public SpeciesPhenotype? Archetype => ArchetypeName is { } name ? SpeciesPhenotype.Collection[name] : null;
         public String? ShipsetName { get; private set; }
 		public ShipSet? Shipset => ShipsetName != null ? ShipSet.Collection[ShipsetName] : null;
         public String? PhenotypeName { get; private set; }
 		public SpeciesPhenotype? Phenotype => PhenotypeName is { } name ? SpeciesPhenotype.Collection[name] : null;
+		private readonly IMemoryCache _memoryCache;
 
 
 		/// <summary>
@@ -38,10 +40,49 @@ namespace Dauros.StellarisREG.DAL
         { EPN.D_AncientRelics, EPN.D_Apocalypse, EPN.D_Federations, EPN.D_Lithoids, EPN.D_Megacorp, EPN.D_Necroids, EPN.D_SyntheticDawn, EPN.D_Utopia, EPN.D_Humanoids, EPN.D_Plantoids,EPN.D_Nemesis, EPN.D_Aquatics,
             EPN.D_Toxoids, EPN.D_AstralPlanes, EPN.D_Overlord, EPN.D_GalParagons, EPN.D_FirstContact, EPN.D_MachineAge, EPN.D_CosmicStorms, EPN.D_GrandArchive, EPN.D_Biogenesis };
 
-        /// <summary>
-        /// Contains all EmpireProperties that are set on this SelectState
-        /// </summary>
-        public HashSet<EmpireProperty> EmpireProperties
+		#region Hashing
+
+		public override int GetHashCode()
+		{
+            var allPropNames = EmpireProperties.Select(ep => ep.Name).ToHashSet();
+			var hash = new HashCode();
+
+			foreach (var item in allPropNames.Order())
+			{
+				hash.Add(item);
+			}
+
+			return hash.ToHashCode();
+		}
+
+		public override bool Equals(object? obj) => Equals(obj as SelectState);
+
+		public bool Equals(SelectState? other)
+		{
+			if (other is null) return false;
+
+			var thisNames = EmpireProperties.Select(ep => ep.Name).ToHashSet();
+			var otherNames = other.EmpireProperties.Select(ep => ep.Name).ToHashSet();
+
+			return thisNames.SetEquals(otherNames);
+		}
+		#endregion
+		
+        public string PrintEmpireProperties()
+		{
+			var sb = new StringBuilder();
+			foreach (var ep in EmpireProperties)
+			{
+				sb.Append(ep.Name + ",");
+			}
+			return sb.ToString();
+		}
+
+
+		/// <summary>
+		/// Contains all EmpireProperties that are set on this SelectState
+		/// </summary>
+		public HashSet<EmpireProperty> EmpireProperties
         {
             get
             {
@@ -51,7 +92,6 @@ namespace Dauros.StellarisREG.DAL
                 if (Authority != null) result.Add(Authority);
                 result.UnionWith(Civics);
                 result.UnionWith(Traits);
-                if (Archetype != null) result.Add(Archetype);
                 if (Shipset != null) result.Add(Shipset);
                 if (Phenotype != null) result.Add(Phenotype);
 				return result;
@@ -119,11 +159,13 @@ namespace Dauros.StellarisREG.DAL
 			}
 		}
 
-        public SelectState() {
+		public SelectState(IMemoryCache memoryCache) {
+			_memoryCache = memoryCache;
 		}
 
-        public SelectState(HashSet<EmpireProperty> eps)
+        public SelectState(IMemoryCache memoryCache, HashSet<EmpireProperty> eps)
         {
+			_memoryCache = memoryCache;
 			foreach (var ep in eps)
             {
                 AddEmpireProperty(ep);
@@ -184,7 +226,17 @@ namespace Dauros.StellarisREG.DAL
 		/// <returns></returns>
 		public AndSet GetProhibited()
         {
-            //var prohibited = new AndSet(DisallowedByDLCEmpireProperties.Select(ep=>ep.Name));
+			Dictionary<SelectState, AndSet>? prohibitions;
+			if (!_memoryCache.TryGetValue("Prohibited", out prohibitions))
+			{
+				prohibitions = new Dictionary<SelectState, AndSet>();
+				_memoryCache.Set("Prohibited", prohibitions, TimeSpan.FromMinutes(60));
+			}
+
+            if (prohibitions!.ContainsKey(this)) 
+                return prohibitions[this];
+
+            //Debug.WriteLine($"Loop prohibitions for {this.GetHashCode()}");
 			var prohibited = new AndSet();
 
 			//Only properties allowed by the selected DLC are checked (because the remainder is already prohibited)
@@ -194,7 +246,7 @@ namespace Dauros.StellarisREG.DAL
                 if (EmpireProperties.Contains(ep)) continue;
 
 				//Create a selectstate with the new addition
-				SelectState newState = new SelectState(this.EmpireProperties) {
+				SelectState newState = new SelectState(_memoryCache, this.EmpireProperties) {
 					SelectedDLC = this.SelectedDLC
 				};
 				newState.AddEmpireProperty(ep);
@@ -204,6 +256,7 @@ namespace Dauros.StellarisREG.DAL
                     prohibited.Add(ep.Name);
                 }
             }
+            prohibitions.Add(this, prohibited);
             return prohibited;
         }
 
@@ -259,7 +312,9 @@ namespace Dauros.StellarisREG.DAL
                 default:
                     break;
             }
-        }
+
+            //Debug.WriteLine($"Added {ep.Name} to get {this.PrintEmpireProperties()}");
+		}
 
 		/// <summary>
 		/// Tests if a selection set is valid based on rules other than EmpireProperty prohibitions or requirements.
@@ -326,9 +381,23 @@ namespace Dauros.StellarisREG.DAL
 
         public Boolean ValidateState()
         {
-            var directValidation = ValidateSelection(EmpireProperties.Select(ep => ep.Name).ToHashSet());
+			Dictionary<SelectState, bool>? states;
+			if (!_memoryCache.TryGetValue("States", out states))
+            {
+                states = new Dictionary<SelectState, bool>();
+				_memoryCache.Set("States", states, TimeSpan.FromMinutes(60));
+			}
+
+            if (states!.ContainsKey(this)) 
+                return states[this];
+
+			var directValidation = ValidateSelection(EmpireProperties.Select(ep => ep.Name).ToHashSet());
             if (directValidation)
-                return GetValidShadowStates().Count() > 0;
+            {
+				var hasValidShadows = GetValidShadowStates().Count() > 0;
+				states!.Add(this, hasValidShadows);
+                return hasValidShadows;
+            }
             else
                 return false;
         }
@@ -338,11 +407,27 @@ namespace Dauros.StellarisREG.DAL
             var allPropertySelectedSets = new HashSet<HashSet<AndSet>>();
             var propertiesToCheckRequirements = new HashSet<EmpireProperty>(EmpireProperties);
 
-            foreach (var ep in propertiesToCheckRequirements)
+			Dictionary<string, HashSet<AndSet>>? requirementChecks;
+			if (!_memoryCache.TryGetValue("Requirements", out requirementChecks))
+			{
+                requirementChecks = new Dictionary<string, HashSet<AndSet>>();
+				_memoryCache.Set("Requirements", requirementChecks, TimeSpan.FromMinutes(60));
+			}
+
+			foreach (var ep in propertiesToCheckRequirements)
             {
 				if (!ep.Requires.Any() || (ep.Name == EPN.PH_Machine && SelectedDLC.Contains(EPN.D_MachineAge))) continue;
 
-				var combinedRequirementSets = RecurseRequirement(new HashSet<OrSet>(ep.Requires), new HashSet<string>() { ep.Name });
+                HashSet<AndSet> combinedRequirementSets;
+				if (!requirementChecks!.ContainsKey(ep.Name))
+                {
+					combinedRequirementSets = RecurseRequirement(new HashSet<OrSet>(ep.Requires), new HashSet<string>() { ep.Name });
+					requirementChecks.Add(ep.Name, combinedRequirementSets);
+				}
+                else
+                {
+                    combinedRequirementSets = requirementChecks[ep.Name];
+                }
                 var validSets = new HashSet<AndSet>();
                 foreach (var reqSet in combinedRequirementSets)
                 {
@@ -374,15 +459,15 @@ namespace Dauros.StellarisREG.DAL
             if (remainingRequirements.Any())
             {
                 var first = remainingRequirements.First();
-                foreach (var ep in first)
+                foreach (var requirementSet in first)
                 {
-                    var newRemaining = remainingRequirements.Where(r => r != first).ToHashSet();
+					var newRemaining = remainingRequirements.Where(r => r != first).ToHashSet();
                     if (newRemaining.Count > 0)
                     {
                         var subSets = MergeRequirementSetsWithState(newRemaining);
                         foreach (var sub in subSets)
                         {
-                            sub.UnionWith(ep);
+                            sub.UnionWith(requirementSet);
                         }
                         result.UnionWith(subSets);
                     }
@@ -390,7 +475,7 @@ namespace Dauros.StellarisREG.DAL
                     {
                         var newSet = new AndSet();
                         newSet.UnionWith(EmpireProperties.Select(ep => ep.Name));
-                        newSet.UnionWith(ep);
+                        newSet.UnionWith(requirementSet);
                         result.Add(newSet);
                     }
                 }

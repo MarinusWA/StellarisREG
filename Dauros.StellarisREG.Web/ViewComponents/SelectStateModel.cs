@@ -44,5 +44,11 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 		public List<String> ProhibitedPhenotypes { get; set; } = new List<string>();
 		#endregion
 
+		#region Trait
+		public List<String> SelectedTraits { get; set; } = new List<string>();
+		public List<String> ValidTraits { get; set; } = new List<string>();
+		public List<String> ProhibitedTraits { get; set; } = new List<string>();
+		#endregion
+
 	}
 }
