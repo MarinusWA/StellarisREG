@@ -84,7 +84,25 @@ namespace Dauros.StellarisREG.Web.ViewComponents
             //ssm.ValidArchetypes = ss.GetValidArchetypes().Except(SelectState.GrantedEmpireProperties).ToList();
             ssm.ValidShipsets = ss.GetValidShipsets().ToList();
             ssm.ValidPhenotypes = ss.GetValidPhenotypes().ToList();
-            ssm.ValidTraits = ss.GetValidTraits().Except(SelectState.GrantedTraits).ToList();
+            ssm.ValidTraits = ss.GetValidTraits().ToList();
+
+
+            //If there is only one valid option, select it and remove it from valids (to prevent doubling)
+            if (ssm.ValidAuthorities.Count() == 1) { 
+                ssm.SelectedAuthority = ssm.ValidAuthorities.First();
+                ssm.ValidAuthorities.Remove(ssm.SelectedAuthority);
+            };
+            if (ssm.ValidPhenotypes.Count() == 1)
+            {
+				ssm.SelectedPhenotype = ssm.ValidPhenotypes.First();
+				ssm.ValidPhenotypes.Remove(ssm.SelectedPhenotype);
+			}
+			if (ssm.ValidOrigins.Count() == 1)
+            {
+				ssm.SelectedOrigin = ssm.ValidOrigins.First();
+				ssm.ValidOrigins.Remove(ssm.SelectedOrigin);
+			}
+			
 
 			return View(ssm);
         }

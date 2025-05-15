@@ -450,10 +450,10 @@ namespace Dauros.StellarisREG.DAL
 			},
 			{
 				EPN.C_Anglers,
-				new StandardCivic(EPN.C_Anglers, 
+				new StandardCivic(EPN.C_Anglers,
 					dlc: new [] { EPN.D_Aquatics }.ToOrSet(),
 					prohibitions:new AndSet(){ EPN.PH_Machine, EPN.O_PostApocalyptic,EPN.O_ShatteredRing,EPN.O_VoidDwellers,EPN.O_Subterranean}
-				)
+				){ GrantedTraits = new HashSet<string>(){ EPN.T_Aquatic } }
 			},
 			{
 				EPN.C_MarineMachines,

@@ -87,7 +87,14 @@
                         <ul>
                             @foreach (var trait in empire.Traits)
                             {
-                                <li>@trait</li>
+                                if (Model.All(e => e.Traits.Contains(trait)))
+                                {
+                                    <li class="ps_selected">@trait</li>
+                                }
+                                else
+                                {
+                                    <li> @trait </li>
+                                }
                             }
                         </ul>
                     </div>

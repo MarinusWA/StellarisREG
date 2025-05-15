@@ -87,7 +87,9 @@ namespace Dauros.StellarisREG.DAL
 					Requires = new HashSet<OrSet>(){new OrSet(){ EPN.PH_Machine }},
 					Prohibits = new AndSet(EPNSET.HS_Anglers
 						.Union<string>(EPNSET.HS_Planetscapers)
-						){ EPN.C_AgrarianIdyll, }
+						){ EPN.C_AgrarianIdyll, },
+					PlanetType = EPN.PT_Tomb,
+					GrantedTraits = new[] { EPN.T_RadiationShields }
 				}
 			},{
 				EPN.O_CloneArmy,
@@ -141,7 +143,7 @@ namespace Dauros.StellarisREG.DAL
 					Prohibits = new AndSet(EPNSET.HS_Anglers
 						.Union<string>(EPNSET.HS_IdyllicBloom)
 						.Union<string>(EPNSET.HS_Planetscapers)
-						){ EPN.C_AgrarianIdyll}
+						){ EPN.PH_Machine, EPN.C_AgrarianIdyll}
 					,PlanetType = EPN.PT_Habitat,
 					GrantedTraits = new[] { EPN.T_VoidDweller }
 				}
@@ -149,6 +151,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.O_Voidforged,
 				new Origin(EPN.O_Voidforged, new[] { EPN.D_Federations }.ToOrSet())
 				{
+					Requires = new[]{ EPN.PH_Machine }.ToOrSet(),
 					Prohibits = new AndSet(EPNSET.HS_Anglers
 						.Union<string>(EPNSET.HS_IdyllicBloom)
 						.Union<string>(EPNSET.HS_Planetscapers)

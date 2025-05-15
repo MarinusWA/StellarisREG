@@ -122,9 +122,11 @@ namespace Dauros.StellarisREG.Web.ViewComponents
             var validTraits = ss.GetValidTraits().ToArray();
             while (validTraits.Any())
             {
-                var picked = validTraits[_random.Next(validTraits.Count())];
+                var basepoints = ss.GetTraitBasepoints();
+				var picked = validTraits[_random.Next(validTraits.Count())];
                 ss.AddEmpireProperty(picked);
-				if (ss.Traits.Where(t=>t.CountsToCap).Count() >= 3 && ss.Traits.Sum(t => t.Cost) == 2) break;
+				//Stop looking for more traits if there are no traitpoints left, but only if atleast two traits have been picked
+				if (ss.Traits.Where(t=>t.CountsToCap).Count() >= 2 && ss.Traits.Sum(t => t.Cost) == basepoints) break;
                 validTraits = ss.GetValidTraits().ToArray();
             }
         }

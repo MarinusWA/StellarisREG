@@ -33,11 +33,11 @@ namespace Dauros.StellarisREG.DAL
             Type = type;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (obj is EmpireProperty)
+            if (obj is EmpireProperty ep)
             {
-                return (obj as EmpireProperty)!.ID == this.ID;
+                return ep.Name == this.Name;
             }
             return false;
         }
