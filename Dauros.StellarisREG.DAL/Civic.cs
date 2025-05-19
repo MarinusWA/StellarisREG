@@ -426,7 +426,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.C_IdyllicBloom,
 				new StandardCivic(EPN.C_IdyllicBloom,
 					dlc: new[] { EPN.D_Plantoids }.ToOrSet(),
-					requirements: new[]{ EPN.PH_Plantoid }.ToOrSet(),
+					requirements: new[]{ EPN.PH_Plantoid, EPN.PH_Fungoid }.ToOrSet(),
 					prohibitions:new AndSet(EPNSET.HS_RelentlessIndustrialists){ EPN.O_HardReset, EPN.O_VoidDwellers}
 				)
 			},
@@ -959,7 +959,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.C_MycorrhizalIdeal,
 				new HiveMindCivic(EPN.C_MycorrhizalIdeal,
 					dlc: new[] { EPN.D_Plantoids }.ToOrSet(),
-					requirements: new[] { EPN.PH_Plantoid }.ToOrSet(),
+					requirements: new[] { EPN.PH_Plantoid, EPN.PH_Fungoid }.ToOrSet(),
 					prohibitions: new AndSet(){ EPN.O_VoidDwellers }
 				)
 			},
