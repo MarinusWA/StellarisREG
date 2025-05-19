@@ -14,7 +14,7 @@ public static class CookieHelper
 		{
 			Expires = DateTimeOffset.Now.AddYears(1),
 			SameSite = SameSiteMode.Strict,
-			Secure = false,
+			Secure = true,
 			HttpOnly = false
 		});
 	}

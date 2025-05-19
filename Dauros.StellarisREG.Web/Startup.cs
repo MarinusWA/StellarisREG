@@ -29,7 +29,7 @@ namespace Dauros.StellarisREG.Web
 
 			services.Configure<CookiePolicyOptions>(options =>
 			{
-				options.CheckConsentNeeded = context => true; // Ask user for consent
+				options.CheckConsentNeeded = context => false; // Ask user for consent
 				options.MinimumSameSitePolicy = SameSiteMode.Strict;
 			});
 

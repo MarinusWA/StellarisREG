@@ -252,7 +252,7 @@ function renderEmpireList(htmldata) {
 function refreshPreSelect(ppick) {
     var psdata = scanPreselect();
     psdata["prohibitedPick"] = ppick;
-    console.log(psdata);
+    //console.log(psdata);
 
     $.ajax({
         type: 'POST',
