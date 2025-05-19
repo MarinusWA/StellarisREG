@@ -13,7 +13,7 @@ public static class CookieHelper
 		response.Cookies.Append(key, json, options ?? new CookieOptions
 		{
 			Expires = DateTimeOffset.Now.AddYears(1),
-			SameSite = SameSiteMode.Strict,
+			SameSite = SameSiteMode.Lax,
 			Secure = true,
 			HttpOnly = false
 		});
