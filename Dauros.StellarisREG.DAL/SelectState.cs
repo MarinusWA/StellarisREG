@@ -16,15 +16,15 @@ namespace Dauros.StellarisREG.DAL
 	{
 		public HashSet<String> SelectedDLC { get; init; } = new HashSet<string>();
 		public HashSet<String> EthicNames { get; } = new HashSet<String>();
-		public IEnumerable<Ethic> Ethics => EthicNames.Select(en => Ethic.Collection[en]);
+		public List<Ethic> Ethics => EthicNames.Select(en => Ethic.Collection[en]).ToList();
 		public String? OriginName { get; private set; }
 		public Origin? Origin => OriginName is { } name ? Origin.Collection[name] : null;
 		public String? AuthorityName { get; private set; }
 		public Authority? Authority => AuthorityName is { } name ? Authority.Collection[name] : null;
 		public HashSet<String> CivicNames { get; private set; } = new HashSet<String>();
-		public IEnumerable<Civic> Civics => CivicNames.Select(en => Civic.Collection[en]);
+		public List<Civic> Civics => CivicNames.Select(en => Civic.Collection[en]).ToList();
 		public HashSet<String> TraitNames { get; private set; } = new HashSet<String>();
-		public IEnumerable<Trait> Traits => TraitNames.Select(tn => Trait.Collection[tn]);
+		public List<Trait> Traits => TraitNames.Select(tn => Trait.Collection[tn]).ToList();
 		public String? ShipsetName { get; private set; }
 		public ShipSet? Shipset => ShipsetName != null ? ShipSet.Collection[ShipsetName] : null;
 		public String? PhenotypeName { get; private set; }
@@ -94,30 +94,41 @@ namespace Dauros.StellarisREG.DAL
 			get
 			{
 				var result = new HashSet<EmpireProperty>();
-				result.UnionWith(Ethics);
+				if (Ethics.Count > 0)//prevent enumeration of empty collection
+					result.UnionWith(Ethics);
 				if (Origin != null) result.Add(Origin);
 				if (Authority != null) result.Add(Authority);
-				result.UnionWith(Civics);
-				result.UnionWith(Traits);
+				if (Civics.Count > 0)//prevent enumeration of empty collection
+					result.UnionWith(Civics);
+				if (Traits.Count > 0)//prevent enumeration of empty collection
+					result.UnionWith(Traits);
 				if (Shipset != null) result.Add(Shipset);
 				if (Phenotype != null) result.Add(Phenotype);
 				return result;
 			}
 		}
-		/// <summary>
-		/// All properties allowed by DLC
-		/// </summary>
+
 		public IEnumerable<EmpireProperty> AllowedByDLCEmpireProperties
 		{
 			get
 			{
-				return AllEmpireProperties.Where(kvp =>
-					EmpirePropertyIsAllowedByDLC(kvp.Value)
-				).Select(kvp => kvp.Value);
+				var cacheKey = $"AllowedByDLC:{string.Join(",", SelectedDLC.OrderBy(s => s))}";
+				if (_memoryCache.TryGetValue(cacheKey,out IEnumerable<EmpireProperty>? allowed) && allowed != null)
+				{
+					return allowed;
+				}
+				else
+				{
+					allowed = AllEmpireProperties.Where(kvp =>
+						IsAllowedByDLC(kvp.Value)
+					).Select(kvp => kvp.Value);
+					_memoryCache.Set(cacheKey, allowed.ToList(), TimeSpan.FromMinutes(60));
+					return allowed;
+				}
 			}
 		}
 
-		private Boolean EmpirePropertyIsAllowedByDLC(EmpireProperty ep)
+		private Boolean IsAllowedByDLC(EmpireProperty ep)
 		{
 			//properties that are prohibited by selected DLC (like the Corporate Dominion civic)
 			if (ep.Prohibits.Overlaps(SelectedDLC)) return false;
@@ -180,22 +191,22 @@ namespace Dauros.StellarisREG.DAL
 
 		protected IEnumerable<String> GetValidProperties()
 		{
-			Dictionary<SelectState, IEnumerable<String>>? set;
-			if (!_memoryCache.TryGetValue("ValidProps", out set))
-			{
-				set = new Dictionary<SelectState, IEnumerable<String>>();
-				_memoryCache.Set("ValidProps", set, TimeSpan.FromMinutes(60));
-			}
-
-			if (!set!.TryGetValue(this, out IEnumerable<string>? cached) || cached == null)
+			//Dictionary<SelectState, IEnumerable<String>>? set;
+			//if (!_memoryCache.TryGetValue("ValidProps", out set))
+			//{
+			//	set = new Dictionary<SelectState, IEnumerable<String>>();
+			//	_memoryCache.Set("ValidProps", set, TimeSpan.FromMinutes(60));
+			//}
+			
+			//if (!set!.TryGetValue(this, out IEnumerable<string>? cached) || cached == null)
 			{
 				var prohibited = this.GetProhibited();
 				var allowed = this.AllowedByDLCEmpireProperties.Except(EmpireProperties).Select(ep => ep.Name);
 				var validProps = allowed.Except(prohibited);
-				set.Add(this, validProps);
+				//set.Add(this, validProps);
 				return validProps;
 			}
-			return cached;
+			//return cached;
 		}
 
 		public HashSet<String> GetValidTraits()
@@ -366,51 +377,70 @@ namespace Dauros.StellarisREG.DAL
 		/// <returns></returns>
 		public static Boolean ValidateSelection(HashSet<String> selectedEmpirePropertyNames)
 		{
-			var selectedEmpireProperties = selectedEmpirePropertyNames.Select(n => AllEmpireProperties[n]);
+			// Materialize once to avoid repeated dictionary lookups and enumerations
+			var selectedEmpireProperties = selectedEmpirePropertyNames.Select(n => AllEmpireProperties[n]).ToList();
 
-			//If a selectionset contains a selection that is prohibited by that same selectionset, it is invalid.
-			var valid = !selectedEmpireProperties.Where(e => e.Prohibits != null).Any(e => e.Prohibits.Any(pe => selectedEmpirePropertyNames.Contains(pe)));
-			if (!valid) return valid;
+			// Build a HashSet for quick contains checks
+			var selectedNamesSet = selectedEmpirePropertyNames;
 
-			//two or more authorities is not allowed
-			valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.Authority) <= 1;
-			if (!valid) return valid;
+			// Check if any selected property prohibits another selected property
+			if (selectedEmpireProperties.Any(e => e.Prohibits != null && e.Prohibits.Any(pe => selectedNamesSet.Contains(pe))))
+				return false;
 
-			//two or more shipsets is not allowed
-			valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.Shipset) <= 1;
-			if (!valid) return valid;
+			// Counters for restricted types
+			int authorityCount = 0;
+			int shipsetCount = 0;
+			int phenotypeCount = 0;
+			int originCount = 0;
+			int civicCount = 0;
+			int ethicCostSum = 0;
+			int designTraitCount = 0;
 
-			//two or more phenotypes is not allowed
-			valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.SpeciesPhenotype) <= 1;
-			if (!valid) return valid;
+			foreach (var ep in selectedEmpireProperties)
+			{
+				switch (ep.Type)
+				{
+					case EmpirePropertyType.Authority:
+						if (++authorityCount > 1) return false;
+						break;
+					case EmpirePropertyType.Shipset:
+						if (++shipsetCount > 1) return false;
+						break;
+					case EmpirePropertyType.SpeciesPhenotype:
+						if (++phenotypeCount > 1) return false;
+						break;
+					case EmpirePropertyType.Origin:
+						if (++originCount > 1) return false;
+						break;
+					case EmpirePropertyType.Civic:
+						if (++civicCount > 2) return false;
+						break;
+					case EmpirePropertyType.Ethic:
+						ethicCostSum += (ep as Ethic)?.Cost ?? 0;
+						if (ethicCostSum > 3) return false;
+						break;
+				}
 
-			//two or more orgins is not allowed
-			valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.Origin) <= 1;
-			if (!valid) return valid;
+				// Check design trait count for MachineTrait separately
+				if (ep is MachineTrait mt && mt.IsDesignTrait)
+				{
+					if (++designTraitCount > 1) return false;
+				}
+			}
 
-			//more than three civics is not allowed
-			valid = selectedEmpireProperties.Count(e => e.Type == EmpirePropertyType.Civic) <= 2;
-			if (!valid) return valid;
-
-			//Check if Ethic cost is valid
-			var selectedEthics = selectedEmpireProperties.Where(ep => ep.Type == EmpirePropertyType.Ethic).Select(ep => (ep as Ethic)!);
-			valid = selectedEthics.Sum(e => e.Cost) <= 3;
-			if (!valid) return valid;
-
-			//At most one Design Trait is allowed for Machine Empires
-			valid = selectedEmpireProperties.OfType<MachineTrait>().Count(mt => mt.IsDesignTrait) <= 1;
-			if (!valid) return valid;
-
-			return valid;
+			return true;
 		}
 
 		public Boolean ValidateTraitRestrictions()
 		{
-			var basePicks = GetTraitBasepicks();
-			var selectedTraits = this.EmpireProperties.Where(ep => ep.Type == EmpirePropertyType.Trait).Select(ep => (ep as Trait)!);
+			var shadows = GetValidShadowStates();
+			var basePicks = GetTraitBasepicks(shadows);
+			var selectedTraits = this.EmpireProperties
+				.Where(ep => ep.Type == EmpirePropertyType.Trait)
+				.Cast<Trait>().ToList();
 
 			//Traits with a cost of zero don't count as a pick
-			var traitCount = selectedTraits.Where(t => t.CountsToCap).Count();
+			var traitCount = selectedTraits.Count(t => t.CountsToCap);
 			//Trait count may not exceed allowed picks
 			if (traitCount > basePicks) return false;
 
@@ -418,30 +448,27 @@ namespace Dauros.StellarisREG.DAL
 			var currentCost = selectedTraits.Sum(t => t.Cost);
 
 			//Check the points restriction
-			var basepoints = GetTraitBasepoints();
+			var basePoints = GetTraitBasepoints(shadows);
 
-			var prohibitedTraits = selectedTraits.Where(t => t.Prohibits.Any()).SelectMany(t => t.Prohibits).ToHashSet();
+			var prohibitedTraits = selectedTraits.Where(t => t.Prohibits.Any()).SelectMany(t => t.Prohibits).ToList();
 
 			var allowedTraitPicks = this.AllowedByDLCEmpireProperties
 				.Where(ep => ep.Type == EmpirePropertyType.Trait)
 				.Except(this.EmpireProperties)//Already selected traits are not allowed
-				.Select(ep => (ep as Trait)!)
+				.Cast<Trait>()
 				.ExceptBy(prohibitedTraits, x => x.Name)//Prohibited traits are not allowed
 				;
 
 			//The maximum possible negative costs for the remaining picks
 			var maxNegativeRemainder = allowedTraitPicks.OrderBy(t => t.Cost).Take(picksRemaining).Sum(t => t.Cost);
-			//If the current set of traits (plus basepoints) costs more than what could be couped back with negative picks,
+			//If the current set of traits (minus basepoints) costs more than what could be couped back with negative picks,
 			//the current selection is invalid
-			if (currentCost - basepoints + maxNegativeRemainder > 0) return false;
-
-			return true;
+			int netCost = currentCost - basePoints + maxNegativeRemainder;
+			return netCost <= 0;
 		}
 
-		public int GetTraitBasepoints()
+		public int GetTraitBasepoints(IEnumerable<AndSet> shadows)
 		{
-			//This returns the selected traits along with their requirments
-			var shadows = GetValidShadowStates();
 			var basepoints = 2;
 			//Machine empires only get one basepoint
 			if (shadows.Any(set => set.Contains(EPN.PH_Machine))) basepoints = 1;
@@ -451,9 +478,8 @@ namespace Dauros.StellarisREG.DAL
 		}
 
 
-		public int GetTraitBasepicks()
+		public int GetTraitBasepicks(IEnumerable<AndSet> shadows)
 		{
-			var shadows = GetValidShadowStates();
 			var basepicks = 5;
 			//Overtuned gives an extra pick
 			if (shadows.Any(set => set.Contains(EPN.O_Overtuned))) basepicks += 1;
@@ -462,26 +488,25 @@ namespace Dauros.StellarisREG.DAL
 
 		public Boolean ValidateState()
 		{
-			Dictionary<SelectState, bool>? states;
+			Dictionary<int, bool>? states;
 			if (!_memoryCache.TryGetValue("States", out states))
 			{
-				states = new Dictionary<SelectState, bool>();
+				states = new Dictionary<int, bool>();
 				_memoryCache.Set("States", states, TimeSpan.FromMinutes(60));
 			}
 
-			if (states!.ContainsKey(this))
+			if (states.TryGetValue(this.GetHashCode(), out var cachedResult))
 			{
-				//Debug.WriteLine($"Found validate key {string.Join(", ", this.GetHashableSet())} for {this.GetHashCode()}");
-				return states[this];
+				return cachedResult;
 			}
 
 			var directValidation = ValidateSelection(EmpireProperties.Select(ep => ep.Name).ToHashSet());
 			if (directValidation && ValidateTraitRestrictions())
 			{
-				var hasValidShadows = GetValidShadowStates().Count() > 0;
+				var hasValidShadows = GetValidShadowStates().Any();
 
 				//Debug.WriteLine($"Added validate key {string.Join(", ", this.GetHashableSet())} for {this.GetHashCode()}");
-				states!.Add(this, hasValidShadows);
+				states!.Add(this.GetHashCode(), hasValidShadows);
 				return hasValidShadows;
 			}
 			else
@@ -493,44 +518,37 @@ namespace Dauros.StellarisREG.DAL
 		/// This function will return each possible requirement configuration for the SelectState
 		/// </summary>
 		/// <returns></returns>
-		public HashSet<AndSet> GetValidShadowStates()
+		public IEnumerable<AndSet> GetValidShadowStates()
 		{
 			var allPropertySelectedSets = new HashSet<HashSet<AndSet>>();
 			var propertiesToCheckRequirements = new HashSet<EmpireProperty>(EmpireProperties);
 
-			Dictionary<string, HashSet<AndSet>>? requirements;
-			if (!_memoryCache.TryGetValue("Required", out requirements))
+			var hasMachineAge = SelectedDLC.Contains(EPN.D_MachineAge);
+
+			// Generate a composite cache key based on the current selection
+			var empirePropKey = string.Join(",", propertiesToCheckRequirements.Select(ep => ep.Name).OrderBy(n => n));
+			var finalCacheKey = $"{empirePropKey}|{hasMachineAge}";
+
+			if (_memoryCache.TryGetValue(finalCacheKey, out HashSet<AndSet>? combinedValidSetsCached))
 			{
-				requirements = new();
-				_memoryCache.Set("Required", requirements, TimeSpan.FromMinutes(60));
+				return combinedValidSetsCached!;
 			}
 
 			foreach (var ep in propertiesToCheckRequirements)
 			{
-				if (!ep.Requires.Any() || (ep.Name == EPN.PH_Machine && SelectedDLC.Contains(EPN.D_MachineAge))) continue;
+				if (!ep.Requires.Any() || (ep.Name == EPN.PH_Machine && hasMachineAge)) continue;
 
 				//MachineAge changes requirements for Machine empires so it needs to be part of the key
-				var cacheKey = ep.Name + SelectedDLC.Contains(EPN.D_MachineAge);
+				var cacheKey = ep.Name + hasMachineAge;
 
-				HashSet<AndSet> combinedRequirementSets;
-				if (!requirements!.ContainsKey(cacheKey))
+				if (!_memoryCache.TryGetValue(cacheKey, out HashSet<AndSet>? combinedRequirementSets))
 				{
-					combinedRequirementSets = RecurseRequirement(new HashSet<OrSet>(ep.Requires), new HashSet<string>() { ep.Name });
-					//Add the requirements to the cache
-					requirements.Add(cacheKey, combinedRequirementSets);
-					//Debug.WriteLine($"Added requirement key {cacheKey} for {this.GetHashCode()}");
+					combinedRequirementSets = RecurseRequirement(new HashSet<OrSet>(ep.Requires), new HashSet<string> { ep.Name });
+					_memoryCache.Set(cacheKey, combinedRequirementSets, TimeSpan.FromMinutes(60));
 				}
-				else
-				{
-					combinedRequirementSets = requirements[cacheKey];
-					//Debug.WriteLine($"Found requirement key {cacheKey} for {this.GetHashCode()}");
-				}
-				var validSets = new HashSet<AndSet>();
-				foreach (var reqSet in combinedRequirementSets)
-				{
-					var isValid = ValidateSelection(reqSet);
-					if (isValid) validSets.Add(reqSet);
-				}
+
+				// Filter valid sets
+				var validSets = combinedRequirementSets!.Where(ValidateSelection).ToHashSet();
 				allPropertySelectedSets.Add(validSets);
 			}
 
@@ -542,6 +560,7 @@ namespace Dauros.StellarisREG.DAL
 				if (isValid) combinedValidSets.Add(combiSet);
 			}
 
+			_memoryCache.Set(finalCacheKey, combinedValidSets, TimeSpan.FromMinutes(60));
 			return combinedValidSets;
 		}
 
@@ -550,15 +569,16 @@ namespace Dauros.StellarisREG.DAL
 			return AllEmpireProperties[epString].Type;
 		}
 
-		public HashSet<AndSet> MergeRequirementSetsWithState(HashSet<HashSet<AndSet>> remainingRequirements)
+		public HashSet<AndSet> MergeRequirementSetsWithState(IEnumerable<IEnumerable<AndSet>> remainingRequirements)
 		{
 			var result = new HashSet<AndSet>();
+			var selectedProps = EmpireProperties.Select(ep => ep.Name);
 			if (remainingRequirements.Any())
 			{
 				var first = remainingRequirements.First();
+				var newRemaining = remainingRequirements.Where(r => r != first).ToList();
 				foreach (var requirementSet in first)
 				{
-					var newRemaining = remainingRequirements.Where(r => r != first).ToHashSet();
 					if (newRemaining.Count > 0)
 					{
 						var subSets = MergeRequirementSetsWithState(newRemaining);
@@ -570,8 +590,7 @@ namespace Dauros.StellarisREG.DAL
 					}
 					else
 					{
-						var newSet = new AndSet();
-						newSet.UnionWith(EmpireProperties.Select(ep => ep.Name));
+						var newSet = new AndSet(selectedProps);
 						newSet.UnionWith(requirementSet);
 						result.Add(newSet);
 					}
@@ -579,8 +598,7 @@ namespace Dauros.StellarisREG.DAL
 			}
 			else
 			{
-				var newSet = new AndSet();
-				newSet.UnionWith(EmpireProperties.Select(ep => ep.Name));
+				var newSet = new AndSet(selectedProps);
 				result.Add(newSet);
 			}
 			return result;

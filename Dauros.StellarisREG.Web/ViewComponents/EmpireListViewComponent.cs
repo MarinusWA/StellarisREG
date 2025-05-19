@@ -23,12 +23,14 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 
 		public IViewComponentResult Invoke(HashSet<String> selectedDLC, string? selectedOrigin, HashSet<String> selectedEthics,
             String? selectedAuthority, String? selectedPhenotype, string? selectedShipSet,
-            HashSet<String> selectedCivics, HashSet<String> selectedTraits)
+            HashSet<String> selectedCivics, HashSet<String> selectedTraits, int genEmpires = 10)
         {
             var result = new List<EmpireDataModel>();
             var states = new List<SelectState>();
 
-            for (int i = 0; i < 10; i++)
+            if (genEmpires > 10) genEmpires = 10; //Limit to 10 empires for now
+
+			for (int i = 0; i < genEmpires; i++)
             {
                 var ss = new SelectState(_memoryCache) {
 					SelectedDLC = selectedDLC ?? SelectState.AllDLC.ToHashSet()
@@ -122,7 +124,7 @@ namespace Dauros.StellarisREG.Web.ViewComponents
             var validTraits = ss.GetValidTraits().ToArray();
             while (validTraits.Any())
             {
-                var basepoints = ss.GetTraitBasepoints();
+                var basepoints = ss.GetTraitBasepoints(ss.GetValidShadowStates());
 				var picked = validTraits[_random.Next(validTraits.Count())];
                 ss.AddEmpireProperty(picked);
 				//Stop looking for more traits if there are no traitpoints left, but only if atleast two traits have been picked

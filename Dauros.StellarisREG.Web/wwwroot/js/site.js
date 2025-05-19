@@ -69,7 +69,6 @@ function hookPreSelectEvents() {
         maxSelectable: 1,
         onChange: function (option, checked, select) {
             var selectedValue = $(option).val();
-            // Now you can do something with this value
             refreshPreSelect(selectedValue);
         }
     });
@@ -101,7 +100,6 @@ function hookPreSelectEvents() {
         maxSelectable: 1,
         onChange: function (option, checked, select) {
             var selectedValue = $(option).val();
-            // Now you can do something with this value
             refreshPreSelect(selectedValue);
         }
     });
@@ -122,7 +120,6 @@ function hookPreSelectEvents() {
         maxSelectable: 1,
         onChange: function (option, checked, select) {
             var selectedValue = $(option).val();
-            // Now you can do something with this value
             refreshPreSelect(selectedValue);
         }
     });
@@ -225,9 +222,24 @@ function generateEmpireList(amount) {
 }
 
 function renderGenerating() {
-    var gen = '<div class="spinner-border" role="status"><span class="sr-only"> Loading...</span></div>';
-    $('#empirelist').html(gen);
-    $('#empirelist').fadeIn(100);
+
+    const selectedCount = $('#dlcselect option:selected').length;
+    let seconds = Math.ceil(selectedCount * 0.55)+1;
+
+    var gen = `<div class="col-12 text-center mb-3">Estimated time left: <span id="countdown">${seconds}</span> second${seconds !== 1 ? 's' : ''}...</div>`;
+    gen = gen + '<div class="col-12 d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only"> Loading...</span></div></div>';
+
+    $('#empirelist').html(gen).fadeIn(100);
+
+    // Start countdown
+    const countdownEl = $('#countdown');
+    const interval = setInterval(function () {
+        seconds--;
+        countdownEl.text(seconds);
+        if (seconds <= 0) {
+            clearInterval(interval);
+        }
+    }, 1000);
 }
 
 

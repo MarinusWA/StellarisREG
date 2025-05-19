@@ -772,7 +772,7 @@ namespace Dauros.StellarisREG.DAL
 			},
 			{
 				EPN.T_CyberCommandos,
-				new BiologicalTrait(EPN.T_StormTouched,
+				new BiologicalTrait(EPN.T_CyberCommandos,
 					dlc: new[]{ EPN.D_SyntheticDawn }.ToOrSet())
 				{
 					Cost = 0
