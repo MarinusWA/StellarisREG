@@ -325,22 +325,20 @@ namespace Dauros.StellarisREG.DAL
 		public void AddEmpireProperty(string? empirePropertyName)
 		{
 			if (empirePropertyName == null) return;
-
 			var ep = AllEmpireProperties[empirePropertyName];
 			AddEmpireProperty(ep);
-			//If the empireproperty also grants traits, add these to the selectstate as well
-			if (ep.GrantedTraits.Any())
-			{
-				foreach (var trait in ep.GrantedTraits)
-				{
-					AddEmpireProperty(trait);
-				}
-			}
-
 		}
 
 		public void AddEmpireProperty(EmpireProperty ep)
 		{
+			//If the empireproperty also grants traits, add these to the selectstate as well
+			if (ep.GrantedTraits.Any())
+			{
+				foreach (var grantedTraitName in ep.GrantedTraits) {
+					AddEmpireProperty(grantedTraitName);
+				}
+			}
+
 			switch (ep.Type)
 			{
 				case EmpirePropertyType.Origin:
