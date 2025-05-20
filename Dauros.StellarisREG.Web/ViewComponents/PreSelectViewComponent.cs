@@ -88,16 +88,16 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 
 
             //If there is only one valid option, select it and remove it from valids (to prevent doubling)
-            if (ssm.ValidAuthorities.Count() == 1) { 
+            if (ssm.ValidAuthorities.Count() == 1 && ssm.SelectedAuthority is null) { 
                 ssm.SelectedAuthority = ssm.ValidAuthorities.First();
                 ssm.ValidAuthorities.Remove(ssm.SelectedAuthority);
             };
-            if (ssm.ValidPhenotypes.Count() == 1)
+            if (ssm.ValidPhenotypes.Count() == 1 && ssm.SelectedPhenotype is null)
             {
 				ssm.SelectedPhenotype = ssm.ValidPhenotypes.First();
 				ssm.ValidPhenotypes.Remove(ssm.SelectedPhenotype);
 			}
-			if (ssm.ValidOrigins.Count() == 1)
+			if (ssm.ValidOrigins.Count() == 1 && ssm.SelectedOrigin is null)
             {
 				ssm.SelectedOrigin = ssm.ValidOrigins.First();
 				ssm.ValidOrigins.Remove(ssm.SelectedOrigin);
