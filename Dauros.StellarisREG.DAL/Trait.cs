@@ -993,7 +993,9 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.T_Molebots,
 				new MachineTrait(EPN.T_Molebots,
-					dlc: new HashSet<OrSet>(){ new OrSet{ EPN.D_Overlord }, new OrSet{EPN.D_MachineAge } }
+					dlc: new HashSet<OrSet>(){ new OrSet{ EPN.D_Overlord }, new OrSet{EPN.D_MachineAge } },
+					prohibitions: new AndSet { EPN.T_Waterproof},
+					requirements: new[] { EPN.O_Subterranean }.ToOrSet()
 					)
 				{
 					Cost = 0
@@ -1013,7 +1015,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.T_Waterproof,
 				new MachineTrait(EPN.T_Waterproof,
 					dlc: new[]{ EPN.D_Aquatics }.ToOrSet(),
-					requirements: new[] { EPN.T_Molebots }.ToOrSet()
+					prohibitions: new AndSet { EPN.T_Molebots }
 					)
 				{
 					Cost = 2
