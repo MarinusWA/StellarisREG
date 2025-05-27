@@ -50,8 +50,7 @@ namespace Dauros.StellarisREG.Web.ViewComponents
             {
                 try
                 {
-                    //SetRandomArchetype(ss);
-                    SetRandomPhenotype(ss);
+                    
                     //Mix up if it starts randomizing with an origin or with civics
                     //this is to prevent civics restricted by origins (and vice versa) from having very low chances of appearing
                     var firstProp = _random.Next(2);
@@ -70,7 +69,10 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 
                     AddRandomTraits(ss);
 
-                    var empireData = new EmpireDataModel()
+                    //Set phenotype last so phenotype locked traits show up more often
+					SetRandomPhenotype(ss);
+
+					var empireData = new EmpireDataModel()
                     {
                         Authority = ss.AuthorityName!,
                         Origin = ss.OriginName!,
