@@ -165,7 +165,7 @@ namespace Dauros.StellarisREG.Web.ViewComponents
             if (result == null)
             {
                 var validPTypes = new List<String>() {
-                EPN.PT_Arid, EPN.PT_Alpine,EPN.PT_Artic,EPN.PT_Continental,EPN.PT_Desert,EPN.PT_Ocean,EPN.PT_Savanna,EPN.PT_Tropical,EPN.PT_Tundra};
+                EPN.PT_Arid, EPN.PT_Alpine,EPN.PT_Arctic,EPN.PT_Continental,EPN.PT_Desert,EPN.PT_Ocean,EPN.PT_Savanna,EPN.PT_Tropical,EPN.PT_Tundra};
                 result = validPTypes[_random.Next(validPTypes.Count)];
             }
             return result;

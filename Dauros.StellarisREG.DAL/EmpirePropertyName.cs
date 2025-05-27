@@ -615,7 +615,7 @@ namespace Dauros.StellarisREG.DAL
         public static String PT_Desert => "Desert";
         public static String PT_Savanna => "Savanna";
         public static String PT_Alpine => "Alpine";
-        public static String PT_Artic => "Artic";
+        public static String PT_Arctic => "Arctic";
         public static String PT_Tundra => "Tundra";
         public static String PT_Continental => "Continental";
         public static String PT_Ocean => "Ocean";

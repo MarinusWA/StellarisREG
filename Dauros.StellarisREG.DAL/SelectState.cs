@@ -189,7 +189,7 @@ namespace Dauros.StellarisREG.DAL
 			}
 		}
 
-		protected IEnumerable<String> GetValidProperties()
+		public IEnumerable<String> GetValidProperties()
 		{
 			//Dictionary<SelectState, IEnumerable<String>>? set;
 			//if (!_memoryCache.TryGetValue("ValidProps", out set))
@@ -329,6 +329,14 @@ namespace Dauros.StellarisREG.DAL
 			AddEmpireProperty(ep);
 		}
 
+		public void AddEmpireProperty(IEnumerable<EmpireProperty> epSet)
+		{
+			foreach (var ep in epSet)
+			{
+				AddEmpireProperty(ep);
+			}
+		}
+
 		public void AddEmpireProperty(EmpireProperty ep)
 		{
 			//If the empireproperty also grants traits, add these to the selectstate as well
@@ -447,18 +455,8 @@ namespace Dauros.StellarisREG.DAL
 
 			//Check the points restriction
 			var basePoints = GetTraitBasepoints(shadows);
-
-			var prohibitedTraits = selectedTraits.Where(t => t.Prohibits.Any()).SelectMany(t => t.Prohibits).ToList();
-
-			var allowedTraitPicks = this.AllowedByDLCEmpireProperties
-				.Where(ep => ep.Type == EmpirePropertyType.Trait)
-				.Except(this.EmpireProperties)//Already selected traits are not allowed
-				.Cast<Trait>()
-				.ExceptBy(prohibitedTraits, x => x.Name)//Prohibited traits are not allowed
-				;
-
 			//The maximum possible negative costs for the remaining picks
-			var maxNegativeRemainder = allowedTraitPicks.OrderBy(t => t.Cost).Take(picksRemaining).Sum(t => t.Cost);
+			var maxNegativeRemainder = picksRemaining * -2; //While there are -3 traits, we just use -2 to be on the safe side
 			//If the current set of traits (minus basepoints) costs more than what could be couped back with negative picks,
 			//the current selection is invalid
 			int netCost = currentCost - basePoints + maxNegativeRemainder;
