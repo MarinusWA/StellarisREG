@@ -181,9 +181,14 @@ namespace Dauros.StellarisREG.DAL
 		public static String T_DelicateChassis => "Delicate Chassis";
 		public static String T_ScarcitySubroutines => "Scarcity Subroutines";
 
-        #endregion
-        #region Design Traits
-        public static String T_ArtGenerator => "Art Generator";
+        public static String T_DecadentM => "Decadent (Machine)";
+		public static String T_DeviantsM => "Deviants (Machine)";
+		public static String T_QuarrelsomeM => "Quarrelsome (Machine)";
+		public static String T_WastefulM => "Wasteful (Machine)";
+
+		#endregion
+		#region Design Traits
+		public static String T_ArtGenerator => "Art Generator";
 		public static String T_ConversationalAI => "Conversational AI";
 		public static String T_Nannybot => "Nannybot";
 		public static String T_ResearchAssistants => "Research Assistants";

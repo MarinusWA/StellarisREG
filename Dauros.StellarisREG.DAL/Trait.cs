@@ -1271,38 +1271,38 @@ namespace Dauros.StellarisREG.DAL
 					Cost = -1
 				}
 			},
-			//{
-			//	EPN.T_Decadent,
-			//	new MachineTrait(EPN.T_Decadent,
-			//		prohibitions: new AndSet(){ EPN.A_MachineIntelligence })
-			//	{
-			//		Cost = -1
-			//	}
-			//},
-			//{
-			//	EPN.T_Deviants,
-			//	new MachineTrait(EPN.T_Deviants,
-			//		prohibitions: new AndSet(){ EPN.A_MachineIntelligence })
-			//	{
-			//		Cost = -1
-			//	}
-			//},
-			//{
-			//	EPN.T_Quarrelsome,
-			//	new MachineTrait(EPN.T_Quarrelsome,
-			//		prohibitions: new AndSet(){ EPN.A_MachineIntelligence, EPN.T_PropagandaMachines })
-			//	{
-			//		Cost = -1
-			//	}
-			//},
-			//{
-			//	EPN.T_Wasteful,
-			//	new MachineTrait(EPN.T_Wasteful,
-			//		prohibitions: new AndSet(){ EPN.A_MachineIntelligence })
-			//	{
-			//		Cost = -1
-			//	}
-			//},
+			{
+				EPN.T_DecadentM,
+				new MachineTrait(EPN.T_DecadentM, dlc: new[]{ EPN.D_MachineAge }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.A_MachineIntelligence })
+				{
+					Cost = -1
+				}
+			},
+			{
+				EPN.T_DeviantsM,
+				new MachineTrait(EPN.T_DeviantsM,dlc: new[]{ EPN.D_MachineAge }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.A_MachineIntelligence })
+				{
+					Cost = -1
+				}
+			},
+			{
+				EPN.T_QuarrelsomeM,
+				new MachineTrait(EPN.T_QuarrelsomeM,dlc: new[]{ EPN.D_MachineAge }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.A_MachineIntelligence, EPN.T_PropagandaMachines })
+				{
+					Cost = -1
+				}
+			},
+			{
+				EPN.T_WastefulM,
+				new MachineTrait(EPN.T_WastefulM,dlc: new[]{ EPN.D_MachineAge }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.A_MachineIntelligence })
+				{
+					Cost = -1
+				}
+			},
 			{
 				EPN.T_RepurposedHardware,
 				new MachineTrait(EPN.T_RepurposedHardware,
@@ -1398,7 +1398,7 @@ namespace Dauros.StellarisREG.DAL
 		public BiologicalTrait(string name, HashSet<OrSet>? dlc = null,
 			HashSet<OrSet>? requirements = null, AndSet? prohibitions = null)
 			: base(name,dlc, requirements, 
-				  new[] { EPN.A_MachineIntelligence }.Union<string>(prohibitions ?? Enumerable.Empty<string>()))
+				  new[] { EPN.PH_Machine }.Union<string>(prohibitions ?? Enumerable.Empty<string>()))
 		{ }
 	}
 
