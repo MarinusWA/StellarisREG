@@ -1276,7 +1276,7 @@ namespace Dauros.StellarisREG.DAL
 		};
 
 		public Civic(String name, HashSet<OrSet>? dlc = null, 
-			HashSet<OrSet>? requirements = null, AndSet? prohibitions = null) 
+			HashSet<OrSet>? requirements = null, IEnumerable<string>? prohibitions = null) 
 			: base(name, EmpirePropertyType.Civic, dlc, requirements, prohibitions) { }
 	}
 
@@ -1287,11 +1287,10 @@ namespace Dauros.StellarisREG.DAL
 	{
 		public StandardCivic(String name, HashSet<OrSet>? dlc = null,
 			HashSet<OrSet>? requirements = null, AndSet? prohibitions = null)
-			: base(name, dlc, requirements, prohibitions) 
-		{
-			Prohibits = new AndSet() { EPN.Gestalt, EPN.A_Corporate };
-		}
-		
+			: base(name, dlc, requirements,
+				  new[] { EPN.Gestalt, EPN.A_Corporate }.Union<string>(prohibitions ?? Enumerable.Empty<string>()))
+
+		{ }
 	}
 
 	/// <summary>
@@ -1301,10 +1300,14 @@ namespace Dauros.StellarisREG.DAL
 	{
 		public CorporateCivic(String name, HashSet<OrSet>? dlc = null,
 			HashSet<OrSet>? requirements = null, AndSet? prohibitions = null)
-			: base(name, dlc, requirements, prohibitions)
+			:
+			 base(name,
+				new[] { EPN.D_Megacorp }.ToOrSet()
+					.Union(dlc ?? new HashSet<OrSet>()).ToHashSet(),
+			new[] { EPN.A_Corporate}.ToOrSet()
+					.Union(requirements ?? new HashSet<OrSet>()).ToHashSet(),
+			prohibitions)
 		{
-			DLC = new[] { EPN.D_Megacorp }.ToOrSet();
-			Requires = new[] { EPN.A_Corporate }.ToOrSet() ;
 		}
 	}
 
