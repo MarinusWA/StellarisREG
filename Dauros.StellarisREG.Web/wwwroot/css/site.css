@@ -113,3 +113,14 @@ body {
     white-space: nowrap;
     line-height: 60px; /* Vertically center the text there */
 }
+
+/* ==== Allows scrolling multiselect on mobile.==== */
+button.multiselect-option.dropdown-item {
+    pointer-events: none;
+}
+
+span.form-check input,
+span.form-check label {
+    pointer-events: all;
+}
+/*======================================*/
