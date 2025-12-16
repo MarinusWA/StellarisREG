@@ -60,9 +60,24 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.PH_Machine,
 				new SpeciesPhenotype(EPN.PH_Machine, 
-					dlc : new[] { EPN.D_SyntheticDawn,EPN.D_MachineAge }.ToOrSet(),
+					//It's strictly speaking incorrect to say that Shadows of the Shroud allows Machine species as it's only the Shroud-Forged Origin that allows this.
+					//However, I'm not going to create an exception for this one case. Especially since most people who buy Shadows of the Shroud will likely also own Synthetic Dawn or Machine Age.
+					dlc : new[] { EPN.D_SyntheticDawn,EPN.D_MachineAge, EPN.D_ShadowShroud }.ToOrSet(),
+					
 					requirements : new []{EPN.A_MachineIntelligence}.ToOrSet()
 					){GrantedTraits = new AndSet() { EPN.T_MachineUnit }}
+			},
+			{
+				EPN.PH_Psionic,
+				new SpeciesPhenotype(EPN.PH_Psionic, dlc : new[] { EPN.D_ShadowShroud }.ToOrSet()){}
+			},
+			{
+				EPN.PH_Thermophile,
+				new SpeciesPhenotype(EPN.PH_Thermophile, dlc : new[] { EPN.D_Infernals }.ToOrSet()){}
+			},
+			{
+				EPN.PH_TankVessel,
+				new SpeciesPhenotype(EPN.PH_TankVessel, dlc : new[] { EPN.D_ShadowShroud }.ToOrSet()){ GrantedTraits = new AndSet(){ EPN.T_Tankbound } }
 			},
 
 		};

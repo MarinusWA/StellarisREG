@@ -20,6 +20,12 @@ namespace Dauros.StellarisREG.DAL
 		public static HashSet<String> HS_Catalytic =
 			new HashSet<String>() { EPN.C_CatalyticProcessing, EPN.C_CatalyticRecyclers, EPN.C_OrganicReprocessing };
 
+		public static HashSet<String> HS_Chosen =
+			new HashSet<String>() { EPN.C_Chosen, EPN.C_ChosenExecutives };
+
+		public static HashSet<String> HS_Crowdsourcing =
+			new HashSet<String>() { EPN.C_Crowdsourcing, EPN.C_DecentralizedRandD };
+
 		public static HashSet<String> HS_DarkConsortium =
 			new HashSet<String>() { EPN.C_DarkConsortium, EPN.C_ShadowCorpation};
 		
@@ -36,7 +42,7 @@ namespace Dauros.StellarisREG.DAL
 			new HashSet<String>() { EPN.C_GenesisGuides, EPN.C_AstrogenesisTechnologies, EPN.C_GenesisArchitects, EPN.C_GenesisSymbiotes };
 
 		public static HashSet<String> HS_Genocidal =
-			new HashSet<String>() { EPN.C_FanaticPurifiers,EPN.C_DevouringSwarm,EPN.C_DeterminedExterminator};
+			new HashSet<String>() { EPN.C_FanaticPurifiers,EPN.C_DevouringSwarm,EPN.C_DeterminedExterminator,EPN.C_ScorchedWorldHeralds};
 
 		public static HashSet<String> HS_HyperspaceSpeciality =
 			new HashSet<String>() { EPN.C_HyperspaceSpeciality, EPN.C_HyperspaceTrade};
@@ -63,10 +69,15 @@ namespace Dauros.StellarisREG.DAL
 		public static HashSet<String> HS_RelentlessIndustrialists =
 			new HashSet<String>() { EPN.C_RelentlessIndustrialists, EPN.C_ShareholderValues };
 
+		public static HashSet<String> HS_Slavers =
+			new HashSet<String>() { EPN.C_SlaverGuilds, EPN.C_IndenturedAssets };
+
 		public static HashSet<String> HS_SovereignGuardianship =
 			new HashSet<String>() { EPN.C_SovereignGuardianship, EPN.C_CorporateProtectorate};
 
 		public static HashSet<String> HS_StormDevotion =
 			new HashSet<string>() { EPN.C_StormDevotion, EPN.C_StormInfluencers };
+
+		
 	}
 }

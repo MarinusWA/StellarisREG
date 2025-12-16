@@ -411,6 +411,23 @@ namespace Dauros.StellarisREG.DAL
 					prohibitions: new AndSet(){ EPN.PH_Machine }
 				)
 			},
+			{
+				EPN.C_EntropyDrinkers,
+				new StandardCivic(EPN.C_EntropyDrinkers,
+					dlc: new[] { EPN.D_ShadowShroud }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.Egalitarian, EPN.EgalitarianF, EPN.C_Memorialists, EPN.C_NaturalDesign, EPN.C_CorporateVampires,
+						EPN.O_MindWardens, EPN.O_HardReset, EPN.O_Overtuned, EPN.O_CyberneticCreed, EPN.O_SyntheticFertility, EPN.O_EvolutionaryPredators }
+					
+				)
+			},
+			{
+				EPN.C_ExperimentalSentencing,
+				new StandardCivic(EPN.C_ExperimentalSentencing,
+					dlc: new[] { EPN.D_ShadowShroud }.ToOrSet(),
+					requirements: new[]{ EPN.Authoritarian,EPN.AuthoritarianF, EPN.Xenophobe, EPN.XenophobeF }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.C_JudicialRnD, EPN.PH_Machine}
+				)
+			},
 			#endregion
 			#region Permanent
 			{
@@ -516,6 +533,76 @@ namespace Dauros.StellarisREG.DAL
 					dlc: new [] { EPN.D_GrandArchive }.ToOrSet()
 				)
 			},
+			{
+				EPN.C_Chosen,
+				new StandardCivic(EPN.C_Chosen,
+					dlc: new [] { EPN.D_ShadowShroud }.ToOrSet(),
+					requirements: new[] { EPN.Spiritualist, EPN.SpiritualistF }.ToOrSet(),
+					prohibitions: new AndSet(EPNSET.HS_DeathCult){ EPN.C_ChosenExecutives, EPN.C_ImperialCult, EPN.C_NaturalDesign, EPN.C_AugmentationBazaars,
+					EPN.O_HardReset, EPN.O_CyberneticCreed, EPN.O_SyntheticFertility, EPN.O_EvolutionaryPredators, EPN.O_Endbringers, EPN.O_MindWardens}
+				)
+			},
+			{
+				EPN.C_SecretSocieties,
+				new StandardCivic(EPN.C_SecretSocieties,
+					dlc: new [] { EPN.D_ShadowShroud }.ToOrSet(),
+					prohibitions: new AndSet(EPNSET.HS_Genocidal.Union<String>(EPNSET.HS_Crowdsourcing))
+					{ EPN.C_ParliamentarySystem, EPN.C_InfluentialCartel, EPN.O_HardReset, EPN.O_BrokenShackles, EPN.O_CyberneticCreed }
+				)
+			},
+			{
+				EPN.C_SuperstitiousBeliefs,
+				new StandardCivic(EPN.C_SuperstitiousBeliefs,
+					dlc: new [] { EPN.D_ShadowShroud }.ToOrSet(),
+					requirements: new[] { EPN.Spiritualist, EPN.SpiritualistF }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.C_FortuneEnterprise, EPN.O_CyberneticCreed }
+				)
+			},
+			{
+				EPN.C_Tankbound,
+				new StandardCivic(EPN.C_Tankbound,
+					dlc: new [] { EPN.D_ShadowShroud }.ToOrSet(),
+					requirements: new[] { EPN.PH_TankVessel }.ToOrSet(),
+					prohibitions: new AndSet(EPNSET.HS_Slavers.Union<String>(EPNSET.HS_Anglers))
+					{ EPN.C_AgrarianIdyll, EPN.C_CitizenService, EPN.C_MiningGuilds, EPN.C_PrivateMilitaryCompanies, 
+						EPN.O_SyncreticEvolution, EPN.O_HardReset, EPN.O_CloneArmy, EPN.O_KnightsToxicGod, EPN.O_BrokenShackles, EPN.O_Payback, EPN.O_PrimalCalling }
+				)
+			},
+			{
+				EPN.C_FireCult,
+				new StandardCivic(EPN.C_FireCult,
+					dlc: new [] { EPN.D_Infernals }.ToOrSet(),
+					requirements: new[] { EPN.Spiritualist, EPN.SpiritualistF }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.PH_Aquatic, EPN.O_OceanParadise, EPN.O_CyberneticCreed }
+				)
+			},
+			{
+				EPN.C_GalvanicSynthesis,
+				new StandardCivic(EPN.C_GalvanicSynthesis,
+					dlc: new [] { EPN.D_Infernals }.ToOrSet(),
+					requirements: new[] { EPN.PH_Thermophile }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.C_BiometallicCartel, EPN.O_SyntheticFertility }
+				)
+			},
+			{
+				EPN.C_PlanetForgers,
+				new StandardCivic(EPN.C_PlanetForgers,
+					dlc: new [] { EPN.D_Infernals }.ToOrSet(),
+					prohibitions: new AndSet(EPNSET.HS_RelentlessIndustrialists)
+					{ EPN.S_Biological, EPN.C_IdyllicBloom, EPN.C_IdyllicBloom, EPN.O_LifeSeeded, EPN.O_OceanParadise,EPN.PH_Aquatic }
+				)
+			},
+			{
+				EPN.C_ScorchedWorldHeralds,
+				new StandardCivic(EPN.C_ScorchedWorldHeralds,
+					dlc: new [] { EPN.D_Infernals }.ToOrSet(),
+					requirements: new HashSet<OrSet>(){ new OrSet() { EPN.Xenophobe, EPN.XenophobeF }, new OrSet() { EPN.PH_Thermophile } },
+					prohibitions: new AndSet(EPNSET.HS_SovereignGuardianship.Union<String>(EPNSET.HS_GenesisGuides))
+					{ EPN.Pacifist, EPN.PacifistF, EPN.C_BarbaricDespoilers, EPN.C_PompousPurists, EPN.C_SelectiveKinship, EPN.C_CrusaderSpirit,
+					EPN.O_SyncreticEvolution, EPN.O_CommonGround, EPN.O_Hegemon, EPN.O_KnightsToxicGod, EPN.O_BrokenShackles, EPN.O_MindWardens}
+				)
+			},
+
 			#endregion
 			#endregion
 			#region Corporate
@@ -759,6 +846,22 @@ namespace Dauros.StellarisREG.DAL
 					prohibitions: new AndSet(){ EPN.PH_Machine, EPN.C_GeneticIdentification }
 				)
 			},
+			{
+				EPN.C_CorporateVampires,
+				new CorporateCivic(EPN.C_CorporateVampires,
+					dlc: new[] { EPN.D_ShadowShroud }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.Egalitarian,EPN.EgalitarianF,EPN.C_EntropyDrinkers, EPN.C_Memorialists, 
+						EPN.O_MindWardens, EPN.O_HardReset, EPN.O_Overtuned, EPN.O_CyberneticCreed, EPN.O_SyntheticFertility, EPN.O_EvolutionaryPredators }
+				)
+			},
+			{
+				EPN.C_JudicialRnD,
+				new CorporateCivic(EPN.C_JudicialRnD,
+					dlc: new[] { EPN.D_ShadowShroud }.ToOrSet(),
+					requirements: new[]{ EPN.Authoritarian,EPN.AuthoritarianF, EPN.Xenophobe, EPN.XenophobeF }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.C_ExperimentalSentencing, EPN.PH_Machine }
+				)
+			},
 			#endregion
 			#region Permanent
 			{
@@ -833,6 +936,57 @@ namespace Dauros.StellarisREG.DAL
 				new CorporateCivic(EPN.C_SpaceRanchers,
 					dlc: new[] { EPN.D_GrandArchive }.ToOrSet(),
 					prohibitions: new AndSet(){ EPN.C_EagerExplorers,EPN.C_Beastmasters }
+				)
+			},
+			{
+				EPN.C_ChosenExecutives,
+				new CorporateCivic(EPN.C_ChosenExecutives,
+					dlc: new[] { EPN.D_ShadowShroud }.ToOrSet(),
+					requirements: new[] { EPN.Spiritualist, EPN.SpiritualistF }.ToOrSet(),
+					prohibitions: new AndSet(EPNSET.HS_DeathCult)
+					{ EPN.C_Chosen, EPN.C_ImperialCult, EPN.C_AugmentationBazaars, 
+						EPN.O_HardReset, EPN.O_CyberneticCreed, EPN.O_SyntheticFertility, EPN.O_EvolutionaryPredators, EPN.O_Endbringers, EPN.O_MindWardens }
+				)
+			},
+			{
+				EPN.C_InfluentialCartel,
+				new CorporateCivic(EPN.C_InfluentialCartel,
+					dlc: new[] { EPN.D_ShadowShroud }.ToOrSet(),
+					prohibitions: new AndSet(EPNSET.HS_Crowdsourcing)
+					{ EPN.C_ParliamentarySystem, EPN.C_SecretSocieties, EPN.O_HardReset, EPN.O_BrokenShackles, EPN.O_CyberneticCreed }
+				)
+			},
+			{
+				EPN.C_FortuneEnterprise,
+				new CorporateCivic(EPN.C_FortuneEnterprise,
+					dlc: new[] { EPN.D_ShadowShroud }.ToOrSet(),
+					requirements: new[] { EPN.Spiritualist, EPN.SpiritualistF }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.C_SuperstitiousBeliefs, EPN.O_CyberneticCreed }
+				)
+			},
+			{
+				EPN.C_CorporateThinktank,
+				new CorporateCivic(EPN.C_CorporateThinktank,
+					dlc: new[] { EPN.D_ShadowShroud }.ToOrSet(),
+					requirements: new[]{ EPN.PH_TankVessel }.ToOrSet(),
+					prohibitions: new AndSet(EPNSET.HS_Slavers.Union<String>(EPNSET.HS_Anglers))
+					{ EPN.C_PrivateMilitaryCompanies, EPN.C_AgrarianIdyll, EPN.C_CitizenService, EPN.C_MiningGuilds, 
+						EPN.O_SyncreticEvolution, EPN.O_HardReset, EPN.O_CloneArmy, EPN.O_KnightsToxicGod, EPN.O_BrokenShackles, EPN.O_Payback, EPN.O_PrimalCalling }
+				)
+			},
+			{
+				EPN.C_BiometallicCartel,
+				new CorporateCivic(EPN.C_BiometallicCartel,
+					dlc: new[] { EPN.D_Infernals }.ToOrSet(),
+					requirements: new[] { EPN.PH_Thermophile }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.C_GalvanicSynthesis, EPN.O_SyntheticFertility }
+				)
+			},
+			{
+				EPN.C_PlanetaryArchitects,
+				new CorporateCivic(EPN.C_PlanetaryArchitects,
+					dlc: new[] { EPN.D_Infernals }.ToOrSet(),
+					prohibitions: new AndSet(EPNSET.HS_RelentlessIndustrialists){ EPN.S_Biological, EPN.C_IdyllicBloom, EPN.O_LifeSeeded, EPN.O_OceanParadise }
 				)
 			},
 			#endregion
@@ -954,6 +1108,19 @@ namespace Dauros.StellarisREG.DAL
 					prohibitions: new AndSet(){ EPN.O_Wilderness }
 				)
 			},
+			{
+				EPN.C_CorrectiveConsiousness,
+				new HiveMindCivic(EPN.C_CorrectiveConsiousness,
+					dlc: new[] { EPN.D_ShadowShroud }.ToOrSet()
+				)
+			},
+			{
+				EPN.C_ParasiticCaste,
+				new HiveMindCivic(EPN.C_ParasiticCaste,
+					dlc: new[] { EPN.D_ShadowShroud }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.C_InnateDesign, EPN.C_MemorialistHM, EPN.O_MindWardens, EPN.O_Overtuned, EPN.O_Wilderness }
+				)
+			},
 			#region Permanent
 			{
 				EPN.C_MycorrhizalIdeal,
@@ -1034,6 +1201,34 @@ namespace Dauros.StellarisREG.DAL
 					requirements: new[] { EPN.S_Biological }.ToOrSet()
 				)
 			},
+			{
+				EPN.C_ChosenMany,
+				new HiveMindCivic(EPN.C_ChosenMany,
+					dlc: new[] { EPN.D_ShadowShroud }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.C_InnateDesign, EPN.O_EvolutionaryPredators, EPN.O_Wilderness }
+				)
+			},
+			{
+				EPN.C_ZodiacNexus,
+				new HiveMindCivic(EPN.C_ZodiacNexus,
+					dlc: new[] { EPN.D_ShadowShroud }.ToOrSet()
+				)
+			},
+			{
+				EPN.C_GalvanicSymbiosis,
+				new HiveMindCivic(EPN.C_GalvanicSymbiosis,
+					dlc: new[] { EPN.D_Infernals }.ToOrSet(),
+					requirements: new[] { EPN.PH_Thermophile }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.C_WildSwarm}
+				)
+			},
+			{
+				EPN.C_VolcanicNesting,
+				new HiveMindCivic(EPN.C_VolcanicNesting,
+					dlc: new[] { EPN.D_Infernals }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.S_Biological, EPN.C_MycorrhizalIdeal, EPN.O_LifeSeeded, EPN.O_OceanParadise, EPN.O_Wilderness }
+				)
+			},
 			#endregion
 			#region Genodical
 			{
@@ -1062,6 +1257,14 @@ namespace Dauros.StellarisREG.DAL
 					requirements: new[] { EPN.O_Wilderness }.ToOrSet(),
 					prohibitions: new AndSet(){ EPN.PH_Lithoid, EPN.C_Empath, EPN.C_MemorialistHM, EPN.C_GuardianCluster,
 					EPN.C_Bodysnatcher,EPN.C_FamiliarFace}
+				)
+			},
+			{
+				EPN.C_PyromanicInstinct,
+				new HiveMindCivic(EPN.C_PyromanicInstinct,
+					dlc: new[] { EPN.D_Infernals }.ToOrSet(),
+					requirements: new[] { EPN.PH_Thermophile }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.O_OceanParadise }
 				)
 			},
 			#endregion
@@ -1205,6 +1408,13 @@ namespace Dauros.StellarisREG.DAL
 					dlc: new[] { EPN.D_Biogenesis }.ToOrSet()
 				)
 			},
+			{
+				EPN.C_EnergyExtractors,
+				new MachineIntelligenceCivic(EPN.C_EnergyExtractors,
+					dlc: new[] { EPN.D_ShadowShroud }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.C_MemorialistMI, EPN.O_MindWardens}
+				)
+			},
 			#region Permanent
 			{
 				EPN.C_DeterminedExterminator,
@@ -1269,6 +1479,32 @@ namespace Dauros.StellarisREG.DAL
 				EPN.C_CaretakerNetworkMI,
 				new MachineIntelligenceCivic(EPN.C_CaretakerNetworkMI,
 					dlc: new[] { EPN.D_GrandArchive }.ToOrSet()
+				)
+			},
+			{
+				EPN.C_ApostleNetwork,
+				new MachineIntelligenceCivic(EPN.C_ApostleNetwork,
+					dlc: new[] { EPN.D_ShadowShroud }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.O_ShroudForged}
+				)
+			},
+			{
+				EPN.C_PatternFinders,
+				new MachineIntelligenceCivic(EPN.C_PatternFinders,
+					dlc: new[] { EPN.D_ShadowShroud }.ToOrSet()
+				)
+			},
+			{
+				EPN.C_GalvanicRetrofitting,
+				new MachineIntelligenceCivic(EPN.C_GalvanicRetrofitting,
+					dlc: new[] { EPN.D_Infernals }.ToOrSet()
+				)
+			},
+			{
+				EPN.C_ThermalOptimizers,
+				new MachineIntelligenceCivic(EPN.C_ThermalOptimizers,
+					dlc: new[] { EPN.D_Infernals }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.S_Biological, EPN.O_LifeSeeded, EPN.O_OceanParadise }
 				)
 			},
 			#endregion

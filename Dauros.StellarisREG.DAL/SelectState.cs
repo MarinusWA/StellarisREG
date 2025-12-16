@@ -38,7 +38,7 @@ namespace Dauros.StellarisREG.DAL
 		/// <remarks>This is a fixed value hashset because using reflection would reduce performance (and it's slow enough as it is)</remarks>
 		public static HashSet<String> AllDLC => new HashSet<string>()
 		{ EPN.D_AncientRelics, EPN.D_Apocalypse, EPN.D_Federations, EPN.D_Lithoids, EPN.D_Megacorp, EPN.D_Necroids, EPN.D_SyntheticDawn, EPN.D_Utopia, EPN.D_Humanoids, EPN.D_Plantoids,EPN.D_Nemesis, EPN.D_Aquatics,
-			EPN.D_Toxoids, EPN.D_AstralPlanes, EPN.D_Overlord, EPN.D_GalParagons, EPN.D_FirstContact, EPN.D_MachineAge, EPN.D_CosmicStorms, EPN.D_GrandArchive, EPN.D_Biogenesis };
+			EPN.D_Toxoids, EPN.D_AstralPlanes, EPN.D_Overlord, EPN.D_GalParagons, EPN.D_FirstContact, EPN.D_MachineAge, EPN.D_CosmicStorms, EPN.D_GrandArchive, EPN.D_Biogenesis, EPN.D_ShadowShroud, EPN.D_Infernals};
 
 		#region Hashing
 

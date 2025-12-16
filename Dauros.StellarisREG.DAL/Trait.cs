@@ -266,6 +266,14 @@ namespace Dauros.StellarisREG.DAL
 					Cost = 3
 				}
 			},
+			{
+				EPN.T_UnbreakableResolve,
+				new BiologicalTrait(EPN.T_UnbreakableResolve,
+					dlc: new [] { EPN.D_Infernals }.ToOrSet())
+				{
+					Cost = 2
+				}
+			},
 			#region Phenotype
 			{
 				EPN.T_Phototrophic,
@@ -477,6 +485,53 @@ namespace Dauros.StellarisREG.DAL
 					Cost = 1
 				}
 			},
+			{
+				EPN.T_UncannyIntuition,
+				new BiologicalTrait(EPN.T_UncannyIntuition,
+					dlc: new [] {EPN.D_ShadowShroud }.ToOrSet(),
+					requirements: new[] { EPN.PH_Psionic }.ToOrSet())
+				{ Cost = 3 }
+			},
+			{
+				EPN.T_CranialHypertrophy,
+				new BiologicalTrait(EPN.T_CranialHypertrophy,
+					dlc: new [] {EPN.D_ShadowShroud }.ToOrSet(),
+					requirements: new[] { EPN.PH_Psionic }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.T_CranialMegatrophy, EPN.T_Intelligent })
+				{ Cost = 2 }
+			},
+			{
+				EPN.T_CranialMegatrophy,
+				new BiologicalTrait(EPN.T_CranialMegatrophy,
+					dlc: new [] {EPN.D_ShadowShroud }.ToOrSet(),
+					requirements: new[] { EPN.PH_Psionic }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.T_CranialHypertrophy, EPN.T_Intelligent })
+				{ Cost = 4 }
+			},
+			{
+				EPN.T_CrucibleCommunity,
+				new BiologicalTrait(EPN.T_CrucibleCommunity,
+					dlc: new [] {EPN.D_Infernals }.ToOrSet(),
+					requirements: new[] { EPN.PH_Thermophile }.ToOrSet())
+				{ Cost = 1 }
+			},
+			{
+				EPN.T_PyroclasticChanneling,
+				new BiologicalTrait(EPN.T_PyroclasticChanneling,
+					dlc: new [] {EPN.D_Infernals }.ToOrSet(),
+					requirements: new[] { EPN.PH_Thermophile }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.T_SlowBreeders, EPN.T_RapidBreeders, EPN.T_ExistentialIteroparity, EPN.T_Incubators, 
+						EPN.T_Budding, EPN.T_Crystallization, EPN.T_EggLaying, EPN.T_Polymelic } )
+				{ Cost = 1 }
+			},
+			{
+				EPN.T_ShellSlag,
+				new BiologicalTrait(EPN.T_ShellSlag,
+					dlc: new [] {EPN.D_Infernals }.ToOrSet(),
+					requirements: new[] { EPN.PH_Thermophile }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.T_DrakeScaled } )
+				{ Cost = 2 }
+			},
 
 			#endregion
 			#endregion
@@ -674,6 +729,16 @@ namespace Dauros.StellarisREG.DAL
 					Cost = -3
 				}
 			},
+			{
+				EPN.T_HauntingVisions,
+				new BiologicalTrait(EPN.T_HauntingVisions,
+					dlc: new[]{ EPN.D_ShadowShroud }.ToOrSet(),
+					requirements: new[] { EPN.PH_Psionic }.ToOrSet()
+					)
+				{
+					Cost = -2
+				}
+			},
 			#endregion
 			#endregion
 			#region Granted Traits
@@ -766,6 +831,15 @@ namespace Dauros.StellarisREG.DAL
 				EPN.T_StormTouched,
 				new BiologicalTrait(EPN.T_StormTouched,
 					dlc: new[]{ EPN.D_CosmicStorms }.ToOrSet())
+				{
+					Cost = 0
+				}
+			},
+			{
+				EPN.T_Tankbound,
+				new BiologicalTrait(EPN.T_Tankbound,
+					dlc: new[]{ EPN.D_ShadowShroud }.ToOrSet(),
+					requirements: new []{ EPN.PH_TankVessel }.ToOrSet())
 				{
 					Cost = 0
 				}
@@ -1012,6 +1086,16 @@ namespace Dauros.StellarisREG.DAL
 				}
 			},
 			{
+				EPN.T_ShroudForged,
+				new MachineTrait(EPN.T_ShroudForged,
+					dlc: new[]{ EPN.D_ShadowShroud }.ToOrSet(),
+					requirements: new[] { EPN.O_ShroudForged }.ToOrSet()
+					)
+				{
+					Cost = 0
+				}
+			},
+			{
 				EPN.T_Waterproof,
 				new MachineTrait(EPN.T_Waterproof,
 					dlc: new[]{ EPN.D_Aquatics }.ToOrSet(),
@@ -1215,6 +1299,15 @@ namespace Dauros.StellarisREG.DAL
 				new MachineTrait(EPN.T_IntegratedWeaponry,
 					dlc: new[]{ EPN.D_MachineAge }.ToOrSet(),
 					prohibitions: new AndSet(){ EPN.T_DelicateChassis }
+					)
+				{
+					Cost = 2
+				}
+			},
+			{
+				EPN.T_AssemblySlag,
+				new MachineTrait(EPN.T_AssemblySlag,
+					dlc: new[]{ EPN.D_Infernals }.ToOrSet()
 					)
 				{
 					Cost = 2

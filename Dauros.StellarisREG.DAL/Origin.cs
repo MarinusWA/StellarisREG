@@ -373,7 +373,55 @@ namespace Dauros.StellarisREG.DAL
 						EPN.C_GenesisSymbiotes, EPN.C_ClimateModelingHM, EPN.C_CultivationDrones },
 					GrantedTraits = new[] { EPN.T_Wilderness }
 				}
+			},{
+				EPN.O_MindWardens,
+				new Origin(EPN.O_MindWardens, new[] { EPN.D_ShadowShroud }.ToOrSet())
+				{
+					Prohibits = new AndSet(EPNSET.HS_Genocidal){ EPN.Gestalt, EPN.Pacifist, EPN.PacifistF, EPN.C_EntropyDrinkers  }
+				}
 			},
+			{
+				EPN.O_RedGiants,
+				new Origin(EPN.O_RedGiants, new[] { EPN.D_Infernals }.ToOrSet())
+				{
+					Prohibits = new AndSet(EPNSET.HS_Catalytic
+						.Union<string>(EPNSET.HS_Anglers)
+						.Union<string>(EPNSET.HS_IdyllicBloom))
+					{ EPN.PH_Aquatic, EPN.C_AgrarianIdyll, EPN.S_Biological },
+					PlanetType = EPN.PT_Volanic
+				}
+			},
+			{
+				EPN.O_Endbringers,
+				new Origin(EPN.O_Endbringers, new[] { EPN.D_ShadowShroud }.ToOrSet())
+				{
+					Prohibits = new AndSet(EPNSET.HS_Chosen){ EPN.Gestalt, EPN.Pacifist, EPN.PacifistF, EPN.C_AugmentationBazaars }
+				}
+			},
+			{
+				EPN.O_CosmicDawn,
+				new Origin(EPN.O_CosmicDawn, new[] { EPN.D_Infernals }.ToOrSet())
+				{
+					Requires = new HashSet<OrSet>(){ new OrSet() { EPN.PH_Thermophile } },
+					Prohibits = new AndSet(EPNSET.HS_Catalytic
+						.Union<string>(EPNSET.HS_Anglers)
+						.Union<string>(EPNSET.HS_IdyllicBloom)
+						.Union<string>(EPNSET.HS_Beastmasters))
+					{ EPN.A_HiveMind, EPN.C_AgrarianIdyll, EPN.S_Biological },
+					PlanetType = EPN.PT_Volanic
+				}
+			},
+			{
+				EPN.O_ShroudForged,
+				new Origin(EPN.O_ShroudForged, new[] { EPN.D_ShadowShroud }.ToOrSet())
+				{
+					Requires = new HashSet<OrSet>(){ new OrSet() { EPN.A_MachineIntelligence } },
+					Prohibits = new AndSet()
+					{ EPN.C_DeterminedExterminator, EPN.C_DrivenAssimilator, EPN.C_RogueServitor, EPN.C_ApostleNetwork },
+					GrantedTraits = new[] { EPN.T_ShroudForged }
+				}
+			},
+
 		};
 
 
