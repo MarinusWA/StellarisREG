@@ -323,7 +323,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.C_HeroicPast,
 				new StandardCivic(EPN.C_HeroicPast,
 					dlc: new[] { EPN.D_GalParagons }.ToOrSet(),
-					prohibitions: new AndSet() { EPN.C_HeroicPast }
+					prohibitions: new AndSet() { EPN.O_HardReset }
 				)
 			},
 			{
