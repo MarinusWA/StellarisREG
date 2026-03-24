@@ -34,7 +34,7 @@ namespace Dauros.StellarisREG.DAL
 			},
 			{
 				EPN.PH_Fungoid,
-				new SpeciesPhenotype(EPN.PH_Fungoid, dlc: new []{EPN.D_Plantoids}.ToOrSet()){}
+				new SpeciesPhenotype(EPN.PH_Fungoid){}
 			},
 			{
 				EPN.PH_Plantoid,
