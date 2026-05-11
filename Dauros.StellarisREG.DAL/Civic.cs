@@ -216,7 +216,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.C_ByzantineBureaucracy,
 				new StandardCivic(EPN.C_ByzantineBureaucracy,
 					dlc: new[] { EPN.D_Megacorp }.ToOrSet(),
-					prohibitions: new AndSet(){ EPN.Spiritualist, EPN.SpiritualistF }
+					prohibitions: new AndSet(){ }
 				)
 			},
 			{
