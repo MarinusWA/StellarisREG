@@ -421,6 +421,45 @@ namespace Dauros.StellarisREG.DAL
 					GrantedTraits = new[] { EPN.T_ShroudForged }
 				}
 			},
+			{
+				EPN.O_ForeverCruise,
+				new Origin(EPN.O_ForeverCruise, new[] { EPN.D_Nomads }.ToOrSet())
+				{
+					Requires = new HashSet<OrSet>(){ new OrSet() { EPN.M_Nomadic } },
+					Prohibits = new AndSet(EPNSET.HS_Genocidal
+						.Union<string>(EPNSET.HS_GenesisGuides)
+						.Union<string>(EPNSET.HS_Planetscapers)
+						){ EPN.Xenophobe, EPN.XenophobeF, EPN.C_VoidReavers, EPN.C_Bodysnatcher, EPN.C_DrivenAssimilator, EPN.C_PrivateProspectors, EPN.C_CorporateDominion }
+				}
+			},
+			{
+				EPN.O_HeirsOfTheKhan,
+				new Origin(EPN.O_HeirsOfTheKhan, new[] { EPN.D_Nomads }.ToOrSet())
+				{
+					Requires = new HashSet<OrSet>(){ new OrSet() { EPN.M_Nomadic }, new OrSet() { EPN.Militarist, EPN.MilitaristF } },
+					Prohibits = new AndSet(){ EPN.Gestalt, EPN.A_Democratic, EPN.A_Corporate }
+				}
+			},
+			{
+				EPN.O_TheSacredPath,
+				new Origin(EPN.O_TheSacredPath, new[] { EPN.D_Nomads }.ToOrSet())
+				{
+					Requires = new HashSet<OrSet>(){ new OrSet() { EPN.M_Nomadic }, new OrSet() { EPN.Spiritualist, EPN.SpiritualistF } },
+					Prohibits = new AndSet((EPNSET.HS_GenesisGuides)
+						.Union<string>(EPNSET.HS_Planetscapers)){ EPN.C_PrivateProspectors, EPN.C_CorporateDominion }
+				}
+			},
+			{
+				EPN.O_Voidfarers,
+				new Origin(EPN.O_Voidfarers, new[] { EPN.D_Nomads }.ToOrSet())
+				{
+					Requires = new HashSet<OrSet>(){ new OrSet() { EPN.M_Nomadic } },
+					Prohibits = new AndSet((EPNSET.HS_GenesisGuides)
+						.Union<string>(EPNSET.HS_Planetscapers)
+						){ EPN.C_PrivateProspectors, EPN.C_CorporateDominion }
+				}
+			},
+
 
 		};
 

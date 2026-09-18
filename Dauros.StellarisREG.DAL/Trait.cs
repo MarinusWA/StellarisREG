@@ -163,8 +163,8 @@ namespace Dauros.StellarisREG.DAL
 				}
 			},
 			{
-				EPN.T_Nomadic,
-				new BiologicalTrait(EPN.T_Nomadic, prohibitions : new AndSet() { EPN.T_Sedentary })
+				EPN.T_Migratory,
+				new BiologicalTrait(EPN.T_Migratory, prohibitions : new AndSet() { EPN.T_Sedentary })
 				{
 					Cost = 1
 				}
@@ -302,7 +302,7 @@ namespace Dauros.StellarisREG.DAL
 					requirements: new[] { EPN.PH_Plantoid, EPN.PH_Fungoid }.ToOrSet(),
 					prohibitions: new AndSet(){EPN.T_Adaptive, EPN.T_ExtremelyAdaptive, EPN.T_Agrarian, EPN.T_Charismatic, EPN.T_Communal,
 					EPN.T_Conformists, EPN.T_Conservationist, EPN.T_Docile, EPN.T_Enduring, EPN.T_Venerable, EPN.T_Industrious, EPN.T_Ingenious,
-					EPN.T_Intelligent, EPN.T_NaturalEngineers, EPN.T_NaturalPhysicists, EPN.T_NaturalSociologists, EPN.T_Nomadic, EPN.T_QuickLearners,
+					EPN.T_Intelligent, EPN.T_NaturalEngineers, EPN.T_NaturalPhysicists, EPN.T_NaturalSociologists, EPN.T_Migratory, EPN.T_QuickLearners,
 					EPN.T_RapidBreeders, EPN.T_Resilient, EPN.T_Strong, EPN.T_VeryStrong, EPN.T_Talented, EPN.T_Thrifty, EPN.T_Traditional,
 					EPN.T_ExistentialIteroparity,EPN.T_Incubators, EPN.T_Noxious, EPN.T_InorganicBreath})
 				{
@@ -575,7 +575,7 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.T_Sedentary,
 				new BiologicalTrait(EPN.T_Sedentary,
-					prohibitions: new AndSet(){ EPN.T_Nomadic}
+					prohibitions: new AndSet(){ EPN.T_Migratory}
 					)
 				{
 					Cost = -1
@@ -713,7 +713,7 @@ namespace Dauros.StellarisREG.DAL
 				new BiologicalTrait(EPN.T_Rooted,
 					dlc: new[]{ EPN.D_Biogenesis }.ToOrSet(),
 					requirements: new[] { EPN.PH_Fungoid, EPN.PH_Plantoid }.ToOrSet(),
-					prohibitions: new AndSet(){EPN.T_Nomadic, EPN.T_Sedentary}
+					prohibitions: new AndSet(){EPN.T_Migratory, EPN.T_Sedentary}
 					)
 				{
 					Cost = -3
@@ -794,7 +794,7 @@ namespace Dauros.StellarisREG.DAL
 				new BiologicalTrait(EPN.T_PathogenicGenes,
 					dlc: new[]{ EPN.D_MachineAge }.ToOrSet(),
 					prohibitions: new AndSet(){ EPN.T_RapidBreeders, EPN.T_ExistentialIteroparity,EPN.T_Incubators,
-					EPN.T_Budding, EPN.T_Crystallization, EPN.T_EggLaying, EPN.T_Nomadic, EPN.T_Adaptive, EPN.T_ExtremelyAdaptive,
+					EPN.T_Budding, EPN.T_Crystallization, EPN.T_EggLaying, EPN.T_Migratory, EPN.T_Adaptive, EPN.T_ExtremelyAdaptive,
 					EPN.T_SlowBreeders, EPN.T_PsychoInfertility, EPN.T_Sedentary, EPN.T_Nonadaptive, EPN.T_NascentStage})
 				{
 					Cost = -1
@@ -812,7 +812,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.T_Wilderness,
 				new BiologicalTrait(EPN.T_Wilderness,
 					dlc: new[]{ EPN.D_Biogenesis }.ToOrSet(),
-					prohibitions: new AndSet(){ EPN.T_Nomadic, EPN.T_Incubators, EPN.T_Sedentary, EPN.T_NascentStage})
+					prohibitions: new AndSet(){ EPN.T_Migratory, EPN.T_Incubators, EPN.T_Sedentary, EPN.T_NascentStage})
 				{
 					Cost = 0
 				}
@@ -875,6 +875,14 @@ namespace Dauros.StellarisREG.DAL
 				EPN.T_RitualisticImplants,
 				new BiologicalTrait(EPN.T_RitualisticImplants,
 					dlc: new[]{ EPN.D_MachineAge }.ToOrSet())
+				{
+					Cost = 0
+				}
+			},
+			{
+				EPN.T_Nomadic,
+				new Trait(EPN.T_Nomadic,
+					dlc: new[]{ EPN.D_Nomads }.ToOrSet())
 				{
 					Cost = 0
 				}

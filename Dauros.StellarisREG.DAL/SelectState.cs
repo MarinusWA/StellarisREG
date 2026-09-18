@@ -29,6 +29,8 @@ namespace Dauros.StellarisREG.DAL
 		public ShipSet? Shipset => ShipsetName != null ? ShipSet.Collection[ShipsetName] : null;
 		public String? PhenotypeName { get; private set; }
 		public SpeciesPhenotype? Phenotype => PhenotypeName is { } name ? SpeciesPhenotype.Collection[name] : null;
+		public String MigrationName { get; private set; }
+		public Migration Migration => Migration.Collection[MigrationName];
 		private readonly IMemoryCache _memoryCache;
 
 
@@ -38,7 +40,8 @@ namespace Dauros.StellarisREG.DAL
 		/// <remarks>This is a fixed value hashset because using reflection would reduce performance (and it's slow enough as it is)</remarks>
 		public static HashSet<String> AllDLC => new HashSet<string>()
 		{ EPN.D_AncientRelics, EPN.D_Apocalypse, EPN.D_Federations, EPN.D_Lithoids, EPN.D_Megacorp, EPN.D_Necroids, EPN.D_SyntheticDawn, EPN.D_Utopia, EPN.D_Humanoids, EPN.D_Plantoids,EPN.D_Nemesis, EPN.D_Aquatics,
-			EPN.D_Toxoids, EPN.D_AstralPlanes, EPN.D_Overlord, EPN.D_GalParagons, EPN.D_FirstContact, EPN.D_MachineAge, EPN.D_CosmicStorms, EPN.D_GrandArchive, EPN.D_Biogenesis, EPN.D_ShadowShroud, EPN.D_Infernals};
+			EPN.D_Toxoids, EPN.D_AstralPlanes, EPN.D_Overlord, EPN.D_GalParagons, EPN.D_FirstContact, EPN.D_MachineAge, EPN.D_CosmicStorms, EPN.D_GrandArchive, EPN.D_Biogenesis, EPN.D_ShadowShroud, EPN.D_Infernals, 
+			EPN.D_Nomads};
 
 		#region Hashing
 
@@ -104,6 +107,7 @@ namespace Dauros.StellarisREG.DAL
 					result.UnionWith(Traits);
 				if (Shipset != null) result.Add(Shipset);
 				if (Phenotype != null) result.Add(Phenotype);
+				if (Migration != null) result.Add(Migration);
 				return result;
 			}
 		}
@@ -153,6 +157,7 @@ namespace Dauros.StellarisREG.DAL
 					result = result.Union(Trait.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
 					result = result.Union(SpeciesPhenotype.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
 					result = result.Union(ShipSet.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
+					result = result.Union(Migration.Collection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as EmpireProperty)).ToDictionary(k => k.Key, k => k.Value);
 					_allEmpireProperties = result;
 				}
 				return _allEmpireProperties;
@@ -368,6 +373,9 @@ namespace Dauros.StellarisREG.DAL
 					break;
 				case EmpirePropertyType.SpeciesPhenotype:
 					this.PhenotypeName = ep.Name;
+					break;
+				case EmpirePropertyType.Migration:
+					this.MigrationName = ep.Name;
 					break;
 				default:
 					break;

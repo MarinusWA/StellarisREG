@@ -49,7 +49,7 @@ namespace Dauros.StellarisREG.Web.Pages
 
 		public async Task<IActionResult> OnPostPreSelectAsync(HashSet<String> selectedDLC, HashSet<String> selectedEthics,
             String selectedAuthority, String? selectedPhenotype, String selectedOrigin, HashSet<String> selectedCivics,
-			HashSet<String> selectedTraits, String prohibitedPick)
+			HashSet<String> selectedTraits,String? selectedMigration, String prohibitedPick)
         {
 			return ViewComponent("PreSelect", new
             {
@@ -60,13 +60,14 @@ namespace Dauros.StellarisREG.Web.Pages
                 selectedCivics = selectedCivics,
 				selectedPhenotype = selectedPhenotype,
                 selectedTraits = selectedTraits,
+                selectedMigration = selectedMigration,
 				pick = prohibitedPick ?? String.Empty
             });
         }
 
         public async Task<IActionResult> OnPostEmpireListAsync(HashSet<String> selectedDLC, HashSet<String> selectedEthics,
             String selectedAuthority, String? selectedPhenotype, String selectedOrigin, HashSet<String> selectedCivics,
-			HashSet<String> selectedTraits)
+			HashSet<String> selectedTraits, String? selectedMigration)
         {
             return ViewComponent("EmpireList", new
             {
@@ -76,7 +77,8 @@ namespace Dauros.StellarisREG.Web.Pages
                 selectedAuthority = selectedAuthority,
 				selectedPhenotype = selectedPhenotype,
 				selectedCivics = selectedCivics,
-				selectedTraits = selectedTraits
+				selectedTraits = selectedTraits,
+				selectedMigration = selectedMigration
 			});
         }
     }

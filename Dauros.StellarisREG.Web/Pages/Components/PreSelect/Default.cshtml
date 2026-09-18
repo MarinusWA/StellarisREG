@@ -1,159 +1,174 @@
-﻿@model Dauros.StellarisREG.Web.ViewComponents.SelectStateModel
+﻿@using Dauros.StellarisREG.DAL
+@model Dauros.StellarisREG.Web.ViewComponents.SelectStateModel
 
-	<div class="col-sm">
-		<div class="row">
-			<div class="col" id="ps_phenotype">
-				<h5>Species</h5>
-				<select id="phenotypeselect">
-					<option value="" selected="selected">
-						Any
-					</option>
-					@if (!String.IsNullOrWhiteSpace(Model.SelectedPhenotype))
-					{
-						<option value="@Model.SelectedPhenotype" class="ps_selected" selected="selected">
-							@Model.SelectedPhenotype
-						</option>
-					}
-					@foreach (var phenotype in Model.ValidPhenotypes.OrderBy(o => o))
-					{
-						<option value="@phenotype">
-							@phenotype
-						</option>
-					}
-					@foreach (var phenotype in Model.ProhibitedPhenotypes.OrderBy(o => o))
-					{
-						<option value="@phenotype" class="ps_prohibited">
-							@phenotype
-						</option>
-					}
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col" id="ps_origin">
-				<h5>Origins</h5>
-				<select id="originselect">
-					<option value="" selected="selected">
-						Any
-					</option>
-					@if (!String.IsNullOrWhiteSpace(Model.SelectedOrigin))
-					{
-						<option value="@Model.SelectedOrigin" class="ps_selected" selected="selected">
-							@Model.SelectedOrigin
-						</option>
-					}
-					@foreach (var origin in Model.ValidOrigins.OrderBy(o => o))
-					{
-						<option value="@origin">@origin</option>
-					}
-					@foreach (var origin in Model.ProhibitedOrigins.OrderBy(o => o))
-					{
-						<option value="@origin" class="ps_prohibited">@origin</option>
-					}
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col" id="ps_traits">
-				<h5>Traits</h5>
-				<select id="traitselect" multiple="multiple">
-					@foreach (var trait in Model.SelectedTraits.OrderBy(e => e))
-					{
-						<option value="@trait" class="ps_selected" selected="selected">
-							@trait
-						</option>
-					}
-					@foreach (var trait in Model.ValidTraits.OrderBy(o => o))
-					{
-						<option value="@trait">@trait</option>
-					}
-					@foreach (var trait in Model.ProhibitedTraits.OrderBy(o => o))
-					{
-						<option value="@trait" class="ps_prohibited">@trait</option>
-					}
-				</select>
-			</div>
+@if (Model.HasNomadsDLC)
+{
+	<div class="col-12 text-center">
+		<div class="custom-control custom-switch d-inline-block">
+			<input type="checkbox" class="custom-control-input" id="migrationselect" @if (Model.SelectedMigration == EPN.M_Nomadic)
+			{
+				@("checked")
+			}
+			>
+			<label class="custom-control-label h5" for="migrationselect">Nomadic Empire</label>
 		</div>
 	</div>
-	<div class="col-sm">
-		<div class="row">
-			<div class="col" id="ps_ethics">
-				<h5>Ethics</h5>
-				<select multiple="multiple" id="ethicselect">
-					@foreach (var ethic in Model.SelectedEthics.OrderBy(e => e))
-					{
-						<option value="@ethic" class="ps_selected" selected="selected">
-							@ethic
-						</option>
-					}
-					@foreach (var ethic in Model.ValidEthics.OrderBy(e => e))
-					{
-						<option value="@ethic">@ethic</option>
-					}
-					@foreach (var ethic in Model.ProhibitedEthics.OrderBy(e => e))
-					{
-						<option value="@ethic" class="ps_prohibited">@ethic</option>
-					}
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col" id="ps_auth">
-				<h5>Authority</h5>
-				<select id="authselect">
-					<option value="" selected="selected">
-						Any
+}
+
+<div class="col-sm">
+	<div class="row">
+		<div class="col" id="ps_phenotype">
+			<h5>Species</h5>
+			<select id="phenotypeselect">
+				<option value="" selected="selected">
+					Any
+				</option>
+				@if (!String.IsNullOrWhiteSpace(Model.SelectedPhenotype))
+				{
+					<option value="@Model.SelectedPhenotype" class="ps_selected" selected="selected">
+						@Model.SelectedPhenotype
 					</option>
-					@if (!String.IsNullOrWhiteSpace(Model.SelectedAuthority))
-					{
-						<option value="@Model.SelectedAuthority" selected="selected" class="ps_selected">
-							@Model.SelectedAuthority
-						</option>
-					}
-					@foreach (var auth in Model.ValidAuthorities.OrderBy(a => a))
-					{
-						<option value="@auth">
-							@auth
-						</option>
-
-					}
-					@foreach (var auth in Model.ProhibitedAuthorities.OrderBy(a => a))
-					{
-						<option value="@auth" class="ps_prohibited">
-							@auth
-						</option>
-					}
-
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col" id="ps_civics">
-				<h5>Civics</h5>
-
-				<select multiple="multiple" id="civicselect">
-
-					@foreach (var civic in Model.SelectedCivics.OrderBy(c => c))
-					{
-						<option value="@civic" selected="selected" class="ps_selected">
-							@civic
-						</option>
-					}
-					@foreach (var civic in Model.ValidCivics.OrderBy(c => c))
-					{
-						<option value="@civic">
-							@civic
-						</option>
-					}
-					@foreach (var civic in Model.ProhibitedCivics.OrderBy(c => c))
-					{
-						<option value="@civic" class="ps_prohibited">
-							@civic
-						</option>
-					}
-
-				</select>
-			</div>
+				}
+				@foreach (var phenotype in Model.ValidPhenotypes.OrderBy(o => o))
+				{
+					<option value="@phenotype">
+						@phenotype
+					</option>
+				}
+				@foreach (var phenotype in Model.ProhibitedPhenotypes.OrderBy(o => o))
+				{
+					<option value="@phenotype" class="ps_prohibited">
+						@phenotype
+					</option>
+				}
+			</select>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col" id="ps_origin">
+			<h5>Origins</h5>
+			<select id="originselect">
+				<option value="" selected="selected">
+					Any
+				</option>
+				@if (!String.IsNullOrWhiteSpace(Model.SelectedOrigin))
+				{
+					<option value="@Model.SelectedOrigin" class="ps_selected" selected="selected">
+						@Model.SelectedOrigin
+					</option>
+				}
+				@foreach (var origin in Model.ValidOrigins.OrderBy(o => o))
+				{
+					<option value="@origin">@origin</option>
+				}
+				@foreach (var origin in Model.ProhibitedOrigins.OrderBy(o => o))
+				{
+					<option value="@origin" class="ps_prohibited">@origin</option>
+				}
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col" id="ps_traits">
+			<h5>Traits</h5>
+			<select id="traitselect" multiple="multiple">
+				@foreach (var trait in Model.SelectedTraits.OrderBy(e => e))
+				{
+					<option value="@trait" class="ps_selected" selected="selected">
+						@trait
+					</option>
+				}
+				@foreach (var trait in Model.ValidTraits.OrderBy(o => o))
+				{
+					<option value="@trait">@trait</option>
+				}
+				@foreach (var trait in Model.ProhibitedTraits.OrderBy(o => o))
+				{
+					<option value="@trait" class="ps_prohibited">@trait</option>
+				}
+			</select>
+		</div>
+	</div>
+</div>
+<div class="col-sm">
+	<div class="row">
+		<div class="col" id="ps_ethics">
+			<h5>Ethics</h5>
+			<select multiple="multiple" id="ethicselect">
+				@foreach (var ethic in Model.SelectedEthics.OrderBy(e => e))
+				{
+					<option value="@ethic" class="ps_selected" selected="selected">
+						@ethic
+					</option>
+				}
+				@foreach (var ethic in Model.ValidEthics.OrderBy(e => e))
+				{
+					<option value="@ethic">@ethic</option>
+				}
+				@foreach (var ethic in Model.ProhibitedEthics.OrderBy(e => e))
+				{
+					<option value="@ethic" class="ps_prohibited">@ethic</option>
+				}
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col" id="ps_auth">
+			<h5>Authority</h5>
+			<select id="authselect">
+				<option value="" selected="selected">
+					Any
+				</option>
+				@if (!String.IsNullOrWhiteSpace(Model.SelectedAuthority))
+				{
+					<option value="@Model.SelectedAuthority" selected="selected" class="ps_selected">
+						@Model.SelectedAuthority
+					</option>
+				}
+				@foreach (var auth in Model.ValidAuthorities.OrderBy(a => a))
+				{
+					<option value="@auth">
+						@auth
+					</option>
+
+				}
+				@foreach (var auth in Model.ProhibitedAuthorities.OrderBy(a => a))
+				{
+					<option value="@auth" class="ps_prohibited">
+						@auth
+					</option>
+				}
+
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col" id="ps_civics">
+			<h5>Civics</h5>
+
+			<select multiple="multiple" id="civicselect">
+
+				@foreach (var civic in Model.SelectedCivics.OrderBy(c => c))
+				{
+					<option value="@civic" selected="selected" class="ps_selected">
+						@civic
+					</option>
+				}
+				@foreach (var civic in Model.ValidCivics.OrderBy(c => c))
+				{
+					<option value="@civic">
+						@civic
+					</option>
+				}
+				@foreach (var civic in Model.ProhibitedCivics.OrderBy(c => c))
+				{
+					<option value="@civic" class="ps_prohibited">
+						@civic
+					</option>
+				}
+
+			</select>
+		</div>
+	</div>
+</div>
 

@@ -27,7 +27,7 @@ namespace Dauros.StellarisREG.DAL
         public static String T_NaturalEngineers => "Natural Engineers";
         public static String T_NaturalPhysicists => "Natural Physicists";
         public static String T_NaturalSociologists => "Natural Sociologists";
-        public static String T_Nomadic => "Nomadic";
+        public static String T_Migratory => "Migratory";
         public static String T_QuickLearners => "Quick Learners";
         public static String T_RapidBreeders => "Rapid Breeders";
         public static String T_Resilient => "Resilient";
@@ -155,6 +155,22 @@ namespace Dauros.StellarisREG.DAL
 		public static String T_ShellSlag => "Shell Slag";
 
 
+        #endregion
+
+
+        #region Nomads
+        public static String T_Photoadaptive => "Photoadaptive";
+		public static String T_Reaver => "Reaver";
+		public static String T_Recursive => "Recursive";
+		public static String T_Terraphobic => "Terraphobic";
+		public static String T_TerraphobicM => "Terraphobic (Machine)";
+
+		public static String T_CombatSynced => "Combat-Synced";
+		public static String T_StructuralAwareness => "Structural Awareness";
+		public static String T_Interconnected => "Interconnected";
+
+
+		public static String T_Nomadic => "Nomadic";
 		#endregion
 
 		#region Basic Traits
@@ -162,10 +178,11 @@ namespace Dauros.StellarisREG.DAL
 		public static String T_Lithoid => "Lithoid";
 		public static String T_Aquatic => "Aquatic";
 		public static String T_MachineUnit => "Machine";
+		
 		#endregion
 
 
-        
+
 		public static String T_Waterproof => "Waterproof";
 
 		#region Machine Traits
@@ -292,6 +309,7 @@ namespace Dauros.StellarisREG.DAL
 		public static String D_Biogenesis => "Biogenesis";
 		public static String D_ShadowShroud => "Shadows of the Shroud";
 		public static String D_Infernals => "Infernals";
+        public static String D_Nomads => "Nomads";
 
 		#endregion
 
@@ -397,6 +415,13 @@ namespace Dauros.StellarisREG.DAL
 		public static String C_GalvanicSynthesis => "Galvanic Synthesis";
 		public static String C_PlanetForgers => "Planet Forgers";
 		public static String C_ScorchedWorldHeralds => "Scorched World Heralds";
+
+        public static String C_CaravanMasters => "Caravan Masters";
+		public static String C_DeepSleep => "Deep Sleep";
+		public static String C_FlightSchools => "Flight Schools";
+		public static String C_HiredGuns => "Hired Guns";
+		public static String C_StarSeekers => "Star Seekers";
+        public static String C_VoidReavers => "Void Reavers";
 
 
 		public static String C_MarineMachines => "Marine Machines";
@@ -584,6 +609,12 @@ namespace Dauros.StellarisREG.DAL
         public static String S_Biological => "Biological";
 		#endregion
 
+		#region MigrationTypes
+
+		public static String M_Settled => "SettledEmpire";
+		public static String M_Nomadic => "NomadicEmpire";
+		#endregion
+
 		#region Origins
 		#region Ascension Origins
 		public static String O_TeachersShroud => "Teachers of the Shroud";
@@ -653,6 +684,13 @@ namespace Dauros.StellarisREG.DAL
         public static String O_RadioactiveRovers => "Radioactive Rovers";
         public static String O_MindWardens => "Mindwardens";
         public static String O_RedGiants => "Red Giant";
+
+        public static String O_ForeverCruise => "Forever Cruise";
+		public static String O_HeirsOfTheKhan => "Heirs of the Khan";
+		public static String O_TheSacredPath => "The Sacred Path";
+		public static String O_Voidfarers => "Voidfarers";
+
+
 		#endregion
 
 		#region Phenotypes
@@ -700,6 +738,7 @@ namespace Dauros.StellarisREG.DAL
 		public static String PT_NaniteWorld => "Nanite World";
 		public static String PT_SynapticLathe => "Synaptic Lathe";
         public static String PT_Volanic => "Volcanic World";
+        public static String PT_Arkship => "Arkship";
 
 
 		#endregion

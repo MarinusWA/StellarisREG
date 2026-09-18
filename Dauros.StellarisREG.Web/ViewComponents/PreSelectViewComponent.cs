@@ -24,7 +24,7 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 
 		public async Task<IViewComponentResult> InvokeAsync(HashSet<String>? selectedDLC, string? selectedOrigin, HashSet<String> selectedEthics,
             String? selectedAuthority, String? selectedPhenotype, HashSet<String> selectedCivics,
-            HashSet<String> selectedTraits, string? selectedShipset, string pick = "")
+            HashSet<String> selectedTraits, String? selectedMigration, String pick = "")
         {
             var cookieName = "selectedDLC";
 
@@ -40,6 +40,7 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 			//ss.AddEmpireProperty(selectedShipSet);
 			ss.AddEmpireProperty(selectedPhenotype);
 			ss.AddEmpireProperty(selectedTraits ?? new HashSet<string>());
+			ss.AddEmpireProperty(selectedMigration is null ? EPN.M_Settled : EPN.M_Nomadic);
 
 			//Set the selected DLC in the cookie
 			CookieHelper.SetJsonCookie(HttpContext.Response, cookieName, ss.SelectedDLC);
@@ -59,7 +60,14 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 			var prohibited = ss.GetProhibited();
             var ssm = new SelectStateModel();
 
-            ssm.SelectedAuthority = ss.AuthorityName;
+			//This allows the SelectStateModel to know if the Nomads DLC is selected, so it can display the migration option
+			if (ss.SelectedDLC.Contains(EPN.D_Nomads))
+			{
+				ssm.HasNomadsDLC = true;
+			}
+
+			ssm.SelectedMigration = ss.MigrationName;
+			ssm.SelectedAuthority = ss.AuthorityName;
             ssm.SelectedCivics = ss.CivicNames.ToList();
             ssm.SelectedEthics = ss.EthicNames.ToList();
             ssm.SelectedOrigin = ss.OriginName;

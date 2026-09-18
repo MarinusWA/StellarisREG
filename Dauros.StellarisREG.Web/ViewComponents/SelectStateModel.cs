@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dauros.StellarisREG.DAL;
 
 namespace Dauros.StellarisREG.Web.ViewComponents
 {
@@ -48,6 +49,13 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 		public List<String> SelectedTraits { get; set; } = new List<string>();
 		public List<String> ValidTraits { get; set; } = new List<string>();
 		public List<String> ProhibitedTraits { get; set; } = new List<string>();
+		#endregion
+
+		#region Migration
+        public String SelectedMigration { get; set; } = EPN.M_Settled;
+		//public List<String> ValidMigrations { get; set; } = new List<string>();
+		//public List<String> ProhibitedMigrations { get; set; } = new List<string>();
+		public bool HasNomadsDLC { get; set; } = false;
 		#endregion
 
 	}

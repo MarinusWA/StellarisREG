@@ -184,6 +184,10 @@ function scanPreselect() {
         if (cb.checked) checkedTraits.push(cb.value);
     });
 
+    //Get Migration Policy
+    var checkedMigrationPolicy = $("#migrationselect").is(":checked") ? "NomadicEmpire" : null;
+    
+    
     var psdata = {
         selectedDLC: checkedDLC,
         selectedEthics: checkedEthics,
@@ -191,7 +195,8 @@ function scanPreselect() {
         selectedPhenotype: checkedPhenotype,
         selectedOrigin: checkedOrigin,
         selectedCivics: checkedCivics,
-        selectedTraits: checkedTraits
+        selectedTraits: checkedTraits,
+        selectedMigration: checkedMigrationPolicy
     };
 
     return psdata;

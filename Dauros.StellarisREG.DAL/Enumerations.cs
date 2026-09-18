@@ -15,6 +15,7 @@ namespace Dauros.StellarisREG.DAL
         SpeciesArchetype = 6,
         Shipset= 7,
 		SpeciesPhenotype = 8,
+        Migration = 9,
 	}
 
     public enum EmpirePropertySetType
