@@ -67,6 +67,8 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 			}
 
 			ssm.SelectedMigration = ss.MigrationName;
+			Fix to ensure that the selected migration is set to "Settled" if no migration is selected and Nomads DLC is not selected
+
 			ssm.SelectedAuthority = ss.AuthorityName;
             ssm.SelectedCivics = ss.CivicNames.ToList();
             ssm.SelectedEthics = ss.EthicNames.ToList();

@@ -29,8 +29,8 @@ namespace Dauros.StellarisREG.DAL
 		public ShipSet? Shipset => ShipsetName != null ? ShipSet.Collection[ShipsetName] : null;
 		public String? PhenotypeName { get; private set; }
 		public SpeciesPhenotype? Phenotype => PhenotypeName is { } name ? SpeciesPhenotype.Collection[name] : null;
-		public String MigrationName { get; private set; }
-		public Migration Migration => Migration.Collection[MigrationName];
+		public String? MigrationName { get; private set; }
+		public Migration? Migration => MigrationName is { } name ? Migration.Collection[name] : null;
 		private readonly IMemoryCache _memoryCache;
 
 
@@ -286,6 +286,8 @@ namespace Dauros.StellarisREG.DAL
 				prohibitions = new Dictionary<SelectState, AndSet>();
 				_memoryCache.Set("Prohibited", prohibitions, TimeSpan.FromMinutes(60));
 			}
+
+
 
 			if (prohibitions!.ContainsKey(this))
 			{

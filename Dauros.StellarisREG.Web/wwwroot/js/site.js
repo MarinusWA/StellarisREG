@@ -97,9 +97,6 @@ function hookPreSelectEvents() {
         }
     });
 
-        
-
-
     //Setup the multiselect for the species
     $('#phenotypeselect').multiselect({
         enableFiltering: true,
@@ -148,6 +145,11 @@ function hookPreSelectEvents() {
     $('#ps_civics :checkbox').change(function () {
         refreshPreSelect($(this).val());
     });
+
+    $('#migrationselect :checkbox').change(function () {
+        refreshPreSelect($(this).val());
+    });
+
 }
 //
 function scanPreselect() {
@@ -261,6 +263,7 @@ function refreshPreSelect(ppick) {
             hookPreSelectEvents();
         },
         error: function (xhr) {
+            console.log("FAILURE");
             console.log(xhr);
         }
     });

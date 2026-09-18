@@ -52,7 +52,7 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 		#endregion
 
 		#region Migration
-        public String SelectedMigration { get; set; } = EPN.M_Settled;
+        public String? SelectedMigration { get; set; }
 		//public List<String> ValidMigrations { get; set; } = new List<string>();
 		//public List<String> ProhibitedMigrations { get; set; } = new List<string>();
 		public bool HasNomadsDLC { get; set; } = false;

@@ -12,11 +12,14 @@ public class Migration : EmpireProperty
 		{
 			{
 				EPN.M_Settled,
-				new Migration(EPN.M_Settled){ }
+				new Migration(EPN.M_Settled){ Prohibits = new AndSet() { EPN.M_Nomadic } }
 			},
 			{
 				EPN.M_Nomadic,
-				new Migration(EPN.M_Nomadic){ GrantedTraits = new HashSet<string>() { EPN.T_Nomadic } }
+				new Migration(EPN.M_Nomadic){
+					Prohibits = new AndSet() { EPN.M_Settled },
+					GrantedTraits = new HashSet<string>() { EPN.T_Nomadic } 
+				}
 			}
 		};
 
