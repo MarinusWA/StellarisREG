@@ -97,6 +97,22 @@ function hookPreSelectEvents() {
         }
     });
 
+    $('#migrationselect').multiselect({
+        enableFiltering: true,
+        enableCaseInsensitiveFiltering: true,
+        filterPlaceholder: 'Search...',
+        maxHeight: 400,
+        buttonWidth: '100%',
+        nonSelectedText: 'Any', // Button text if nothing selected
+        includeSelectAllOption: false,
+        multiple: false,
+        maxSelectable: 1,
+        onChange: function (option, checked, select) {
+            var selectedValue = $(option).val();
+            refreshPreSelect(selectedValue);
+        }
+    });
+
     //Setup the multiselect for the species
     $('#phenotypeselect').multiselect({
         enableFiltering: true,
@@ -114,7 +130,7 @@ function hookPreSelectEvents() {
         }
     });
 
-    //Setup the multiselect for the civics
+    //Setup the multiselect for the traits
     $('#traitselect').multiselect({
         includeSelectAllOption: false,
         enableFiltering: true,
@@ -167,8 +183,9 @@ function scanPreselect() {
         if (cb.checked) checkedEthics.push(cb.value);
     });
 
-    //Get Authority
+    //Get Single options
     var checkedAuthority = $("#authselect").val();
+    var checkedMigration = $("#migrationselect").val();
     var checkedOrigin = $("#originselect").val();
     var checkedPhenotype = $('#phenotypeselect').val();
 
@@ -186,10 +203,6 @@ function scanPreselect() {
         if (cb.checked) checkedTraits.push(cb.value);
     });
 
-    //Get Migration Policy
-    var checkedMigrationPolicy = $("#migrationselect").is(":checked") ? "NomadicEmpire" : null;
-    
-    
     var psdata = {
         selectedDLC: checkedDLC,
         selectedEthics: checkedEthics,
@@ -198,7 +211,7 @@ function scanPreselect() {
         selectedOrigin: checkedOrigin,
         selectedCivics: checkedCivics,
         selectedTraits: checkedTraits,
-        selectedMigration: checkedMigrationPolicy
+        selectedMigration: checkedMigration
     };
 
     return psdata;

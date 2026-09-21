@@ -253,6 +253,11 @@ namespace Dauros.StellarisREG.DAL
 			return GetValidProperties().Where(ep => SelectState.GetEmpirePropertyType(ep) == EmpirePropertyType.Authority).ToHashSet();
 		}
 
+		public HashSet<String> GetValidMigrations()
+		{
+			return GetValidProperties().Where(ep => SelectState.GetEmpirePropertyType(ep) == EmpirePropertyType.Migration).ToHashSet();
+		}
+
 		public HashSet<String> GetValidCivics()
 		{
 			return GetValidProperties().Where(ep => SelectState.GetEmpirePropertyType(ep) == EmpirePropertyType.Civic).ToHashSet();

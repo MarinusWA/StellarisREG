@@ -63,6 +63,23 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
+                        <strong>Empire Type:</strong>
+                        @if (Model.All(e => e.Migration == empire.Migration))
+                        {<span class="ps_selected">@empire.Migration</span> }
+                    else
+                    {<span>@empire.Migration</span>}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <strong>Planet type:</strong>
+                        @empire.PlanetType
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="row">
+                    <div class="col-sm-12">
                         <strong>Civics:</strong>
                         <ul>
                             @foreach (var civic in empire.Civics)
@@ -79,8 +96,6 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-3">
                 <div class="row">
                     <div class="col-sm-12">
                         <strong>Traits:</strong>
@@ -99,12 +114,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <strong>Planet type:</strong>
-                        @empire.PlanetType
-                    </div>
-                </div>
+                
                 
             </div>
             <div class="col-sm-1"></div>

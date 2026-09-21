@@ -28,7 +28,7 @@ namespace Dauros.StellarisREG.DAL
 			},
 			{
 				EPN.C_MiningGuilds,
-				new StandardCivic(EPN.C_MiningGuilds)
+				new StandardCivic(EPN.C_MiningGuilds, prohibitions: new AndSet(){ EPN.M_Nomadic })
 			},
 			{
 				EPN.C_AgrarianIdyll,
@@ -82,7 +82,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.C_Environmentalist,
 				new StandardCivic(EPN.C_Environmentalist,
 					prohibitions: new AndSet(EPNSET.HS_RelentlessIndustrialists
-						.Union<string>(EPNSET.HS_Planetscapers)) { EPN.C_OppressiveAutocracy }
+						.Union<string>(EPNSET.HS_Planetscapers)) { EPN.C_OppressiveAutocracy, EPN.M_Nomadic }
 				)
 			},
 			{
@@ -127,7 +127,8 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.C_NationalisticZeal,
 				new StandardCivic(EPN.C_NationalisticZeal,
-					requirements: new[] { EPN.Militarist, EPN.MilitaristF }.ToOrSet()
+					requirements: new[] { EPN.Militarist, EPN.MilitaristF }.ToOrSet(),
+					prohibitions: new AndSet() { EPN.M_Nomadic }
 				)
 			},
 			{
@@ -291,7 +292,7 @@ namespace Dauros.StellarisREG.DAL
 				new StandardCivic(EPN.C_RelentlessIndustrialists,
 					dlc: new[] { EPN.D_Toxoids }.ToOrSet(),
 					requirements:new[]{ EPN.Materialist, EPN.MaterialistF }.ToOrSet(),
-					prohibitions: new AndSet(){ EPN.C_AgrarianIdyll, EPN.C_Environmentalist, EPN.C_IdyllicBloom, EPN.C_Memorialists, EPN.O_LifeSeeded }
+					prohibitions: new AndSet(){ EPN.C_AgrarianIdyll, EPN.C_Environmentalist, EPN.C_IdyllicBloom, EPN.C_Memorialists, EPN.O_LifeSeeded, EPN.M_Nomadic }
 				)
 			},
 			{
@@ -359,7 +360,7 @@ namespace Dauros.StellarisREG.DAL
 				new StandardCivic(EPN.C_GenesisGuides,
 					dlc: new[] { EPN.D_MachineAge }.ToOrSet(),
 					prohibitions: new AndSet(EPNSET.HS_EagerExplorers)
-					{ EPN.Xenophobe,EPN.XenophobeF, EPN.C_NaturalDesign,EPN.O_SyncreticEvolution, EPN.O_HardReset, EPN.O_LifeSeeded }
+					{ EPN.Xenophobe,EPN.XenophobeF, EPN.C_NaturalDesign,EPN.O_SyncreticEvolution, EPN.O_HardReset, EPN.O_LifeSeeded, EPN.M_Nomadic }
 				)
 			},
 			{
@@ -428,6 +429,45 @@ namespace Dauros.StellarisREG.DAL
 					prohibitions: new AndSet(){ EPN.C_JudicialRnD, EPN.PH_Machine}
 				)
 			},
+			{
+				EPN.C_CaravanMasters,
+				new StandardCivic(EPN.C_CaravanMasters,
+					dlc: new[] { EPN.D_Nomads }.ToOrSet(),
+					requirements: new[]{ EPN.M_Nomadic }.ToOrSet(),
+					prohibitions: new AndSet(){ }
+				)
+			},
+			{
+				EPN.C_DeepSleep,
+				new StandardCivic(EPN.C_DeepSleep,
+					dlc: new[] { EPN.D_Nomads }.ToOrSet(),
+					requirements: new[]{ EPN.M_Nomadic }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.O_SyntheticFertility }
+				)
+			},
+			{
+				EPN.C_FlightSchools,
+				new StandardCivic(EPN.C_FlightSchools,
+					dlc: new[] { EPN.D_Nomads }.ToOrSet(),
+					prohibitions: new AndSet(){ }
+				)
+			},
+			{
+				EPN.C_HiredGuns,
+				new StandardCivic(EPN.C_HiredGuns,
+					dlc: new[] { EPN.D_Nomads }.ToOrSet(),
+					requirements: new HashSet<OrSet>(){ new OrSet() { EPN.Militarist, EPN.MilitaristF }, new OrSet() { EPN.M_Nomadic } },
+					prohibitions: new AndSet(){ }
+				)
+			},
+			{
+				EPN.C_StarSeekers,
+				new StandardCivic(EPN.C_StarSeekers,
+					dlc: new[] { EPN.D_Nomads }.ToOrSet(),
+					requirements: new[]{ EPN.M_Nomadic }.ToOrSet(),
+					prohibitions: new AndSet(){ }
+				)
+			},
 			#endregion
 			#region Permanent
 			{
@@ -469,7 +509,7 @@ namespace Dauros.StellarisREG.DAL
 				EPN.C_Anglers,
 				new StandardCivic(EPN.C_Anglers,
 					dlc: new [] { EPN.D_Aquatics }.ToOrSet(),
-					prohibitions:new AndSet(){ EPN.PH_Machine, EPN.O_PostApocalyptic,EPN.O_ShatteredRing,EPN.O_VoidDwellers,EPN.O_Subterranean}
+					prohibitions:new AndSet(){ EPN.PH_Machine, EPN.O_PostApocalyptic,EPN.O_ShatteredRing,EPN.O_VoidDwellers,EPN.O_Subterranean, EPN.M_Nomadic }
 				){ GrantedTraits = new HashSet<string>(){ EPN.T_Aquatic } }
 			},
 			{
@@ -477,7 +517,7 @@ namespace Dauros.StellarisREG.DAL
 				new StandardCivic(EPN.C_MarineMachines,
 					dlc: new [] { EPN.D_Aquatics }.ToOrSet(),
 					requirements: new[]{ EPN.PH_Machine }.ToOrSet(),
-					prohibitions:new AndSet(){ EPN.O_PostApocalyptic,EPN.O_ShatteredRing,EPN.O_VoidDwellers,EPN.O_Subterranean}
+					prohibitions:new AndSet(){ EPN.O_PostApocalyptic,EPN.O_ShatteredRing,EPN.O_VoidDwellers,EPN.O_Subterranean, EPN.M_Nomadic }
 				)
 			},
 			{
@@ -494,7 +534,7 @@ namespace Dauros.StellarisREG.DAL
 				new StandardCivic(EPN.C_SovereignGuardianship,
 					dlc: new [] { EPN.D_AstralPlanes }.ToOrSet(),
 					requirements: new[] { EPN.Militarist,EPN.MilitaristF  }.ToOrSet(),
-					prohibitions:new AndSet(){ EPN.C_InwardPerfection, EPN.C_FanaticPurifiers, EPN.C_Reanimators, EPN.C_EagerExplorers,EPN.O_BrokenShackles, EPN.O_FearDark, EPN.O_Payback }
+					prohibitions:new AndSet(){ EPN.C_InwardPerfection, EPN.C_FanaticPurifiers, EPN.C_Reanimators, EPN.C_EagerExplorers,EPN.O_BrokenShackles, EPN.O_FearDark, EPN.O_Payback, EPN.M_Nomadic }
 				)
 			},
 			{
@@ -510,7 +550,7 @@ namespace Dauros.StellarisREG.DAL
 				new StandardCivic(EPN.C_Planetscapers,
 					dlc: new [] { EPN.D_CosmicStorms }.ToOrSet(),
 					prohibitions:new AndSet(){ EPN.C_Environmentalist, EPN.C_RelentlessIndustrialists, EPN.C_MutagenicSpas,
-					EPN.O_Remnants, EPN.O_HardReset,EPN.O_PostApocalyptic,EPN.O_CalamitousBirth,EPN.O_ShatteredRing, EPN.O_VoidDwellers}
+					EPN.O_Remnants, EPN.O_HardReset,EPN.O_PostApocalyptic,EPN.O_CalamitousBirth,EPN.O_ShatteredRing, EPN.O_VoidDwellers, EPN.M_Nomadic}
 				)
 			},
 			{
@@ -589,7 +629,7 @@ namespace Dauros.StellarisREG.DAL
 				new StandardCivic(EPN.C_PlanetForgers,
 					dlc: new [] { EPN.D_Infernals }.ToOrSet(),
 					prohibitions: new AndSet(EPNSET.HS_RelentlessIndustrialists)
-					{ EPN.S_Biological, EPN.C_IdyllicBloom, EPN.C_IdyllicBloom, EPN.O_LifeSeeded, EPN.O_OceanParadise,EPN.PH_Aquatic }
+					{ EPN.S_Biological, EPN.C_IdyllicBloom, EPN.C_IdyllicBloom, EPN.O_LifeSeeded, EPN.O_OceanParadise,EPN.PH_Aquatic, EPN.M_Nomadic }
 				)
 			},
 			{
@@ -600,6 +640,15 @@ namespace Dauros.StellarisREG.DAL
 					prohibitions: new AndSet(EPNSET.HS_SovereignGuardianship.Union<String>(EPNSET.HS_GenesisGuides))
 					{ EPN.Pacifist, EPN.PacifistF, EPN.C_BarbaricDespoilers, EPN.C_PompousPurists, EPN.C_SelectiveKinship, EPN.C_CrusaderSpirit,
 					EPN.O_SyncreticEvolution, EPN.O_CommonGround, EPN.O_Hegemon, EPN.O_KnightsToxicGod, EPN.O_BrokenShackles, EPN.O_MindWardens}
+				)
+			},
+			{
+				EPN.C_VoidReavers,
+				new StandardCivic(EPN.C_VoidReavers,
+					dlc: new [] { EPN.D_Nomads }.ToOrSet(),
+					requirements: new HashSet<OrSet>(){ new OrSet() { EPN.Militarist, EPN.MilitaristF }, new OrSet() { EPN.M_Nomadic } },
+					prohibitions: new AndSet()
+					{ EPN.Xenophile, EPN.XenophileF, EPN.C_FanaticPurifiers, EPN.C_BarbaricDespoilers,EPN.C_ScorchedWorldHeralds,EPN.O_ForeverCruise}
 				)
 			},
 
@@ -1121,6 +1170,21 @@ namespace Dauros.StellarisREG.DAL
 					prohibitions: new AndSet(){ EPN.C_InnateDesign, EPN.C_MemorialistHM, EPN.O_MindWardens, EPN.O_Overtuned, EPN.O_Wilderness }
 				)
 			},
+			{
+				EPN.C_AlternatingTorpor,
+				new HiveMindCivic(EPN.C_AlternatingTorpor,
+					dlc: new[] { EPN.D_Nomads }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.M_Nomadic }
+				)
+			},
+			{
+				EPN.C_EverSeekingSwarm,
+				new HiveMindCivic(EPN.C_EverSeekingSwarm,
+					dlc: new[] { EPN.D_Nomads }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.M_Nomadic }
+				)
+			},
+
 			#region Permanent
 			{
 				EPN.C_MycorrhizalIdeal,
@@ -1415,6 +1479,20 @@ namespace Dauros.StellarisREG.DAL
 					prohibitions: new AndSet(){ EPN.C_MemorialistMI, EPN.O_MindWardens}
 				)
 			},
+			{
+				EPN.C_StandbyProtocols,
+				new MachineIntelligenceCivic(EPN.C_StandbyProtocols,
+					dlc: new[] { EPN.D_Nomads }.ToOrSet(),
+					requirements: new[] { EPN.M_Nomadic }.ToOrSet()
+				)
+			},
+			{
+				EPN.C_VoidSurveyor,
+				new MachineIntelligenceCivic(EPN.C_VoidSurveyor,
+					dlc: new[] { EPN.D_Nomads }.ToOrSet(),
+					requirements: new[] { EPN.M_Nomadic }.ToOrSet()
+				)
+			},
 			#region Permanent
 			{
 				EPN.C_DeterminedExterminator,
@@ -1507,6 +1585,14 @@ namespace Dauros.StellarisREG.DAL
 					prohibitions: new AndSet(){ EPN.S_Biological, EPN.O_LifeSeeded, EPN.O_OceanParadise }
 				)
 			},
+			{
+				EPN.C_HospitalityServitor,
+				new MachineIntelligenceCivic(EPN.C_HospitalityServitor,
+					dlc: new[] { EPN.D_Nomads }.ToOrSet(),
+					requirements: new[] { EPN.O_ForeverCruise }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.C_DeterminedExterminator, EPN.C_DrivenAssimilator, EPN.O_ResourceConsolidation, EPN.O_ShroudForged }
+				)
+			},
 			#endregion
 			#endregion
 		};
@@ -1556,7 +1642,6 @@ namespace Dauros.StellarisREG.DAL
 			HashSet<OrSet>? requirements = null, AndSet? prohibitions = null)
 			: base(name, dlc, requirements, prohibitions)
 		{
-			DLC = new[] { EPN.A_HiveMind, EPN.D_Biogenesis }.ToOrSet();
 			Requires = new[] { EPN.A_HiveMind }.ToOrSet() ;
 		}
 	}
@@ -1568,7 +1653,6 @@ namespace Dauros.StellarisREG.DAL
 			: base(name, dlc, requirements, prohibitions)
 		{
 			Requires = new[]{ EPN.A_MachineIntelligence }.ToOrSet();
-			DLC = new[] { EPN.D_SyntheticDawn,EPN.D_MachineAge }.ToOrSet();
 		}
 	}
 }

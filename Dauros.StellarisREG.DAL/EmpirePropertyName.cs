@@ -161,10 +161,11 @@ namespace Dauros.StellarisREG.DAL
         #region Nomads
         public static String T_Photoadaptive => "Photoadaptive";
 		public static String T_Reaver => "Reaver";
-		public static String T_Recursive => "Recursive";
+		public static String T_RecursiveLearners => "Recursive Learners";
 		public static String T_Terraphobic => "Terraphobic";
-		public static String T_TerraphobicM => "Terraphobic (Machine)";
-
+		
+        public static String T_TerraphobicM => "Terraphobic (Machine)";
+        public static String T_SolarCelled => "Solar Celled";
 		public static String T_CombatSynced => "Combat-Synced";
 		public static String T_StructuralAwareness => "Structural Awareness";
 		public static String T_Interconnected => "Interconnected";
@@ -211,6 +212,11 @@ namespace Dauros.StellarisREG.DAL
 		public static String T_SociologyCore => "Sociology Core";
 		public static String T_IntegratedWeaponry => "Integrated Weaponry";
         public static String T_AssemblySlag => "Assembly Slag";
+		
+		
+
+
+
 		#endregion
 		#region Negative
 		public static String T_Bulky => "Bulky";
@@ -454,6 +460,8 @@ namespace Dauros.StellarisREG.DAL
         public static String C_ClimateModelingHM => "Climate Modeling HM";
         public static String C_CorrectiveConsiousness => "Corrective Consciousness";
         public static String C_ParasiticCaste => "Parasitic Caste";
+        public static String C_AlternatingTorpor => "Alternating Torpor";
+		public static String C_EverSeekingSwarm => "Ever-Seeking Swarm";
 
 		public static String C_VoidHive => "VoidHive";
         public static String C_CordycepticDrones => "Cordyceptic Drones";
@@ -525,12 +533,15 @@ namespace Dauros.StellarisREG.DAL
 		public static String C_ClimateModelingMI => "Climate Modeling MI";
 		public static String C_StalwartNetwork => "Stalwart Network";
         public static String C_EnergyExtractors => "Energy Extractors";
+		public static String C_StandbyProtocols => "Standby Protocols";
+		public static String C_VoidSurveyor => "Void Surveyor";
 		public static String C_TacticalAlgorithms => "Tactical Algorithms";
 		public static string C_CaretakerNetworkMI => "Caretaker Network MI";
         public static String C_ApostleNetwork => "Apostle Network";
         public static String C_PatternFinders => "Pattern Finders";
         public static String C_GalvanicRetrofitting => "Galvanic Retrofitting";
         public static String C_ThermalOptimizers => "Thermal Optimizers";
+		public static String C_HospitalityServitor => "Hospitality Servitor";
 		#endregion
 
 		#region Corporate
@@ -611,8 +622,8 @@ namespace Dauros.StellarisREG.DAL
 
 		#region MigrationTypes
 
-		public static String M_Settled => "SettledEmpire";
-		public static String M_Nomadic => "NomadicEmpire";
+		public static String M_Settled => "Settled Empire";
+		public static String M_Nomadic => "Nomadic Empire";
 		#endregion
 
 		#region Origins
@@ -683,7 +694,7 @@ namespace Dauros.StellarisREG.DAL
 		public static String O_StarlitCitadel => "Starlit Citadel";
         public static String O_RadioactiveRovers => "Radioactive Rovers";
         public static String O_MindWardens => "Mindwardens";
-        public static String O_RedGiants => "Red Giant";
+        public static String O_RedGiant => "Red Giant";
 
         public static String O_ForeverCruise => "Forever Cruise";
 		public static String O_HeirsOfTheKhan => "Heirs of the Khan";

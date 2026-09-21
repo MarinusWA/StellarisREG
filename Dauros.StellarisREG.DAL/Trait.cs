@@ -274,6 +274,34 @@ namespace Dauros.StellarisREG.DAL
 					Cost = 2
 				}
 			},
+			{
+				EPN.T_Photoadaptive,
+				new BiologicalTrait(EPN.T_Photoadaptive,
+					dlc: new [] { EPN.D_Nomads }.ToOrSet())
+				{
+					Prohibits = new AndSet() { EPN.T_Weak, EPN.T_HollowBones, EPN.C_Tankbound },
+					Cost = 2
+				}
+			},
+			{
+				EPN.T_Reaver,
+				new BiologicalTrait(EPN.T_Reaver,
+					dlc: new [] { EPN.D_Nomads }.ToOrSet())
+				{
+					Prohibits = new AndSet() { EPN.T_Charismatic, EPN.T_Terraphobic },
+					Cost = 2
+				}
+			},
+			{
+				EPN.T_RecursiveLearners,
+				new BiologicalTrait(EPN.T_RecursiveLearners,
+					dlc: new [] { EPN.D_Nomads }.ToOrSet())
+				{
+					Prohibits = new AndSet() { EPN.T_NaturalEngineers, EPN.T_NaturalPhysicists, EPN.T_NaturalSociologists },
+					Requires = new[] { EPN.M_Nomadic }.ToOrSet(),
+					Cost = 1
+				}
+			},
 			#region Phenotype
 			{
 				EPN.T_Phototrophic,
@@ -648,7 +676,17 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.T_Weak,
 				new BiologicalTrait(EPN.T_Weak,
-					prohibitions: new AndSet(){ EPN.T_Strong, EPN.T_VeryStrong, EPN.T_HollowBones}
+					prohibitions: new AndSet(){ EPN.T_Strong, EPN.T_VeryStrong, EPN.T_HollowBones, EPN.C_Tankbound, EPN.T_Photoadaptive}
+					)
+				{
+					Cost = -1
+				}
+			},
+			{
+				EPN.T_Terraphobic,
+				new BiologicalTrait(EPN.T_Terraphobic, dlc: new[]{ EPN.D_Nomads }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.T_Adaptive, EPN.T_ExtremelyAdaptive, EPN.T_Reaver},
+					requirements: new[] { EPN.M_Nomadic, EPN.O_VoidDwellers, EPN.O_Voidforged }.ToOrSet()
 					)
 				{
 					Cost = -1
@@ -1321,6 +1359,49 @@ namespace Dauros.StellarisREG.DAL
 					Cost = 2
 				}
 			},
+			{
+				EPN.T_SolarCelled,
+				new MachineTrait(EPN.T_SolarCelled,
+					dlc: new[]{ EPN.D_Nomads }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.T_DelicateChassis }
+					)
+				{
+					Cost = 2
+				}
+			},
+			{
+				EPN.T_CombatSynced,
+				new MachineTrait(EPN.T_CombatSynced,
+					dlc: new[]{ EPN.D_Nomads }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.T_Bulky, EPN.T_Interconnected },
+					requirements: new[] { EPN.M_Nomadic, EPN.O_VoidDwellers, EPN.O_Voidforged }.ToOrSet()
+					)
+				{
+					Cost = 1
+				}
+			},
+			{
+				EPN.T_StructuralAwareness,
+				new MachineTrait(EPN.T_StructuralAwareness,
+					dlc: new[]{ EPN.D_Nomads }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.T_EngineeringCore, EPN.T_PhysicsCore, EPN.T_SociologyCore },
+					requirements: new[] { EPN.M_Nomadic}.ToOrSet()
+					)
+				{
+					Cost = 1
+				}
+			},
+			{
+				EPN.T_Interconnected,
+				new MachineTrait(EPN.T_Interconnected,
+					dlc: new[]{ EPN.D_Nomads }.ToOrSet(),
+					prohibitions: new AndSet(){ EPN.T_DoubleJointed, EPN.T_Bulky, EPN.T_CombatSynced },
+					requirements: new[] { EPN.M_Nomadic}.ToOrSet()
+					)
+				{
+					Cost = 2
+				}
+			},
 			#endregion
 			#region Negative
 			{
@@ -1424,6 +1505,13 @@ namespace Dauros.StellarisREG.DAL
 				EPN.T_ScarcitySubroutines,
 				new MachineTrait(EPN.T_ScarcitySubroutines,
 					prohibitions: new AndSet(){ EPN.T_TradingAlgorithms, EPN.A_MachineIntelligence })
+				{
+					Cost = -1
+				}
+			},
+			{
+				EPN.T_TerraphobicM,
+				new MachineTrait(EPN.T_TerraphobicM, dlc: new[]{ EPN.D_Nomads }.ToOrSet())
 				{
 					Cost = -1
 				}

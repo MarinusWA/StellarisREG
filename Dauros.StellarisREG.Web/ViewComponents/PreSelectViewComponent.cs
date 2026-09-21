@@ -40,7 +40,7 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 			//ss.AddEmpireProperty(selectedShipSet);
 			ss.AddEmpireProperty(selectedPhenotype);
 			ss.AddEmpireProperty(selectedTraits ?? new HashSet<string>());
-			ss.AddEmpireProperty(selectedMigration is null ? EPN.M_Settled : EPN.M_Nomadic);
+			ss.AddEmpireProperty(selectedMigration);
 
 			//Set the selected DLC in the cookie
 			CookieHelper.SetJsonCookie(HttpContext.Response, cookieName, ss.SelectedDLC);
@@ -66,11 +66,9 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 				ssm.HasNomadsDLC = true;
 			}
 
-			ssm.SelectedMigration = ss.MigrationName;
-			Fix to ensure that the selected migration is set to "Settled" if no migration is selected and Nomads DLC is not selected
-
 			ssm.SelectedAuthority = ss.AuthorityName;
-            ssm.SelectedCivics = ss.CivicNames.ToList();
+			ssm.SelectedMigration = ss.MigrationName;
+			ssm.SelectedCivics = ss.CivicNames.ToList();
             ssm.SelectedEthics = ss.EthicNames.ToList();
             ssm.SelectedOrigin = ss.OriginName;
             //ssm.SelectedArchetype = ss.ArchetypeName;
@@ -79,7 +77,8 @@ namespace Dauros.StellarisREG.Web.ViewComponents
             ssm.SelectedTraits = ss.TraitNames.Except(SelectState.GrantedTraits).ToList();
 
 			ssm.ProhibitedAuthorities = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Authority).ToList();
-            ssm.ProhibitedCivics = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Civic).ToList();
+			ssm.ProhibitedMigrations = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Migration).ToList();
+			ssm.ProhibitedCivics = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Civic).ToList();
             ssm.ProhibitedEthics = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Ethic).ToList();
             ssm.ProhibitedOrigins = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Origin).ToList();
             //ssm.ProhibitedArchetypes = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.SpeciesArchetype).Except(SelectState.GrantedEmpireProperties).ToList();
@@ -88,7 +87,8 @@ namespace Dauros.StellarisREG.Web.ViewComponents
             ssm.ProhibitedTraits = prohibited.Where(s => SelectState.GetEmpirePropertyType(s) == EmpirePropertyType.Trait).Except(SelectState.GrantedTraits).ToList();
 
 			ssm.ValidAuthorities = ss.GetValidAuthorities().ToList();
-            ssm.ValidCivics = ss.GetValidCivics().ToList();
+			ssm.ValidMigrations = ss.GetValidMigrations().ToList();
+			ssm.ValidCivics = ss.GetValidCivics().ToList();
             ssm.ValidEthics = ss.GetValidEthics().ToList();
             ssm.ValidOrigins = ss.GetValidOrigins().ToList();
             //ssm.ValidArchetypes = ss.GetValidArchetypes().Except(SelectState.GrantedEmpireProperties).ToList();
@@ -101,8 +101,15 @@ namespace Dauros.StellarisREG.Web.ViewComponents
             if (ssm.ValidAuthorities.Count() == 1 && ssm.SelectedAuthority is null) { 
                 ssm.SelectedAuthority = ssm.ValidAuthorities.First();
                 ssm.ValidAuthorities.Remove(ssm.SelectedAuthority);
-            };
-            if (ssm.ValidPhenotypes.Count() == 1 && ssm.SelectedPhenotype is null)
+            }
+
+			if (ssm.ValidMigrations.Count() == 1 && ssm.SelectedMigration is null)
+			{
+				ssm.SelectedMigration = ssm.ValidMigrations.First();
+				ssm.ValidMigrations.Remove(ssm.SelectedMigration);
+			}
+
+			if (ssm.ValidPhenotypes.Count() == 1 && ssm.SelectedPhenotype is null)
             {
 				ssm.SelectedPhenotype = ssm.ValidPhenotypes.First();
 				ssm.ValidPhenotypes.Remove(ssm.SelectedPhenotype);

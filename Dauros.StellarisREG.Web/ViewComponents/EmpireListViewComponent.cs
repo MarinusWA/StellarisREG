@@ -23,7 +23,7 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 
 		public IViewComponentResult Invoke(HashSet<String> selectedDLC, string? selectedOrigin, HashSet<String> selectedEthics,
             String? selectedAuthority, String? selectedPhenotype, string? selectedShipSet,
-            HashSet<String> selectedCivics, HashSet<String> selectedTraits, int genEmpires = 10)
+            HashSet<String> selectedCivics, HashSet<String> selectedTraits, string? selectedMigration, int genEmpires = 10)
         {
             var result = new List<EmpireDataModel>();
             var states = new List<SelectState>();
@@ -38,6 +38,7 @@ namespace Dauros.StellarisREG.Web.ViewComponents
                 ss.AddEmpireProperty(selectedCivics ?? new HashSet<string>());
 				ss.AddEmpireProperty(selectedEthics ?? new HashSet<string>());
                 ss.AddEmpireProperty(selectedAuthority);
+                ss.AddEmpireProperty(selectedMigration);
 				ss.AddEmpireProperty(selectedOrigin);
                 ss.AddEmpireProperty(selectedShipSet);
                 ss.AddEmpireProperty(selectedPhenotype);
@@ -66,8 +67,9 @@ namespace Dauros.StellarisREG.Web.ViewComponents
                     }
                     AddRandomEthics(ss);
                     SetRandomAuthority(ss);
+                    SetRandomMigration(ss);
 
-                    AddRandomTraits(ss);
+					AddRandomTraits(ss);
 
                     //Set phenotype last so phenotype locked traits show up more often
 					SetRandomPhenotype(ss);
@@ -75,6 +77,7 @@ namespace Dauros.StellarisREG.Web.ViewComponents
 					var empireData = new EmpireDataModel()
                     {
                         Authority = ss.AuthorityName!,
+                        Migration = ss.MigrationName!,
                         Origin = ss.OriginName!,
                         Civics = ss.CivicNames,
                         Ethics = ss.EthicNames,
@@ -160,7 +163,19 @@ namespace Dauros.StellarisREG.Web.ViewComponents
             }
         }
 
-        private String GetRandomPlanetType(SelectState ss)
+		private void SetRandomMigration(SelectState ss)
+		{
+			if (ss.MigrationName == null)
+			{
+				var validMigrations = ss.GetValidMigrations().ToArray();
+				if (validMigrations.Any())
+				{
+					ss.AddEmpireProperty(validMigrations[_random.Next(validMigrations.Count())]);
+				}
+			}
+		}
+
+		private String GetRandomPlanetType(SelectState ss)
         {
             //Only origins set planettype (for now)
             string? result = ss.Origin?.PlanetType;
@@ -205,7 +220,8 @@ namespace Dauros.StellarisREG.Web.ViewComponents
         public HashSet<String> Traits { get; internal set; } = new HashSet<String>();
         public String Origin { get; set; }
         public String Authority { get; set; }
-        public String PlanetType { get; set; }
+        public String Migration { get; set; }
+		public String PlanetType { get; set; }
         public String Phenotype { get; set; }
     }
 }

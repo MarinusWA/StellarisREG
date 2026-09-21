@@ -1,19 +1,6 @@
 ﻿@using Dauros.StellarisREG.DAL
 @model Dauros.StellarisREG.Web.ViewComponents.SelectStateModel
 
-@if (Model.HasNomadsDLC)
-{
-	<div class="col-12 text-center">
-		<div class="custom-control custom-switch d-inline-block">
-			<input type="checkbox" class="custom-control-input" id="migrationselect" @if (Model.SelectedMigration == EPN.M_Nomadic)
-			{
-				@("checked")
-			}
-			>
-			<label class="custom-control-label h5" for="migrationselect">Nomadic Empire</label>
-		</div>
-	</div>
-}
 
 <div class="col-sm">
 	<div class="row">
@@ -89,6 +76,39 @@
 			</select>
 		</div>
 	</div>
+	@if (Model.HasNomadsDLC)
+	{
+		<div class="row">
+			<div class="col" id="ps_migration">
+				<h5>Empire Type</h5>
+				<select id="migrationselect">
+					<option value="" selected="selected">
+						Any
+					</option>
+					@if (!String.IsNullOrWhiteSpace(Model.SelectedMigration))
+					{
+						<option value="@Model.SelectedMigration" selected="selected" class="ps_selected">
+							@Model.SelectedMigration
+						</option>
+					}
+					@foreach (var migration in Model.ValidMigrations.OrderBy(m => m))
+					{
+						<option value="@migration">
+							@migration
+						</option>
+
+					}
+					@foreach (var migration in Model.ProhibitedMigrations.OrderBy(m => m))
+					{
+						<option value="@migration" class="ps_prohibited">
+							@migration
+						</option>
+					}
+
+				</select>
+			</div>
+		</div>
+	}
 </div>
 <div class="col-sm">
 	<div class="row">
