@@ -233,7 +233,6 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.T_ExistentialIteroparity,
 				new BiologicalTrait(EPN.T_ExistentialIteroparity,
-					dlc: new [] { EPN.D_Humanoids }.ToOrSet(),
 					prohibitions : new AndSet() { EPN.T_PsychoInfertility, EPN.T_Incubators, EPN.T_Budding, EPN.T_Crystallization,
 					EPN.T_EggLaying, EPN.T_RapidBreeders})
 				{
@@ -694,8 +693,7 @@ namespace Dauros.StellarisREG.DAL
 			},
 			{
 				EPN.T_Jinxed,
-				new BiologicalTrait(EPN.T_Jinxed,
-					dlc: new[]{ EPN.D_Humanoids }.ToOrSet())
+				new BiologicalTrait(EPN.T_Jinxed)
 				{
 					Cost = -1
 				}
@@ -703,7 +701,6 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.T_PsychoInfertility,
 				new BiologicalTrait(EPN.T_PsychoInfertility,
-					dlc: new[]{ EPN.D_Humanoids }.ToOrSet(),
 					prohibitions: new AndSet(){ EPN.T_ExistentialIteroparity, EPN.T_NascentStage}
 					)
 				{
@@ -884,16 +881,14 @@ namespace Dauros.StellarisREG.DAL
 			},
 			{
 				EPN.T_CyberCommandos,
-				new BiologicalTrait(EPN.T_CyberCommandos,
-					dlc: new[]{ EPN.D_SyntheticDawn }.ToOrSet())
+				new BiologicalTrait(EPN.T_CyberCommandos)
 				{
 					Cost = 0
 				}
 			},
 			{
 				EPN.T_Unplugged,
-				new BiologicalTrait(EPN.T_Unplugged,
-					dlc: new[]{ EPN.D_SyntheticDawn }.ToOrSet())
+				new BiologicalTrait(EPN.T_Unplugged)
 				{
 					Cost = 0
 				}
@@ -901,7 +896,6 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.T_CloneSoldier,
 				new BiologicalTrait(EPN.T_CloneSoldier,
-					dlc: new[]{ EPN.D_Humanoids }.ToOrSet(),
 					prohibitions: new AndSet(){ EPN.T_RapidBreeders, EPN.T_ExistentialIteroparity, EPN.T_Budding,
 						EPN.T_Crystallization, EPN.T_EggLaying, EPN.T_SlowBreeders, EPN.T_PsychoInfertility, EPN.T_Polymelic }
 					)
@@ -1601,10 +1595,8 @@ namespace Dauros.StellarisREG.DAL
 
 		public MachineTrait(string name, HashSet<OrSet>? dlc = null,
 			HashSet<OrSet>? requirements = null, AndSet? prohibitions = null)
-			: base(name,
-				new[] { EPN.D_SyntheticDawn, EPN.D_MachineAge }.ToOrSet()
-					.Union(dlc ?? new HashSet<OrSet>()).ToHashSet(),
-			new[] {EPN.PH_Machine }.ToOrSet()
+			: base(name, null,
+				 new[] {EPN.PH_Machine }.ToOrSet()
 					.Union(requirements ?? new HashSet<OrSet>()).ToHashSet(),
 			prohibitions)
 		{ }

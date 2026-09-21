@@ -93,7 +93,7 @@ namespace Dauros.StellarisREG.DAL
 				}
 			},{
 				EPN.O_CloneArmy,
-				new Origin(EPN.O_CloneArmy, new[] { EPN.D_Humanoids }.ToOrSet())
+				new Origin(EPN.O_CloneArmy)
 				{
 					Prohibits = new AndSet(){ EPN.Gestalt, EPN.PH_Machine, EPN.C_NaturalDesign, EPN.C_PermanentEmployment },
 					GrantedTraits = new[] { EPN.T_CloneSoldier }
@@ -221,11 +221,12 @@ namespace Dauros.StellarisREG.DAL
 				new Origin(EPN.O_BrokenShackles, new[] { EPN.D_FirstContact }.ToOrSet())
 				{
 					Prohibits = new AndSet(EPNSET.HS_SovereignGuardianship
-						.Union<string>(EPNSET.HS_EagerExplorers)
-						){ EPN.Authoritarian, EPN.AuthoritarianF, EPN.Xenophobe, EPN.XenophobeF,
-						EPN.Gestalt, EPN.PH_Machine, EPN.C_SelectiveKinship, EPN.C_PharmaState, EPN.M_Nomadic }
+						.Union<string>(EPNSET.HS_EagerExplorers)){ EPN.Authoritarian, EPN.AuthoritarianF, EPN.Xenophobe, EPN.XenophobeF,
+						EPN.Gestalt, EPN.PH_Machine, EPN.C_SelectiveKinship, EPN.C_SecretSocieties, EPN.C_InfluentialCartel, 
+						EPN.C_PharmaState, EPN.M_Nomadic, EPN.PT_Volanic  }
 				}
-			},{
+			},
+			{
 				EPN.O_Payback,
 				new Origin(EPN.O_Payback,new[]{ EPN.D_FirstContact }.ToOrSet())
 				{
@@ -271,7 +272,7 @@ namespace Dauros.StellarisREG.DAL
 				new Origin(EPN.O_PrimalCalling,new[]{ EPN.D_GrandArchive}.ToOrSet())
 				{
 					Prohibits = new AndSet()
-					{ EPN.PH_Machine }
+					{ EPN.PH_Machine, EPN.PT_Volanic , EPN.C_Tankbound }
 				}
 			},
 			{
@@ -348,10 +349,10 @@ namespace Dauros.StellarisREG.DAL
 				}
 			},{
 				EPN.O_TreeofLife,
-				new Origin(EPN.O_TreeofLife,new[]{ EPN.D_Utopia}.ToOrSet())
+				new Origin(EPN.O_TreeofLife)
 				{
 					Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind }},
-					Prohibits = new AndSet(){ EPN.C_DevouringSwarm, EPN.C_Terravore, EPN.M_Nomadic }
+					Prohibits = new AndSet(EPNSET.HS_Genocidal){ EPN.M_Nomadic, EPN.PT_Volanic }
 				}
 			},{
 				EPN.O_ProgenitorHive,
@@ -375,7 +376,8 @@ namespace Dauros.StellarisREG.DAL
 				{
 					Requires = new HashSet<OrSet>(){new OrSet(){ EPN.A_HiveMind, EPN.S_Biological }},
 					Prohibits = new AndSet(){ EPN.C_OrganicReprocessing, EPN.C_MemorialistHM, EPN.C_PermutationPools,
-						EPN.C_GenesisSymbiotes, EPN.C_ClimateModelingHM, EPN.C_CultivationDrones, EPN.M_Nomadic },
+						EPN.C_GenesisSymbiotes, EPN.C_ClimateModelingHM, EPN.C_CultivationDrones, EPN.C_VolcanicNesting, 
+						EPN.C_GalvanicSymbiosis, EPN.C_PyromanicInstinct, EPN.M_Nomadic, EPN.PT_Volanic },
 					GrantedTraits = new[] { EPN.T_Wilderness }
 				}
 			},{

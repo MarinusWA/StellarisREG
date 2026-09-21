@@ -291,16 +291,21 @@ namespace Dauros.StellarisREG.DAL
 		#endregion
 
 		#region DLC
-		public static String D_Utopia => "Utopia";
-        public static String D_Lithoids => "Lithoids";
-        public static String D_SyntheticDawn => "Synthetic Dawn";
+		//Following DLC were merged into the base game and therefore are no longer requirements for anything.
+		/*
+		 * public static String D_Utopia => "Utopia";
+		 * public static String D_Humanoids => "Humanoids";
+		 * public static String D_SyntheticDawn => "Synthetic Dawn";
+        */
+
+		public static String D_Lithoids => "Lithoids";
         public static String D_Megacorp => "Megacorp";
         public static String D_Federations => "Federations";
         public static String D_Apocalypse => "Apocalypse";
         public static String D_AncientRelics => "Ancient Relics";
         public static String D_Necroids => "Necroids";
         public static String D_Plantoids => "Plantoids";
-        public static String D_Humanoids => "Humanoids";
+        
         public static String D_Nemesis => "Nemesis";
         public static String D_Aquatics => "Aquatics";
         public static String D_Overlord => "Overlord";

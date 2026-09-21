@@ -133,7 +133,7 @@ namespace Dauros.StellarisREG.DAL
             },
             {
                 EPN.Gestalt,
-                new Ethic(EPN.Gestalt, new[] {EPN.D_SyntheticDawn, EPN.D_Utopia }.ToOrSet())
+                new Ethic(EPN.Gestalt)
                 {
                     Cost = 3
                 }

@@ -181,7 +181,7 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.C_Ascensionists,
 				new StandardCivic(EPN.C_Ascensionists,
-					dlc: new[] { EPN.D_Utopia, EPN.D_AstralPlanes }.ToOrSet(),
+					dlc: new[] { EPN.D_AstralPlanes }.ToOrSet(),
 					requirements: new[] { EPN.Spiritualist, EPN.SpiritualistF }.ToOrSet()
 				)
 			},
@@ -194,23 +194,21 @@ namespace Dauros.StellarisREG.DAL
 			},
 			{
 				EPN.C_MasterfulCrafters,
-				new StandardCivic(EPN.C_MasterfulCrafters,
-					dlc: new[] { EPN.D_Humanoids }.ToOrSet()
+				new StandardCivic(EPN.C_MasterfulCrafters, prohibitions: new AndSet() { EPN.C_MastercraftInc }
+
 				)
 			},
 			{
 				EPN.C_PleasureSeekers,
 				new StandardCivic(EPN.C_PleasureSeekers,
-					dlc: new[] { EPN.D_Humanoids }.ToOrSet(),
-					prohibitions: new AndSet() { EPN.C_SlaverGuilds, EPN.C_WarriorCulture, EPN.C_SharedBurdens, EPN.O_HardReset }
+					prohibitions: new AndSet() { EPN.C_SlaverGuilds, EPN.C_WarriorCulture, EPN.C_SharedBurdens, EPN.O_HardReset, EPN.C_CorporateHedonism }
 				)
 			},
 			{
 				EPN.C_PompousPurists,
 				new StandardCivic(EPN.C_PompousPurists,
-					dlc: new[] { EPN.D_Humanoids }.ToOrSet(),
 					requirements: new[] { EPN.Xenophobe, EPN.XenophobeF }.ToOrSet(),
-					prohibitions: new AndSet() { EPN.C_InwardPerfection, EPN.C_FanaticPurifiers, EPN.O_Scion, EPN.O_Payback }
+					prohibitions: new AndSet(EPNSET.HS_Genocidal) { EPN.C_InwardPerfection, EPN.O_Scion, EPN.O_Payback }
 				)
 			},
 			{
@@ -490,9 +488,8 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.C_FanaticPurifiers,
 				new StandardCivic(EPN.C_FanaticPurifiers,
-					dlc: new[] { EPN.D_Utopia }.ToOrSet(),
 					requirements:new HashSet<OrSet>(){ new OrSet() { EPN.XenophobeF },new OrSet() { EPN.Militarist,EPN.Spiritualist } },
-					prohibitions:new AndSet(EPNSET.HS_SovereignGuardianship){ EPN.C_BarbaricDespoilers,EPN.C_PompousPurists, EPN.C_SelectiveKinship,EPN.C_CrusaderSpirit,
+					prohibitions:new AndSet(EPNSET.HS_SovereignGuardianship.Union<string>(EPNSET.HS_GenesisGuides)){ EPN.C_BarbaricDespoilers,EPN.C_PompousPurists, EPN.C_SelectiveKinship,EPN.C_CrusaderSpirit,
 						EPN.O_SyncreticEvolution,EPN.O_CommonGround,EPN.O_Hegemon, EPN.O_HereBeDragons,EPN.O_ImperialFiefdom, EPN.O_TeachersShroud,
 						EPN.O_KnightsToxicGod, EPN.O_BrokenShackles, EPN.O_FearDark, EPN.O_Payback,EPN.O_StormChasers, EPN.O_TreasureHunters}
 				)
@@ -730,7 +727,7 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.C_Gigacorp,
 				new CorporateCivic(EPN.C_Gigacorp,
-					dlc: new[] { EPN.D_Utopia, EPN.D_AstralPlanes }.ToOrSet(),
+					dlc: new[] { EPN.D_AstralPlanes }.ToOrSet(),
 					requirements: new[] { EPN.Spiritualist, EPN.SpiritualistF }.ToOrSet()
 				)
 			},
@@ -744,7 +741,6 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.C_CorporateHedonism,
 				new CorporateCivic(EPN.C_CorporateHedonism,
-					dlc: new[] { EPN.D_Humanoids }.ToOrSet(),
 					prohibitions: new AndSet(){ EPN.C_IndenturedAssets, EPN.C_WorkerCooperative, 
 						EPN.C_PleasureSeekers, EPN.C_SlaverGuilds, EPN.O_HardReset }
 				)
@@ -752,7 +748,6 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.C_MastercraftInc,
 				new CorporateCivic(EPN.C_MastercraftInc,
-					dlc: new[] { EPN.D_Humanoids }.ToOrSet(),
 					prohibitions: new AndSet(){ EPN.C_MasterfulCrafters }
 				)
 			},
@@ -1068,7 +1063,7 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.C_ElevationalContemplations,
 				new HiveMindCivic(EPN.C_ElevationalContemplations,
-					dlc: new[] {EPN.D_Utopia,EPN.D_AstralPlanes }.ToOrSet()
+					dlc: new[] {EPN.D_AstralPlanes }.ToOrSet()
 				)
 			},
 			{
@@ -1080,14 +1075,12 @@ namespace Dauros.StellarisREG.DAL
 			},
 			{
 				EPN.C_Ascetic,
-				new HiveMindCivic(EPN.C_Ascetic,
-					dlc: new[] { EPN.D_Utopia }.ToOrSet()
+				new HiveMindCivic(EPN.C_Ascetic
 				)
 			},
 			{
 				EPN.C_NaturalNeuralNetwork,
-				new HiveMindCivic(EPN.C_NaturalNeuralNetwork,
-					dlc: new[] { EPN.D_Utopia }.ToOrSet()
+				new HiveMindCivic(EPN.C_NaturalNeuralNetwork
 				)
 			},
 			{
@@ -1298,7 +1291,6 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.C_DevouringSwarm,
 				new HiveMindCivic(EPN.C_DevouringSwarm,
-					dlc: new[] { EPN.D_Utopia }.ToOrSet(),
 					prohibitions: new AndSet(){ EPN.PH_Lithoid, EPN.C_Empath, EPN.C_MemorialistHM, EPN.C_GuardianCluster,
 					EPN.C_Bodysnatcher, EPN.C_FamiliarFace, EPN.O_CommonGround, EPN.O_Hegemon, EPN.O_ImperialFiefdom, EPN.O_Wilderness,
 					EPN.O_TreeofLife, EPN.O_FruitfulPartnership, EPN.O_HereBeDragons, EPN.O_StormChasers,EPN.O_TreasureHunters}
@@ -1307,7 +1299,7 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.C_Terravore,
 				new HiveMindCivic(EPN.C_NeuralVaults,
-					dlc: new HashSet<OrSet>(){ new OrSet() { EPN.D_Utopia },new OrSet() {EPN.D_Lithoids } },
+					dlc: new HashSet<OrSet>(){ new OrSet() {EPN.D_Lithoids } },
 					requirements: new[] { EPN.PH_Lithoid }.ToOrSet(),
 					prohibitions: new AndSet(){ EPN.C_Empath, EPN.C_MemorialistHM, EPN.C_GuardianCluster,
 					EPN.C_Bodysnatcher, EPN.C_FamiliarFace, EPN.O_CommonGround, EPN.O_Hegemon, EPN.O_ImperialFiefdom, EPN.O_Wilderness,
@@ -1317,7 +1309,7 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.C_DevouringWilderness,
 				new HiveMindCivic(EPN.C_DevouringWilderness,
-					dlc: new HashSet<OrSet>(){ new OrSet() { EPN.D_Utopia }, new OrSet() {EPN.D_Biogenesis } },
+					dlc: new HashSet<OrSet>(){ new OrSet() {EPN.D_Biogenesis } },
 					requirements: new[] { EPN.O_Wilderness }.ToOrSet(),
 					prohibitions: new AndSet(){ EPN.PH_Lithoid, EPN.C_Empath, EPN.C_MemorialistHM, EPN.C_GuardianCluster,
 					EPN.C_Bodysnatcher,EPN.C_FamiliarFace}
@@ -1391,7 +1383,7 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.C_ElevationalHypotheses,
 				new MachineIntelligenceCivic(EPN.C_ElevationalHypotheses,
-					dlc: new[] { EPN.D_Utopia, EPN.D_AstralPlanes }.ToOrSet()
+					dlc: new[] { EPN.D_AstralPlanes }.ToOrSet()
 				)
 			},
 			{
@@ -1497,7 +1489,6 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.C_DeterminedExterminator,
 				new MachineIntelligenceCivic(EPN.C_DeterminedExterminator,
-					dlc: new[] { EPN.D_SyntheticDawn }.ToOrSet(),
 					prohibitions: new AndSet(){ EPN.C_DrivenAssimilator, EPN.C_RogueServitor, EPN.C_ExplorationProtocols,
 					EPN.C_GuardianMatrix, EPN.C_DiplomaticProtocols, EPN.C_TacticalAlgorithms, EPN.C_Biodrones,
 					EPN.O_CommonGround, EPN.O_Hegemon, EPN.O_HereBeDragons, EPN.O_ImperialFiefdom, EPN.O_StormChasers, EPN.O_TreasureHunters}
@@ -1506,14 +1497,12 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.C_DrivenAssimilator,
 				new MachineIntelligenceCivic(EPN.C_DrivenAssimilator,
-					dlc: new[] { EPN.D_SyntheticDawn }.ToOrSet(),
 					prohibitions: new AndSet(){ EPN.C_DeterminedExterminator, EPN.C_RogueServitor, EPN.C_ExplorationProtocols, EPN.O_ImperialFiefdom }
 				)
 			},
 			{
 				EPN.C_RogueServitor,
 				new MachineIntelligenceCivic(EPN.C_RogueServitor,
-					dlc: new[] { EPN.D_SyntheticDawn }.ToOrSet(),
 					prohibitions: new AndSet(){ EPN.C_DeterminedExterminator, EPN.C_DrivenAssimilator, EPN.O_ResourceConsolidation }
 				)
 			},
