@@ -276,28 +276,27 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.T_Photoadaptive,
 				new BiologicalTrait(EPN.T_Photoadaptive,
-					dlc: new [] { EPN.D_Nomads }.ToOrSet())
+					dlc: new [] { EPN.D_Nomads }.ToOrSet(), prohibitions:new AndSet() { EPN.T_Weak, EPN.T_HollowBones, EPN.C_Tankbound })
 				{
-					Prohibits = new AndSet() { EPN.T_Weak, EPN.T_HollowBones, EPN.C_Tankbound },
 					Cost = 2
 				}
 			},
 			{
 				EPN.T_Reaver,
 				new BiologicalTrait(EPN.T_Reaver,
-					dlc: new [] { EPN.D_Nomads }.ToOrSet())
+					dlc: new [] { EPN.D_Nomads }.ToOrSet(), prohibitions: new AndSet() { EPN.T_Charismatic, EPN.T_Terraphobic })
 				{
-					Prohibits = new AndSet() { EPN.T_Charismatic, EPN.T_Terraphobic },
+					
 					Cost = 2
 				}
 			},
 			{
 				EPN.T_RecursiveLearners,
 				new BiologicalTrait(EPN.T_RecursiveLearners,
-					dlc: new [] { EPN.D_Nomads }.ToOrSet())
+					dlc: new [] { EPN.D_Nomads }.ToOrSet(), 
+					requirements:new[] { EPN.M_Nomadic }.ToOrSet(),
+					prohibitions:new AndSet() { EPN.T_NaturalEngineers, EPN.T_NaturalPhysicists, EPN.T_NaturalSociologists })
 				{
-					Prohibits = new AndSet() { EPN.T_NaturalEngineers, EPN.T_NaturalPhysicists, EPN.T_NaturalSociologists },
-					Requires = new[] { EPN.M_Nomadic }.ToOrSet(),
 					Cost = 1
 				}
 			},
@@ -1580,8 +1579,8 @@ namespace Dauros.StellarisREG.DAL
 	{
 		public BiologicalTrait(string name, HashSet<OrSet>? dlc = null,
 			HashSet<OrSet>? requirements = null, AndSet? prohibitions = null)
-			: base(name,dlc, requirements, 
-				  new[] { EPN.PH_Machine }.Union<string>(prohibitions ?? Enumerable.Empty<string>()))
+			: base(name,dlc, requirements, prohibitions:
+				  new[] { EPN.PH_Machine, EPN.A_MachineIntelligence }.Union<string>(prohibitions ?? Enumerable.Empty<string>()))
 		{ }
 	}
 

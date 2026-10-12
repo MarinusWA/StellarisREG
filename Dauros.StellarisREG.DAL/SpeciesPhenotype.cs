@@ -60,7 +60,6 @@ namespace Dauros.StellarisREG.DAL
 			{
 				EPN.PH_Machine,
 				new SpeciesPhenotype(EPN.PH_Machine, 
-					dlc : new[] { EPN.D_ShadowShroud }.ToOrSet(),
 					requirements : new []{EPN.A_MachineIntelligence}.ToOrSet()
 					){GrantedTraits = new AndSet() { EPN.T_MachineUnit }}
 			},
