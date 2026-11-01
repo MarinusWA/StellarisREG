@@ -499,17 +499,16 @@ namespace Dauros.StellarisREG.DAL
 
 		public Boolean ValidateState()
 		{
-			Dictionary<int, bool>? states;
-			if (!_memoryCache.TryGetValue("States", out states))
-			{
-				states = new Dictionary<int, bool>();
-				_memoryCache.Set("States", states, TimeSpan.FromMinutes(60));
-			}
+			Dictionary<int, bool>? states = new Dictionary<int, bool>(); 
+			//if (!_memoryCache.TryGetValue("States", out states))
+			//{
+			//	_memoryCache.Set("States", states, TimeSpan.FromMinutes(60));
+			//}
 
-			if (states.TryGetValue(this.GetHashCode(), out var cachedResult))
-			{
-				return cachedResult;
-			}
+			//if (states.TryGetValue(this.GetHashCode(), out var cachedResult))
+			//{
+			//	return cachedResult;
+			//}
 
 			var directValidation = ValidateSelection(EmpireProperties.Select(ep => ep.Name).ToHashSet());
 			if (directValidation && ValidateTraitRestrictions())
